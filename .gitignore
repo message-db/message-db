@@ -1,0 +1,11 @@
+.DS_store
+.bundle/
+Gemfile.lock
+*.log
+*.gem
+gems
+*scratch*
+*notes*
+loader.rb
+/test/package/installed
+/test/benchmark/tmp/**/*
