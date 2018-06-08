@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+root = File.expand_path '../database', __dir__
+
+system `open #{root}`
