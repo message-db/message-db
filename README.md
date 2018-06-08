@@ -24,6 +24,28 @@ evt-pg-recreate-db
 evt-pg-print-messages
 ```
 
+### Write a Test Message
+```
+evt-pg-write-test-message
+```
+
+The number of messages and the stream name can be specified using environment variables.
+
+Write a test messages to a stream named `someStream-111`
+```
+STREAM_NAME=someStream-111 evt-pg-write-test-message
+```
+
+Write 10 test messages:
+```
+INSTANCES=10 evt-pg-write-test-message
+```
+
+Write 10 test messages to a stream named `someStream-111`
+```
+STREAM_NAME=someStream-111 INSTANCES=10 evt-pg-write-test-message
+```
+
 ## Database Definition Script Files
 
 The database is defined by raw SQL scripts. You can examine them, or use them directly with the `psql` command line tool, at:
