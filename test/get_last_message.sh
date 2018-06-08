@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 echo
-echo "GET STREAM MESSAGES"
-echo "==================="
+echo "GET LAST MESSAGE"
+echo "================"
 echo
 
 test/setup.sh
