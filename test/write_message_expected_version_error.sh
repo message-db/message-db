@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-test/interactive/database/recreate_database.sh
+test/recreate_database.sh
 
 STREAM_NAME=someStream-123 INSTANCES=4 tools/write_message.rb
 
