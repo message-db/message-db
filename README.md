@@ -46,6 +46,11 @@ Write 10 test messages to a stream named `someStream-111`
 STREAM_NAME=someStream-111 INSTANCES=10 evt-pg-write-test-message
 ```
 
+### Open/View the Directory Containing the Database Definition Script Files
+```
+evt-pg-open-database-dir
+```
+
 ## Database Definition Script Files
 
 The database is defined by raw SQL scripts. You can examine them, or use them directly with the `psql` command line tool, at:
