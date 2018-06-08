@@ -48,7 +48,7 @@ STREAM_NAME=someStream-111 INSTANCES=10 evt-pg-write-test-message
 
 ### Open/View the Directory Containing the Database Definition Script Files
 ```
-evt-pg-open-database-dir
+evt-pg-open-database-scripts-dir
 ```
 
 ## Database Definition Script Files
