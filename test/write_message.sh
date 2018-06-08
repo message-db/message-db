@@ -5,7 +5,9 @@ echo "WRITE MESSAGE"
 echo "============="
 echo
 
-stream_name=$(uuidgen)
+test/recreate_database.sh
+
+stream_name="testStream-$(uuidgen)"
 
 STREAM_NAME=$stream_name database/write-test-message.sh
 
