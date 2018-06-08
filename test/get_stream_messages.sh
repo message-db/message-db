@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 echo
-echo "WRITE MESSAGE EXPECTED VERSION"
-echo "=============================="
+echo "GET STREAM MESSAGES"
+echo "==================="
 echo
 
 test/setup.sh
