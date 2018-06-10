@@ -4,6 +4,56 @@ Message store PostgreSQL database definition
 
 ## Usage
 
+### Write a Message
+
+```
+SELECT write_message('uuid'::varchar, 'stream_name'::varchar, 'message_type'::varchar, '{"messageAttribute": "some value"}'::jsonb, '{"metaDataAttribute": "some meta data value"}'::jsonb);"
+```
+
+### Write a Message, Specifying the Expected Version of the Stream
+
+```
+SELECT write_message('uuid'::varchar, 'stream_name'::varchar, 'message_type'::varchar, '{"messageAttribute": "some value"}'::jsonb, '{"metaDataAttribute": "some meta data value"}'::jsonb, expected_version::bigint);"
+```
+
+NOTE: If the expected version does not match the stream version at the time of the write, an error is raised of the form:
+
+```
+'Wrong expected version: % (Stream: %, Stream Version: %)'
+```
+
+### Get Messages from a Stream
+
+```
+SELECT * FROM get_stream_messages('stream_name'::varchar, starting_position::bigint, batch_size::bigint, _condition => 'some additional SQL where clause fragment'::varchar);"
+```
+
+Optional arguments:
+- starting_position
+- batch_size
+- condition
+
+### Get Messages from a Category
+
+```
+SELECT * FROM get_category_messages('cateogry_name'::varchar, starting_position::bigint, batch_size::bigint, _condition => 'some additional SQL where clause fragment'::varchar);"
+```
+
+Optional arguments:
+- starting_position
+- batch_size
+- condition
+
+Note: Where `someThing-123` is a _stream name_, `someThing` is a _category_. Reading the `someThing` category retrieves messages from all streams whose names start with `someThing-`.
+
+### Get Last Message from a Stream
+
+```
+SELECT * FROM get_last_message('someStream-123')
+```
+
+## Tools
+
 ### Install the Message Store Database
 ```
 evt-pg-create-db
