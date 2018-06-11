@@ -91,17 +91,17 @@ evt-pg-write-test-message
 
 The number of messages and the stream name can be specified using environment variables.
 
-Write a test messages to a stream named `someStream-111`
+#### Write a test messages to a stream named `someStream-111`
 ```
 STREAM_NAME=someStream-111 evt-pg-write-test-message
 ```
 
-Write 10 test messages:
+#### Write 10 test messages:
 ```
 INSTANCES=10 evt-pg-write-test-message
 ```
 
-Write 10 test messages to a stream named `someStream-111`
+#### Write 10 test messages to a stream named `someStream-111`
 ```
 STREAM_NAME=someStream-111 INSTANCES=10 evt-pg-write-test-message
 ```
