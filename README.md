@@ -57,12 +57,12 @@ Example: Example: https://github.com/eventide-project/message-store-postgres-dat
 ### Get Last Message from a Stream
 
 ```
-SELECT * FROM get_last_message('someStream-123')
+SELECT * FROM get_last_message('stream_name'::varchar)
 ```
 
 Example: Example: https://github.com/eventide-project/message-store-postgres-database/blob/master/test/get_last_message.sh
 
-## Tools
+## Database Admin Tools
 
 ### Install the Message Store Database
 ```
