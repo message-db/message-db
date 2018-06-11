@@ -10,6 +10,8 @@ Message store PostgreSQL database definition
 SELECT write_message('uuid'::varchar, 'stream_name'::varchar, 'message_type'::varchar, '{"messageAttribute": "some value"}'::jsonb, '{"metaDataAttribute": "some meta data value"}'::jsonb);"
 ```
 
+Example: https://github.com/eventide-project/message-store-postgres-database/blob/master/database/write-test-message.sh
+
 ### Write a Message, Specifying the Expected Version of the Stream
 
 ```
@@ -22,6 +24,8 @@ NOTE: If the expected version does not match the stream version at the time of t
 'Wrong expected version: % (Stream: %, Stream Version: %)'
 ```
 
+Example: https://github.com/eventide-project/message-store-postgres-database/blob/master/test/write_message_expected_version.sh
+
 ### Get Messages from a Stream
 
 ```
@@ -32,6 +36,8 @@ Optional arguments:
 - starting_position
 - batch_size
 - condition
+
+Example: Example: https://github.com/eventide-project/message-store-postgres-database/blob/master/test/get_stream_messages.sh
 
 ### Get Messages from a Category
 
@@ -46,11 +52,15 @@ Optional arguments:
 
 Note: Where `someThing-123` is a _stream name_, `someThing` is a _category_. Reading the `someThing` category retrieves messages from all streams whose names start with `someThing-`.
 
+Example: Example: https://github.com/eventide-project/message-store-postgres-database/blob/master/test/get_cateogry_messages.sh
+
 ### Get Last Message from a Stream
 
 ```
 SELECT * FROM get_last_message('someStream-123')
 ```
+
+Example: Example: https://github.com/eventide-project/message-store-postgres-database/blob/master/test/get_last_message.sh
 
 ## Tools
 
