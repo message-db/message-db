@@ -38,7 +38,8 @@ echo
 
 
 for (( i=1; i<=instances; i++ )); do
-  uuid=$(uuidgen)
+  uuid=$(echo $(uuidgen) | tr '[:upper:]' '[:lower:]')
+
   echo "Instance: $i, Message ID: $uuid"
 
   psql $database -c "SELECT write_message('$uuid'::varchar, '$stream_name'::varchar, 'SomeType'::varchar, '{\"attribute\": \"some value\"}'::jsonb, '{\"metaAttribute\": \"some meta value\"}'::jsonb);" > /dev/null
