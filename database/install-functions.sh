@@ -34,7 +34,7 @@ function create-types {
 }
 
 function create-functions {
-  echo "Creating functions..."
+  echo "Installing functions..."
   base=$(script_dir)
 
   echo "hash_64 function"
