@@ -2,11 +2,6 @@
 
 set -e
 
-echo
-echo "Installing Functions"
-echo "= = ="
-echo
-
 default_name=message_store
 
 if [ -z ${DATABASE_NAME+x} ]; then
@@ -15,8 +10,7 @@ if [ -z ${DATABASE_NAME+x} ]; then
 else
   database=$DATABASE_NAME
 fi
-
-echo
+echo "Database name is: $database"
 
 function script_dir {
   val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -25,7 +19,6 @@ function script_dir {
 
 function create-types {
   base=$(script_dir)
-  echo "Creating types..."
 
   echo "message type"
   psql $database -f $base/types/message.sql
@@ -34,7 +27,6 @@ function create-types {
 }
 
 function create-functions {
-  echo "Installing functions..."
   base=$(script_dir)
 
   echo "hash_64 function"
@@ -61,5 +53,12 @@ function create-functions {
   echo
 }
 
+echo
+echo "Creating Types"
+echo "- - -"
 create-types
+
+echo
+echo "Creating Functions"
+echo "- - -"
 create-functions

@@ -15,6 +15,7 @@ if [ -z ${DATABASE_USER+x} ]; then
 else
   user=$DATABASE_USER
 fi
+echo "Database user is: $user"
 
 if [ -z ${DATABASE_NAME+x} ]; then
   echo "(DATABASE_NAME is not set. Default will be used.)"
@@ -22,18 +23,16 @@ if [ -z ${DATABASE_NAME+x} ]; then
 else
   database=$DATABASE_NAME
 fi
+echo "Database name is: $database"
 
 echo
 
 function create-user {
-  echo "Database user is: $user"
   createuser -s $user
   echo
 }
 
 function create-database {
-  echo "Database name is: $database"
-  echo "Creating database \"$database\"..."
   createdb $database
   echo
 }
@@ -44,21 +43,18 @@ function script_dir {
 }
 
 function create-extensions {
-  echo "Creating extensions..."
   base=$(script_dir)
   psql $database -f $base/extensions.sql
   echo
 }
 
 function create-table {
-  echo "Creating messages table..."
   psql $database -f $base/table/messages-table.sql
   echo
 }
 
 function create-types {
   base=$(script_dir)
-  echo "Creating types..."
 
   echo "message type"
   psql $database -f $base/types/message.sql
@@ -66,36 +62,7 @@ function create-types {
   echo
 }
 
-function create-functions {
-  echo "Creating functions..."
-  base=$(script_dir)
-
-  echo "hash_64 function"
-  psql $database -f $base/functions/hash-64.sql
-
-  echo "category function"
-  psql $database -f $base/functions/category.sql
-
-  echo "stream_version function"
-  psql $database -f $base/functions/stream-version.sql
-
-  echo "write_message function"
-  psql $database -f $base/functions/write-message.sql
-
-  echo "get_stream_messages function"
-  psql $database -f $base/functions/get-stream-messages.sql
-
-  echo "get_category_messages function"
-  psql $database -f $base/functions/get-category-messages.sql
-
-  echo "get_last_message function"
-  psql $database -f $base/functions/get-last-message.sql
-
-  echo
-}
-
 function create-indexes {
-  echo "Creating indexes..."
   base=$(script_dir)
 
   echo "messages_id_idx"
@@ -110,10 +77,31 @@ function create-indexes {
   echo
 }
 
+echo
+echo "Creating User: $user"
+echo "- - -"
 create-user
+
+echo
+echo "Creating Database: $database"
+echo "- - -"
 create-database
+
+
+echo
+echo "Creating Extensions"
+echo "- - -"
 create-extensions
+
+
+echo
+echo "Creating Table"
+echo "- - -"
 create-table
-create-types
-create-functions
+
+source $base/install-functions.sh
+
+echo
+echo "Creating Indexes"
+echo "- - -"
 create-indexes

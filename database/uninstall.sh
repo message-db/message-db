@@ -15,6 +15,7 @@ if [ -z ${DATABASE_USER+x} ]; then
 else
   user=$DATABASE_USER
 fi
+echo "Database user is: $user"
 
 if [ -z ${DATABASE_NAME+x} ]; then
   echo "(DATABASE_NAME is not set. Default will be used.)"
@@ -22,12 +23,10 @@ if [ -z ${DATABASE_NAME+x} ]; then
 else
   database=$DATABASE_NAME
 fi
-
+echo "Database name is: $database"
 echo
 
 function delete-user {
-  echo "Database user is: $user"
-
   user_exists=`psql postgres -qtAXc "SELECT 1 FROM pg_roles WHERE rolname='$user'"`
 
   if [ "$user_exists" = "1" ]; then
@@ -41,8 +40,6 @@ function delete-user {
 }
 
 function delete-database {
-  echo "Database name is: $database"
-
   database_exists=`psql postgres -qtAXc "SELECT 1 FROM pg_database WHERE datname='$database'"`
 
   if [ "$database_exists" = "1" ]; then
