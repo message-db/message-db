@@ -12,7 +12,6 @@ DECLARE
   message_id uuid;
   stream_version bigint;
   position bigint;
-  category varchar;
   stream_name_hash bigint;
 BEGIN
   message_id = uuid(_id);
