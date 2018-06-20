@@ -32,7 +32,5 @@ stream_name="testStream-$uuid"
 
 STREAM_NAME=$stream_name database/write-test-message.sh
 
-psql $database -U $user -P pager=off -c "SELECT * FROM messages WHERE stream_name = '$stream_name';"
-
 echo "= = ="
 echo

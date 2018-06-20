@@ -7,7 +7,8 @@ if [ ! -z ${INSTANCES+x} ]; then
   instances=$INSTANCES
 fi
 
-stream_name="testStream-$(uuidgen)"
+uuid=$(echo $(uuidgen) | tr '[:upper:]' '[:lower:]')
+stream_name="testStream-$uuid"
 if [ ! -z ${STREAM_NAME+x} ]; then
   stream_name=$STREAM_NAME
 fi
@@ -44,5 +45,8 @@ for (( i=1; i<=instances; i++ )); do
 
   psql $database -U $user -c "SELECT write_message('$uuid'::varchar, '$stream_name'::varchar, 'SomeType'::varchar, '{\"attribute\": \"some value\"}'::jsonb, '{\"metaAttribute\": \"some meta value\"}'::jsonb);" > /dev/null
 done
+
+echo
+psql $database -U $user -P pager=off -c "SELECT * FROM messages WHERE stream_name = '$stream_name';"
 
 echo
