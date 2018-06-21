@@ -47,6 +47,6 @@ for (( i=1; i<=instances; i++ )); do
 done
 
 echo
-psql $database -U $user -P pager=off -c "SELECT * FROM messages WHERE stream_name = '$stream_name';"
+psql $database -U $user -P pager=off -x -c "SELECT * FROM messages WHERE stream_name = '$stream_name';"
 
 echo
