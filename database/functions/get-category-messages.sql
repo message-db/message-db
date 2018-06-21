@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION get_category_messages(
-  _stream_name varchar,
+  _category_name varchar,
   _position bigint DEFAULT 0,
   _batch_size bigint DEFAULT 1000,
   _condition varchar DEFAULT NULL
@@ -39,7 +39,7 @@ BEGIN
 
   -- RAISE NOTICE '%', command;
 
-  RETURN QUERY EXECUTE command USING _stream_name, _position, _batch_size;
+  RETURN QUERY EXECUTE command USING _category_name, _position, _batch_size;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;
