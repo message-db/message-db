@@ -65,8 +65,8 @@ function create-types {
 function create-indexes {
   base=$(script_dir)
 
-  echo "messages_id_idx"
-  psql $database -f $base/indexes/messages-id.sql
+  echo "messages_id_uniq_idx"
+  psql $database -f $base/indexes/messages-id-uniq.sql
 
   echo "messages_category_global_position_idx"
   psql $database -f $base/indexes/messages-category-global-position.sql
