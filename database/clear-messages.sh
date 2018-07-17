@@ -25,16 +25,6 @@ else
 fi
 echo "Database name is: $database"
 
-default_table_name=messages
-
-if [ -z ${TABLE_NAME+x} ]; then
-  echo "(TABLE_NAME is not set)"
-  table=$default_table_name
-else
-  table=$TABLE_NAME
-fi
-echo "Table name is: $table"
-
 echo
 
-psql $database -c "TRUNCATE $table RESTART IDENTITY;"
+psql $database -U $user -c "TRUNCATE messages RESTART IDENTITY;"
