@@ -53,15 +53,6 @@ function create-table {
   echo
 }
 
-function create-types {
-  base=$(script_dir)
-
-  echo "message type"
-  psql $database -f $base/types/message.sql
-
-  echo
-}
-
 function create-indexes {
   base=$(script_dir)
 
