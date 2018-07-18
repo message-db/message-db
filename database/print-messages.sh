@@ -27,14 +27,6 @@ echo "Database name is: $database"
 
 default_table_name=messages
 
-if [ -z ${TABLE_NAME+x} ]; then
-  echo "(TABLE_NAME is not set)"
-  table=$default_table_name
-else
-  table=$TABLE_NAME
-fi
-echo "Table name is: $table"
-
 if [ -z ${STREAM_NAME+x} ]; then
   echo "(STREAM_NAME is not set)"
   stream_name=''
@@ -46,7 +38,7 @@ fi
 echo
 
 if [ -z $stream_name ]; then
-  psql $database -x -c "SELECT * FROM $table"
+  psql $database -U $user -x -c "SELECT * FROM messages"
 else
-  psql $database -x -c "SELECT * FROM $table WHERE stream_name = '$stream_name'"
+  psql $database -U $user -x -c "SELECT * FROM messages WHERE stream_name = '$stream_name'"
 fi
