@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 echo
-echo "GET HASH 64"
-echo "==========="
+echo "WRITE MESSAGE EXPECTED VERSION"
+echo "=============================="
 echo
 
 default_name=message_store
@@ -24,9 +24,11 @@ fi
 echo "Database name is: $database"
 echo
 
-test/recreate_database.sh
+test/recreate-database.sh
 
-psql $database -U $user -c "SELECT hash_64('someStream-123');"
+STREAM_NAME=someStream-123 INSTANCES=4 database/write-test-message.sh
+
+psql $database -U $user -c "SELECT write_message(gen_random_uuid()::varchar, 'someStream-123'::varchar, 'SomeType'::varchar, '{\"attribute\": \"some value\"}'::jsonb, '{\"metaAttribute\": \"some meta value\"}'::jsonb, 3::bigint);"
 
 echo "= = ="
 echo

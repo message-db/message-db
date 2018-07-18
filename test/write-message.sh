@@ -24,7 +24,7 @@ fi
 echo "Database name is: $database"
 echo
 
-test/recreate_database.sh
+test/recreate-database.sh
 
 uuid=$(echo $(uuidgen) | tr '[:upper:]' '[:lower:]')
 

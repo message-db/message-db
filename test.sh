@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-test/hash_64.sh
+test/hash-64.sh
 
-test/write_message.sh
-test/write_message_expected_version.sh
-test/write_message_expected_version_error.sh
+test/write-message.sh
+test/write-message-expected-version.sh
+test/write-message-expected-version-error.sh
 
-test/get_stream_messages.sh
-test/get_category_messages.sh
-test/get_last_message.sh
-test/get_stream_summary.sh
+test/get-stream-messages.sh
+test/get-category-messages.sh
+test/get-last-message.sh
+test/get-stream-summary.sh
