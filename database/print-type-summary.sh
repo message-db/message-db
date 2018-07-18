@@ -36,9 +36,9 @@ echo "= = ="
 echo
 
 if [ -z $stream_name ]; then
-  psql $database -U $user -P pager=off -c "SELECT DISTINCT type, count(type) FROM messages GROUP BY type ORDER BY count DESC;"
-  psql $database -U $user -P pager=off -c "SELECT count(*) FROM messages;"
+  psql $database -U $user -P pager=off -c "SELECT * FROM get_type_summary();"
+  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages;"
 else
-  psql $database -U $user -P pager=off -c "SELECT DISTINCT type, count(type) FROM messages WHERE stream_name LIKE '%$stream_name%' GROUP BY type ORDER BY count DESC;"
-  psql $database -U $user -P pager=off -c "SELECT count(*) FROM messages WHERE stream_name LIKE '%$stream_name%';"
+  psql $database -U $user -P pager=off -c "SELECT * FROM get_type_summary('$stream_name');"
+  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages WHERE stream_name LIKE '%$stream_name%';"
 fi

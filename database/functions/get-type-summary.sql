@@ -1,8 +1,8 @@
-CREATE OR REPLACE FUNCTION get_stream_summary(
-  _stream_name varchar DEFAULT NULL
+CREATE OR REPLACE FUNCTION get_type_summary(
+  _type varchar DEFAULT NULL
 )
 RETURNS TABLE (
-  stream_name varchar,
+  type varchar,
   message_count bigint,
   percent decimal
 )
@@ -12,28 +12,28 @@ DECLARE
 BEGIN
   command := '
     SELECT
-      stream_name,
+      type,
       message_count,
       ROUND((SELECT (message_count::decimal / count(*)::decimal * 100.0) FROM messages)::decimal, 2) AS percent
     FROM
       (
         SELECT
-          DISTINCT stream_name,
-          count(stream_name) AS message_count
+          DISTINCT type,
+          count(type) AS message_count
         FROM
           messages';
 
     command := command || '
         GROUP BY
-          stream_name
+          type
       ) summary';
 
 
-  IF _stream_name is not null THEN
-    _stream_name := '%' || _stream_name || '%';
+  IF _type is not null THEN
+    _type := '%' || _type || '%';
     command := command || '
     WHERE
-      stream_name LIKE $1';
+      type LIKE $1';
   END IF;
 
   command := command || '
@@ -42,8 +42,8 @@ BEGIN
 
   -- RAISE NOTICE '%', command;
 
-  IF _stream_name is not null THEN
-    RETURN QUERY EXECUTE command USING _stream_name;
+  IF _type is not null THEN
+    RETURN QUERY EXECUTE command USING _type;
   ELSE
     RETURN QUERY EXECUTE command;
   END IF;

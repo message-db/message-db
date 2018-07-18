@@ -53,6 +53,9 @@ function create-functions {
   echo "get_stream_summary function"
   psql $database -f $base/functions/get-stream-summary.sql
 
+  echo "get_type_summary function"
+  psql $database -f $base/functions/get-type-summary.sql
+
   echo
 }
 
