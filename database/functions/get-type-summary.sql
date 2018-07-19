@@ -11,23 +11,31 @@ DECLARE
   command text;
 BEGIN
   command := '
+    WITH
+      type_count AS (
+        SELECT
+          type,
+          COUNT(id) AS message_count
+        FROM
+          messages
+        GROUP BY
+          type
+      ),
+
+      total_count AS (
+        SELECT
+          COUNT(id)::decimal AS total_count
+        FROM
+          messages
+      )
+
     SELECT
       type,
       message_count,
-      ROUND((SELECT (message_count::decimal / count(*)::decimal * 100.0) FROM messages)::decimal, 2) AS percent
+      ROUND((message_count / total_count)::decimal * 100, 2) AS percent
     FROM
-      (
-        SELECT
-          DISTINCT type,
-          count(type) AS message_count
-        FROM
-          messages';
-
-    command := command || '
-        GROUP BY
-          type
-      ) summary';
-
+      type_count,
+      total_count';
 
   IF _type is not null THEN
     _type := '%' || _type || '%';

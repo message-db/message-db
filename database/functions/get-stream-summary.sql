@@ -11,23 +11,31 @@ DECLARE
   command text;
 BEGIN
   command := '
+    WITH
+      stream_count AS (
+        SELECT
+          stream_name,
+          COUNT(id) AS message_count
+        FROM
+          messages
+        GROUP BY
+          stream_name
+      ),
+
+      total_count AS (
+        SELECT
+          COUNT(id)::decimal AS total_count
+        FROM
+          messages
+      )
+
     SELECT
       stream_name,
       message_count,
-      ROUND((SELECT (message_count::decimal / count(*)::decimal * 100.0) FROM messages)::decimal, 2) AS percent
+      ROUND((message_count / total_count)::decimal * 100, 2) AS percent
     FROM
-      (
-        SELECT
-          DISTINCT stream_name,
-          count(stream_name) AS message_count
-        FROM
-          messages';
-
-    command := command || '
-        GROUP BY
-          stream_name
-      ) summary';
-
+      stream_count,
+      total_count';
 
   IF _stream_name is not null THEN
     _stream_name := '%' || _stream_name || '%';
