@@ -10,3 +10,4 @@ test/get-stream-messages.sh
 test/get-category-messages.sh
 test/get-last-message.sh
 test/get-stream-summary.sh
+test/get-type-summary.sh
