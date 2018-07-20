@@ -78,21 +78,23 @@ echo "Creating Database: $database"
 echo "- - -"
 create-database
 
-
 echo
 echo "Creating Extensions"
 echo "- - -"
 create-extensions
-
 
 echo
 echo "Creating Table"
 echo "- - -"
 create-table
 
+# Install functions
 source $base/install-functions.sh
 
 echo
 echo "Creating Indexes"
 echo "- - -"
 create-indexes
+
+# Install views
+source $base/install-views.sh

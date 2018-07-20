@@ -36,9 +36,9 @@ echo "= = ="
 echo
 
 if [ -z $stream_name ]; then
-  psql $database -U $user -P pager=off -c "SELECT * FROM get_stream_summary();"
+  psql $database -U $user -P pager=off -c "SELECT * FROM stream_summary ORDER BY message_count DESC;"
   psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages;"
 else
-  psql $database -U $user -P pager=off -c "SELECT * FROM get_stream_summary('$stream_name');"
+  psql $database -U $user -P pager=off -c "SELECT * FROM stream_summary WHERE stream_name LIKE '%$stream_name%' ORDER BY message_count DESC;"
   psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages WHERE stream_name LIKE '%$stream_name%';"
 fi

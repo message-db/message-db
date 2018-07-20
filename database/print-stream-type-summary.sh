@@ -3,9 +3,6 @@
 set -e
 
 echo
-echo "Printing Messages"
-echo "= = ="
-echo
 
 default_name=message_store
 
@@ -25,8 +22,6 @@ else
 fi
 echo "Database name is: $database"
 
-default_table_name=messages
-
 if [ -z ${STREAM_NAME+x} ]; then
   echo "(STREAM_NAME is not set)"
   stream_name=''
@@ -36,9 +31,14 @@ else
 fi
 
 echo
+echo "Stream Stream Summary"
+echo "= = ="
+echo
 
 if [ -z $stream_name ]; then
-  psql $database -U $user -x -P pager=off -c "SELECT * FROM messages"
+  psql $database -U $user -P pager=off -c "SELECT * FROM stream_type_summary ORDER BY stream_name, message_count DESC, type;"
+  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages;"
 else
-  psql $database -U $user -x -P pager=off -c "SELECT * FROM messages WHERE stream_name = '$stream_name'"
+  psql $database -U $user -P pager=off -c "SELECT * FROM stream_type_summary WHERE stream_name LIKE '%$stream_name%' ORDER BY stream_name, message_count DESC;"
+  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages WHERE stream_name LIKE '%$stream_name%';"
 fi
