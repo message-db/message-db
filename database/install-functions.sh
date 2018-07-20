@@ -50,12 +50,6 @@ function create-functions {
   echo "get_last_message function"
   psql $database -f $base/functions/get-last-message.sql
 
-  echo "get_stream_summary function"
-  psql $database -f $base/functions/get-stream-summary.sql
-
-  echo "get_type_summary function"
-  psql $database -f $base/functions/get-type-summary.sql
-
   echo
 }
 

@@ -36,9 +36,9 @@ echo "= = ="
 echo
 
 if [ -z $type ]; then
-  psql $database -U $user -P pager=off -c "SELECT * FROM get_type_summary();"
+  psql $database -U $user -P pager=off -c "SELECT * FROM type_summary ORDER BY message_count DESC;"
   psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages;"
 else
-  psql $database -U $user -P pager=off -c "SELECT * FROM get_type_summary('$type');"
+  psql $database -U $user -P pager=off -c "SELECT * FROM type_summary WHERE type LIKE '%$type%' ORDER BY message_count DESC;"
   psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages WHERE type LIKE '%$type%';"
 fi

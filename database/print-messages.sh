@@ -38,7 +38,7 @@ fi
 echo
 
 if [ -z $stream_name ]; then
-  psql $database -U $user -x -c "SELECT * FROM messages"
+  psql $database -U $user -x -P pager=off -c "SELECT * FROM messages"
 else
-  psql $database -U $user -x -c "SELECT * FROM messages WHERE stream_name = '$stream_name'"
+  psql $database -U $user -x -P pager=off -c "SELECT * FROM messages WHERE stream_name = '$stream_name'"
 fi

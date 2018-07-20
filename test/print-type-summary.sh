@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 echo
-echo "WRITE MESSAGE"
-echo "============="
+echo "PRINT TYPE SUMMARY"
+echo "=================="
 echo
 
 default_name=message_store
@@ -24,12 +24,9 @@ fi
 echo "Database name is: $database"
 echo
 
-test/recreate-database.sh
+test/setup.sh
 
-uuid=$(echo $(uuidgen) | tr '[:upper:]' '[:lower:]')
-
-stream_name="testStream-$uuid"
-STREAM_NAME=$stream_name database/write-test-message.sh
+DATABASE_NAME=$database DATABASE_USER=$user database/print-type-summary.sh
 
 echo "= = ="
 echo
