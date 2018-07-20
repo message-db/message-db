@@ -26,6 +26,12 @@ function create-views {
   echo "type_summary view"
   psql $database -f $base/views/type-summary.sql
 
+  echo "type_stream_summary view"
+  psql $database -f $base/views/stream-type-summary.sql
+
+  echo "type_stream_summary view"
+  psql $database -f $base/views/type-stream-summary.sql
+
   echo
 }
 
