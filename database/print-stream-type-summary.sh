@@ -31,7 +31,7 @@ else
 fi
 
 echo
-echo "Stream Stream Summary"
+echo "Stream Type Summary"
 echo "= = ="
 echo
 
