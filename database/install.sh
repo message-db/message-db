@@ -27,6 +27,11 @@ echo "Database name is: $database"
 
 echo
 
+function script_dir {
+  val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  echo "$val"
+}
+
 function create-user {
   createuser -s $user
   echo
@@ -35,11 +40,6 @@ function create-user {
 function create-database {
   createdb $database
   echo
-}
-
-function script_dir {
-  val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-  echo "$val"
 }
 
 function create-extensions {
@@ -67,6 +67,9 @@ function create-indexes {
 
   echo
 }
+
+
+base=$(script_dir)
 
 echo
 echo "Creating User: $user"
