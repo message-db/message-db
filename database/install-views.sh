@@ -35,6 +35,9 @@ function create-views {
   echo "category_type_summary view"
   psql $database -f $base/views/category-type-summary.sql
 
+  echo "type_category_summary view"
+  psql $database -f $base/views/type-category-summary.sql
+
   echo
 }
 

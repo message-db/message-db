@@ -22,12 +22,12 @@ else
 fi
 echo "Database name is: $database"
 
-if [ -z ${STREAM_NAME+x} ]; then
-  echo "(STREAM_NAME is not set)"
-  stream_name=''
+if [ -z ${CATEGORY+x} ]; then
+  echo "(CATEGORY is not set)"
+  category=''
 else
-  stream_name=$STREAM_NAME
-  echo "Stream name is: $STREAM_NAME"
+  category=$CATEGORY
+  echo "Stream name is: $CATEGORY"
 fi
 
 echo
@@ -35,10 +35,10 @@ echo "Category Type Summary"
 echo "= = ="
 echo
 
-if [ -z $stream_name ]; then
+if [ -z $category ]; then
   psql $database -U $user -P pager=off -c "SELECT * FROM category_type_summary;"
   psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages;"
 else
-  psql $database -U $user -P pager=off -c "SELECT * FROM stream_type_summary WHERE stream_name LIKE '%$stream_name%';"
-  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages WHERE stream_name LIKE '%$stream_name%';"
+  psql $database -U $user -P pager=off -c "SELECT * FROM category_type_summary WHERE category LIKE '%$category%';"
+  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages WHERE category(stream_name) LIKE '%$category%';"
 fi
