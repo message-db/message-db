@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 echo
-echo "PRINT STREAM TYPE SUMMARY"
-echo "========================="
+echo "PRINT CATEGORY TYPE SUMMARY"
+echo "==========================="
 echo
 
 default_name=message_store
@@ -26,7 +26,7 @@ echo
 
 test/setup.sh
 
-DATABASE_NAME=$database DATABASE_USER=$user database/print-stream-type-summary.sh
+DATABASE_NAME=$database DATABASE_USER=$user database/print-category-type-summary.sh
 
 echo "= = ="
 echo
