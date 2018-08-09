@@ -37,5 +37,8 @@ base=$(script_dir)
 # Install functions
 source $base/install-functions.sh
 
+# Install indexes
+source $base/install-indexes.sh
+
 # Install views
 source $base/install-views.sh

@@ -94,10 +94,8 @@ create-table
 # Install functions
 source $base/install-functions.sh
 
-echo
-echo "Creating Indexes"
-echo "- - -"
-create-indexes
+# Install indexes
+source $base/install-indexes.sh
 
 # Install views
 source $base/install-views.sh
