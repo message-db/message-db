@@ -53,22 +53,6 @@ function create-table {
   echo
 }
 
-function create-indexes {
-  base=$(script_dir)
-
-  echo "messages_id_uniq_idx"
-  psql $database -f $base/indexes/messages-id-uniq.sql
-
-  echo "messages_category_global_position_idx"
-  psql $database -f $base/indexes/messages-category-global-position.sql
-
-  echo "messages_stream_name_position_uniq_idx"
-  psql $database -f $base/indexes/messages-stream-name-position-uniq.sql
-
-  echo
-}
-
-
 base=$(script_dir)
 
 echo
