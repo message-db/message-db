@@ -27,4 +27,4 @@ echo "Replacing Updated Event with Recorded Event"
 echo "= = ="
 echo
 
-psql $database -U $user -P pager=off -c "UPDATE messages SET type = 'Recorded' WHERE type = 'Updated' AND (stream_name LIKE '%+position' OR stream_name LIKE '%:position');"
+psql $database -U $user -P pager=off -c "UPDATE messages SET type = 'Recorded' WHERE type = 'Updated' AND (stream_name LIKE '%+position' OR stream_name LIKE '%:position' OR stream_name LIKE '%:position-%');"
