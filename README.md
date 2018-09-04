@@ -10,7 +10,7 @@ See the message store documentation on the Eventide docs site:
 
 ## Database Definition Script Files
 
-The database is defined by raw SQL scripts. You can examine them, or use them directly with the `psql` command line tool, at:
+The database is defined by raw SQL scripts. You can examine them, or use them directly with the `psql` command line tool.
 
 [https://github.com/eventide-project/message-store-postgres-database/tree/master/database](https://github.com/eventide-project/message-store-postgres-database/tree/master/database)
 
