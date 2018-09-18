@@ -77,7 +77,5 @@ source $base/install-indexes.sh
 # Install views
 source $base/install-views.sh
 
-echo
-echo "Granting Privileges"
-echo "- - -"
+# Install privileges
 source $base/install-privileges.sh

@@ -42,3 +42,6 @@ source $base/install-indexes.sh
 
 # Install views
 source $base/install-views.sh
+
+# Install privileges
+source $base/install-privileges.sh
