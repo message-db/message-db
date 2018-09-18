@@ -42,7 +42,7 @@ function create-database {
 
 function create-extensions {
   base=$(script_dir)
-  psql $database -f $base/extensions.sql
+  psql $database -f $base/extension/pgcrypto.sql
   echo
 }
 
