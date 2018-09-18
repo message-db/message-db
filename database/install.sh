@@ -8,15 +8,6 @@ echo "= = ="
 echo
 
 default_name=message_store
-
-if [ -z ${DATABASE_USER+x} ]; then
-  echo "(DATABASE_USER is not set. Default will be used.)"
-  user=$default_name
-else
-  user=$DATABASE_USER
-fi
-echo "Database user is: $user"
-
 if [ -z ${DATABASE_NAME+x} ]; then
   echo "(DATABASE_NAME is not set. Default will be used.)"
   database=$default_name
@@ -33,7 +24,8 @@ function script_dir {
 }
 
 function create-user {
-  createuser -s $user
+  base=$(script_dir)
+  psql -f $base/user/message-store-role.sql
   echo
 }
 
@@ -56,30 +48,38 @@ function create-table {
 base=$(script_dir)
 
 echo
-echo "Creating User: $user"
-echo "- - -"
-create-user
-
-echo
 echo "Creating Database: $database"
 echo "- - -"
 create-database
 
 echo
-echo "Creating Extensions"
+echo "Creating User: message_store"
 echo "- - -"
-create-extensions
+create-user
 
-echo
-echo "Creating Table"
-echo "- - -"
-create-table
+# echo
+# echo "Creating Database: $database"
+# echo "- - -"
+# create-database
 
-# Install functions
-source $base/install-functions.sh
 
-# Install indexes
-source $base/install-indexes.sh
 
-# Install views
-source $base/install-views.sh
+
+# echo
+# echo "Creating Extensions"
+# echo "- - -"
+# create-extensions
+
+# echo
+# echo "Creating Table"
+# echo "- - -"
+# create-table
+
+# # Install functions
+# source $base/install-functions.sh
+
+# # Install indexes
+# source $base/install-indexes.sh
+
+# # Install views
+# source $base/install-views.sh
