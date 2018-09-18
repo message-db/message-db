@@ -48,7 +48,7 @@ function create-extensions {
 
 function create-table {
   base=$(script_dir)
-  psql $database -f $base/table/messages-table.sql
+  psql $database -f $base/table/messages.sql
   echo
 }
 
