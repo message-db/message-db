@@ -1,4 +1,1 @@
-GRANT SELECT, INSERT ON messages TO :rolename;
-
-
- <<- EOF >
+GRANT SELECT, INSERT ON messages TO message_store;

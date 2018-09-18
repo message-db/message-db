@@ -29,6 +29,12 @@ function create-user {
   echo
 }
 
+function grant-privileges {
+  base=$(script_dir)
+  psql $database -f $base/user/privileges.sql
+  echo
+}
+
 function create-database {
   createdb $database
   echo
@@ -41,6 +47,7 @@ function create-extensions {
 }
 
 function create-table {
+  base=$(script_dir)
   psql $database -f $base/table/messages-table.sql
   echo
 }
@@ -48,32 +55,24 @@ function create-table {
 base=$(script_dir)
 
 echo
+echo "Creating User: message_store"
+echo "- - -"
+create-user
+
+echo
 echo "Creating Database: $database"
 echo "- - -"
 create-database
 
 echo
-echo "Creating User: message_store"
+echo "Creating Extensions"
 echo "- - -"
-create-user
+create-extensions
 
-# echo
-# echo "Creating Database: $database"
-# echo "- - -"
-# create-database
-
-
-
-
-# echo
-# echo "Creating Extensions"
-# echo "- - -"
-# create-extensions
-
-# echo
-# echo "Creating Table"
-# echo "- - -"
-# create-table
+echo
+echo "Creating Table"
+echo "- - -"
+create-table
 
 # # Install functions
 # source $base/install-functions.sh
@@ -83,3 +82,8 @@ create-user
 
 # # Install views
 # source $base/install-views.sh
+
+echo
+echo "Granting Privileges"
+echo "- - -"
+grant-privileges
