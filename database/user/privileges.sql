@@ -16,9 +16,9 @@ GRANT EXECUTE ON FUNCTION get_category_messages TO message_store;
 GRANT EXECUTE ON FUNCTION get_last_message TO message_store;
 
 -- Views
-GRANT SELECT, INSERT ON category_type_summary TO message_store;
-GRANT SELECT, INSERT ON stream_summary TO message_store;
-GRANT SELECT, INSERT ON stream_type_summary TO message_store;
-GRANT SELECT, INSERT ON type_category_summary TO message_store;
-GRANT SELECT, INSERT ON type_stream_summary TO message_store;
-GRANT SELECT, INSERT ON type_summary TO message_store;
+GRANT SELECT ON category_type_summary TO message_store;
+GRANT SELECT ON stream_summary TO message_store;
+GRANT SELECT ON stream_type_summary TO message_store;
+GRANT SELECT ON type_category_summary TO message_store;
+GRANT SELECT ON type_stream_summary TO message_store;
+GRANT SELECT ON type_summary TO message_store;
