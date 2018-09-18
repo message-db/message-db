@@ -40,9 +40,7 @@ echo
 # }
 
 function delete-user {
-  echo "Deleting database user \"$user\"..."
   psql -P pager=off -c "DROP ROLE IF EXISTS $user;"
-
   echo
 }
 
@@ -60,12 +58,16 @@ function delete-user {
 # }
 
 function delete-database {
-  echo "Deleting database \"$database\"..."
   psql -P pager=off -c "DROP DATABASE IF EXISTS $database;"
-
   echo
 }
 
-
+echo
+echo "Deleting database \"$database\"..."
+echo "- - -"
 delete-database
+
+echo
+echo "Deleting database user \"$user\"..."
+echo "- - -"
 delete-user

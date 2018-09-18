@@ -25,7 +25,7 @@ function script_dir {
 
 function create-user {
   base=$(script_dir)
-  psql -f $base/user/message-store-role.sql
+  psql -f $base/user/role.sql
   echo
 }
 
@@ -74,14 +74,14 @@ echo "Creating Table"
 echo "- - -"
 create-table
 
-# # Install functions
-# source $base/install-functions.sh
+# Install functions
+source $base/install-functions.sh
 
-# # Install indexes
-# source $base/install-indexes.sh
+# Install indexes
+source $base/install-indexes.sh
 
-# # Install views
-# source $base/install-views.sh
+# Install views
+source $base/install-views.sh
 
 echo
 echo "Granting Privileges"
