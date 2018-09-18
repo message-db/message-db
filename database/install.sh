@@ -29,12 +29,6 @@ function create-user {
   echo
 }
 
-function grant-privileges {
-  base=$(script_dir)
-  psql $database -f $base/user/privileges.sql
-  echo
-}
-
 function create-database {
   createdb $database
   echo
@@ -86,4 +80,4 @@ source $base/install-views.sh
 echo
 echo "Granting Privileges"
 echo "- - -"
-grant-privileges
+source $base/install-privileges.sh
