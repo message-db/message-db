@@ -26,32 +26,48 @@ fi
 echo "Database name is: $database"
 echo
 
+# function delete-user {
+#   user_exists=`psql postgres -qtAXc "SELECT 1 FROM pg_roles WHERE rolname='$user'"`
+
+#   if [ "$user_exists" = "1" ]; then
+#     echo "Deleting database user \"$user\"..."
+#     dropuser $user
+#   else
+#     echo "Database user \"$user\" does not exist. Not deleting."
+#   fi
+
+#   echo
+# }
+
 function delete-user {
-  user_exists=`psql postgres -qtAXc "SELECT 1 FROM pg_roles WHERE rolname='$user'"`
-
-  if [ "$user_exists" = "1" ]; then
-    echo "Deleting database user \"$user\"..."
-    dropuser $user
-  else
-    echo "Database user \"$user\" does not exist. Not deleting."
-  fi
-
+  psql -P pager=off -c "DROP ROLE IF EXISTS $user;"
   echo
 }
+
+# function delete-database {
+#   database_exists=`psql postgres -qtAXc "SELECT 1 FROM pg_database WHERE datname='$database'"`
+
+#   if [ "$database_exists" = "1" ]; then
+#     echo "Deleting database \"$database\"..."
+#     dropdb $database
+#   else
+#     echo "Database \"$database\" does not exist. Not deleting."
+#   fi
+
+#   echo
+# }
 
 function delete-database {
-  database_exists=`psql postgres -qtAXc "SELECT 1 FROM pg_database WHERE datname='$database'"`
-
-  if [ "$database_exists" = "1" ]; then
-    echo "Deleting database \"$database\"..."
-    dropdb $database
-  else
-    echo "Database \"$database\" does not exist. Not deleting."
-  fi
-
+  psql -P pager=off -c "DROP DATABASE IF EXISTS $database;"
   echo
 }
 
-
+echo
+echo "Deleting database \"$database\"..."
+echo "- - -"
 delete-database
+
+echo
+echo "Deleting database user \"$user\"..."
+echo "- - -"
 delete-user

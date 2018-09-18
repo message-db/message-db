@@ -1,8 +1,6 @@
 DO $$
 BEGIN
-  IF EXISTS (SELECT 1 FROM pg_type WHERE typname = 'message') THEN
-    DROP TYPE message CASCADE;
-  END IF;
+  DROP TYPE IF EXISTS message CASCADE;
 
   CREATE TYPE message AS (
     id varchar,

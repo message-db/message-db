@@ -1,7 +1,7 @@
 -- ----------------------------
 --  Table structure for messages
 -- ----------------------------
-CREATE TABLE "public"."messages" (
+CREATE TABLE IF NOT EXISTS "public"."messages" (
   "id" UUID NOT NULL DEFAULT gen_random_uuid(),
   "stream_name" varchar(255) NOT NULL COLLATE "default",
   "type" varchar(255) NOT NULL COLLATE "default",
