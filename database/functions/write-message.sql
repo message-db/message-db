@@ -12,11 +12,13 @@ DECLARE
   message_id uuid;
   stream_version bigint;
   position bigint;
+  category varchar;
   stream_name_hash bigint;
 BEGIN
   message_id = uuid(_id);
 
-  stream_name_hash = hash_64(_stream_name);
+  category := category(_stream_name);
+  stream_name_hash := hash_64(category);
   PERFORM pg_advisory_xact_lock(stream_name_hash);
 
   stream_version := stream_version(_stream_name);
