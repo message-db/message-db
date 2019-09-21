@@ -16,7 +16,7 @@ echo "Stream Name:"
 echo $stream_name
 echo
 
-write-message $stream_name
+STREAM_NAME=$stream_name database/write-test-message.sh > /dev/null
 
 psql message_store -U message_store -P pager=off -x -c "SELECT * FROM messages WHERE stream_name = '$stream_name';"
 
