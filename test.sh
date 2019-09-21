@@ -3,7 +3,7 @@
 test/hash-64.sh
 
 test/write-message.sh
-# test/write-message-expected-version.sh
+test/write-message-expected-version.sh
 # test/write-message-expected-version-error.sh
 
 test/get-stream-messages.sh
