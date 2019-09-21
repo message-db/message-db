@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 test/hash-64.sh
 
 test/write-message.sh
