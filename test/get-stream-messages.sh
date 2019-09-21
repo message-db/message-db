@@ -5,28 +5,23 @@ echo "GET STREAM MESSAGES"
 echo "==================="
 echo
 
-default_name=message_store
+source test/stream-name.sh
 
-if [ -z ${DATABASE_USER+x} ]; then
-  echo "(DATABASE_USER is not set)"
-  user=$default_name
-else
-  user=$DATABASE_USER
-fi
-echo "Database user is: $user"
+stream_name=$(stream-name)
 
-if [ -z ${DATABASE_NAME+x} ]; then
-  echo "(DATABASE_NAME is not set)"
-  database=$default_name
-else
-  database=$DATABASE_NAME
-fi
-echo "Database name is: $database"
+echo "Stream Name:"
+echo $stream_name
 echo
 
-test/setup.sh
+STREAM_NAME=$stream_name INSTANCES=3 database/write-test-message.sh > /dev/null
 
-psql $database -U $user -P pager=off -c "SELECT * FROM get_stream_messages('someStream-123', 2, 1, _condition => 'global_position = 3');"
+cmd="SELECT * FROM get_stream_messages('$stream_name', 0, 2, _condition => 'position >= 1');"
+
+echo "Command:"
+echo "$cmd"
+echo
+
+psql message_store -U message_store -P pager=off -x -c "$cmd"
 
 echo "= = ="
 echo
