@@ -11,11 +11,6 @@ echo
 
 source test/controls.sh
 
-stream_name=$(stream-name)
-
-echo "Stream Name:"
-echo $stream_name
-
 write-message
 write-message
 write-message

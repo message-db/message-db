@@ -17,8 +17,8 @@ stream_name=$(stream-name)
 echo "Stream Name:"
 echo $stream_name
 
-write-message
 write-message $stream_name 3
+write-message
 
 STREAM_NAME=$stream_name database/print-stream-summary.sh
 
