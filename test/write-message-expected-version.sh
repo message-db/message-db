@@ -6,7 +6,7 @@ echo
 echo "WRITE MESSAGE EXPECTED VERSION"
 echo "=============================="
 echo "- Write a single message to an entity stream"
-echo "- Write another message with the expected version of 0"
+echo "- Write another message with the expected version of 0 that matches a stream with one message"
 echo
 
 source test/controls.sh

@@ -6,7 +6,7 @@ test/hash-64.sh
 
 test/write-message.sh
 test/write-message-expected-version.sh
-# test/write-message-expected-version-error.sh
+test/write-message-expected-version-error.sh
 
 test/get-stream-messages.sh
 test/get-category-messages.sh
@@ -19,3 +19,6 @@ test/get-last-message.sh
 # test/print-type-stream-summary.sh
 # test/print-category-type-summary.sh
 # test/print-type-category-summary.sh
+
+echo "DONE"
+echo
