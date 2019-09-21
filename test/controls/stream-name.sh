@@ -1,4 +1,4 @@
-source test/category.sh
+source test/controls/category.sh
 
 function stream-name {
   local category=${1:-$(category)}
