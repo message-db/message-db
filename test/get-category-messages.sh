@@ -7,9 +7,7 @@ echo "- Write 2 messages each to 3 entity streams in the same category"
 echo "- Retrieve a batch of 2 messages from the category, starting at global position 0 where the position is greater than or equal to 1"
 echo
 
-source test/controls/category.sh
-source test/controls/stream-name.sh
-source test/controls/write-message.sh
+source test/controls.sh
 
 category=$(category)
 

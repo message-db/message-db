@@ -6,8 +6,7 @@ echo "============="
 echo "Write a single message to an entity stream"
 echo
 
-source test/controls/stream-name.sh
-source test/controls/write-message.sh
+source test/controls.sh
 
 stream_name=$(stream-name)
 
