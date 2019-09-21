@@ -4,29 +4,31 @@ echo
 echo "GET CATEGORY MESSAGES"
 echo "====================="
 echo
+source test/stream-name.sh
 
-default_name=message_store
+uuid=$(echo $(uuidgen) | tr '[:upper:]' '[:lower:]')
+category_suffix=${uuid:0:8}
+category="testStream$category_suffix"
 
-if [ -z ${DATABASE_USER+x} ]; then
-  echo "(DATABASE_USER is not set)"
-  user=$default_name
-else
-  user=$DATABASE_USER
-fi
-echo "Database user is: $user"
-
-if [ -z ${DATABASE_NAME+x} ]; then
-  echo "(DATABASE_NAME is not set)"
-  database=$default_name
-else
-  database=$DATABASE_NAME
-fi
-echo "Database name is: $database"
+echo "Category:"
+echo $category
 echo
 
-test/setup.sh
+echo "Stream Names:"
+for i in {1..3}; do
+  stream_name=$(stream-name $category)
+  echo $stream_name
+  STREAM_NAME=$stream_name INSTANCES=2 database/write-test-message.sh > /dev/null
+done
+echo
 
-psql $database -U $user -P pager=off -c "SELECT * FROM get_category_messages('someStream', 4, 1, _condition => 'position = 3');"
+cmd="SELECT * FROM get_category_messages('$category', 0, 2, _condition => 'position >= 1');"
+
+echo "Command:"
+echo "$cmd"
+echo
+
+psql message_store -U message_store -P pager=off -x -c "$cmd"
 
 echo "= = ="
 echo
