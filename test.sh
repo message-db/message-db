@@ -13,7 +13,7 @@ test/get-category-messages.sh
 test/get-last-message.sh
 
 test/print-messages.sh
-# test/print-stream-summary.sh
+test/print-stream-summary.sh
 # test/print-type-summary.sh
 # test/print-stream-type-summary.sh
 # test/print-type-stream-summary.sh
