@@ -1,34 +1,31 @@
 #!/usr/bin/env bash
 
+set -e
+
 echo
 echo "WRITE MESSAGE EXPECTED VERSION"
 echo "=============================="
+echo "- Write a single message to an entity stream"
+echo "- Write another message with the expected version of 0 that matches a stream with one message"
 echo
 
-default_name=message_store
+source test/controls.sh
 
-if [ -z ${DATABASE_USER+x} ]; then
-  echo "(DATABASE_USER is not set)"
-  user=$default_name
-else
-  user=$DATABASE_USER
-fi
-echo "Database user is: $user"
+stream_name=$(stream-name)
 
-if [ -z ${DATABASE_NAME+x} ]; then
-  echo "(DATABASE_NAME is not set)"
-  database=$default_name
-else
-  database=$DATABASE_NAME
-fi
-echo "Database name is: $database"
+echo "Stream Name:"
+echo $stream_name
 echo
 
-test/recreate-database.sh
+write-message $stream_name
 
-STREAM_NAME=someStream-123 INSTANCES=4 database/write-test-message.sh
+cmd="SELECT write_message(gen_random_uuid()::varchar, '$stream_name'::varchar, 'SomeType'::varchar, '{\"attribute\": \"some value\"}'::jsonb, '{\"metaAttribute\": \"some meta value\"}'::jsonb, 0::bigint);"
 
-psql $database -U $user -c "SELECT write_message(gen_random_uuid()::varchar, 'someStream-123'::varchar, 'SomeType'::varchar, '{\"attribute\": \"some value\"}'::jsonb, '{\"metaAttribute\": \"some meta value\"}'::jsonb, 3::bigint);"
+echo "Command:"
+echo "$cmd"
+echo
+
+psql message_store -U message_store -x -c "$cmd"
 
 echo "= = ="
 echo

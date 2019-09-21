@@ -3,30 +3,33 @@
 echo
 echo "GET CATEGORY MESSAGES"
 echo "====================="
+echo "- Write 2 messages each to 3 entity streams in the same category"
+echo "- Retrieve a batch of 2 messages from the category, starting at global position 0 where the position is greater than or equal to 1"
 echo
 
-default_name=message_store
+source test/controls.sh
 
-if [ -z ${DATABASE_USER+x} ]; then
-  echo "(DATABASE_USER is not set)"
-  user=$default_name
-else
-  user=$DATABASE_USER
-fi
-echo "Database user is: $user"
+category=$(category)
 
-if [ -z ${DATABASE_NAME+x} ]; then
-  echo "(DATABASE_NAME is not set)"
-  database=$default_name
-else
-  database=$DATABASE_NAME
-fi
-echo "Database name is: $database"
+echo "Category:"
+echo $category
 echo
 
-test/setup.sh
+echo "Stream Names:"
+for i in {1..3}; do
+  stream_name=$(stream-name $category)
+  echo $stream_name
+  write-message $stream_name 2
+done
+echo
 
-psql $database -U $user -P pager=off -c "SELECT * FROM get_category_messages('someStream', 4, 1, _condition => 'position = 3');"
+cmd="SELECT * FROM get_category_messages('$category', 0, 2, _condition => 'position >= 1');"
+
+echo "Command:"
+echo "$cmd"
+echo
+
+psql message_store -U message_store -P pager=off -x -c "$cmd"
 
 echo "= = ="
 echo

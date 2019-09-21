@@ -1,32 +1,27 @@
 #!/usr/bin/env bash
 
+set -e
+
 echo
-echo "PRINT CATEGORY TYPE SUMMARY"
-echo "==============++==========="
-echo
-
-default_name=message_store
-
-if [ -z ${DATABASE_USER+x} ]; then
-  echo "(DATABASE_USER is not set)"
-  user=$default_name
-else
-  user=$DATABASE_USER
-fi
-echo "Database user is: $user"
-
-if [ -z ${DATABASE_NAME+x} ]; then
-  echo "(DATABASE_NAME is not set)"
-  database=$default_name
-else
-  database=$DATABASE_NAME
-fi
-echo "Database name is: $database"
+echo "PRINT STREAM TYPE SUMMARY"
+echo "========================="
+echo "- Write 3 messages to an entity streams"
+echo "- Write a messages to 2 other entity streams"
+echo "- Print the stream type summary"
 echo
 
-test/setup.sh
+source test/controls.sh
 
-DATABASE_NAME=$database DATABASE_USER=$user database/print-category-type-summary.sh
+stream_name=$(stream-name)
+
+echo "Stream Name:"
+echo $stream_name
+
+write-message $stream_name 3
+write-message
+write-message
+
+STREAM_NAME=$stream_name database/print-stream-type-summary.sh
 
 echo "= = ="
 echo

@@ -1,35 +1,24 @@
 #!/usr/bin/env bash
 
+set -e
+
 echo
 echo "WRITE MESSAGE"
 echo "============="
+echo "Write a single message to an entity stream"
 echo
 
-default_name=message_store
+source test/controls.sh
 
-if [ -z ${DATABASE_USER+x} ]; then
-  echo "(DATABASE_USER is not set)"
-  user=$default_name
-else
-  user=$DATABASE_USER
-fi
-echo "Database user is: $user"
+stream_name=$(stream-name)
 
-if [ -z ${DATABASE_NAME+x} ]; then
-  echo "(DATABASE_NAME is not set)"
-  database=$default_name
-else
-  database=$DATABASE_NAME
-fi
-echo "Database name is: $database"
+echo "Stream Name:"
+echo $stream_name
 echo
 
-test/recreate-database.sh
+STREAM_NAME=$stream_name database/write-test-message.sh > /dev/null
 
-uuid=$(echo $(uuidgen) | tr '[:upper:]' '[:lower:]')
-
-stream_name="testStream-$uuid"
-STREAM_NAME=$stream_name database/write-test-message.sh
+psql message_store -U message_store -P pager=off -x -c "SELECT * FROM messages WHERE stream_name = '$stream_name';"
 
 echo "= = ="
 echo

@@ -5,28 +5,15 @@ echo "GET HASH 64"
 echo "==========="
 echo
 
-default_name=message_store
+source test/controls.sh
 
-if [ -z ${DATABASE_USER+x} ]; then
-  echo "(DATABASE_USER is not set)"
-  user=$default_name
-else
-  user=$DATABASE_USER
-fi
-echo "Database user is: $user"
+stream_name=$(stream-name)
 
-if [ -z ${DATABASE_NAME+x} ]; then
-  echo "(DATABASE_NAME is not set)"
-  database=$default_name
-else
-  database=$DATABASE_NAME
-fi
-echo "Database name is: $database"
+echo "Stream Name:"
+echo $stream_name
 echo
 
-test/recreate-database.sh
-
-psql $database -U $user -c "SELECT hash_64('someStream-123');"
+psql message_store -U message_store -x -c "SELECT hash_64('$stream_name');"
 
 echo "= = ="
 echo

@@ -1,32 +1,24 @@
 #!/usr/bin/env bash
 
+set -e
+
 echo
 echo "PRINT MESSAGES"
 echo "=============="
+echo "- Write 3 messages to an entity stream"
+echo "- Print the messages in the stream"
 echo
 
-default_name=message_store
+source test/controls.sh
 
-if [ -z ${DATABASE_USER+x} ]; then
-  echo "(DATABASE_USER is not set)"
-  user=$default_name
-else
-  user=$DATABASE_USER
-fi
-echo "Database user is: $user"
+stream_name=$(stream-name)
 
-if [ -z ${DATABASE_NAME+x} ]; then
-  echo "(DATABASE_NAME is not set)"
-  database=$default_name
-else
-  database=$DATABASE_NAME
-fi
-echo "Database name is: $database"
-echo
+echo "Stream Name:"
+echo $stream_name
 
-test/setup.sh
+write-message $stream_name 3
 
-DATABASE_NAME=$database DATABASE_USER=$user STREAM_NAME='someStream-123' database/print-messages.sh
+STREAM_NAME=$stream_name database/print-messages.sh
 
 echo "= = ="
 echo

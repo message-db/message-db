@@ -3,30 +3,27 @@
 echo
 echo "GET STREAM MESSAGES"
 echo "==================="
+echo "- Write 3 messages to an entity stream"
+echo "- Retrieve a batch of 2 messages, starting at position 0 where the position is greater than or equal to 1"
 echo
 
-default_name=message_store
+source test/controls.sh
 
-if [ -z ${DATABASE_USER+x} ]; then
-  echo "(DATABASE_USER is not set)"
-  user=$default_name
-else
-  user=$DATABASE_USER
-fi
-echo "Database user is: $user"
+stream_name=$(stream-name)
 
-if [ -z ${DATABASE_NAME+x} ]; then
-  echo "(DATABASE_NAME is not set)"
-  database=$default_name
-else
-  database=$DATABASE_NAME
-fi
-echo "Database name is: $database"
+echo "Stream Name:"
+echo $stream_name
 echo
 
-test/setup.sh
+write-message $stream_name 3
 
-psql $database -U $user -P pager=off -c "SELECT * FROM get_stream_messages('someStream-123', 2, 1, _condition => 'global_position = 3');"
+cmd="SELECT * FROM get_stream_messages('$stream_name', 0, 2, _condition => 'position >= 1');"
+
+echo "Command:"
+echo "$cmd"
+echo
+
+psql message_store -U message_store -P pager=off -x -c "$cmd"
 
 echo "= = ="
 echo
