@@ -9,6 +9,7 @@ echo
 
 source test/controls/category.sh
 source test/controls/stream-name.sh
+source test/controls/write-message.sh
 
 category=$(category)
 
@@ -20,7 +21,7 @@ echo "Stream Names:"
 for i in {1..3}; do
   stream_name=$(stream-name $category)
   echo $stream_name
-  STREAM_NAME=$stream_name INSTANCES=2 database/write-test-message.sh > /dev/null
+  write-message $stream_name 2
 done
 echo
 
