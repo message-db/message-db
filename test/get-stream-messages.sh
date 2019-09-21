@@ -3,6 +3,8 @@
 echo
 echo "GET STREAM MESSAGES"
 echo "==================="
+echo "- Write 3 messages to an entity stream"
+echo "- Retrieve a batch of 2 messages, starting at position 0 where the position is greater than or equal to 1"
 echo
 
 source test/stream-name.sh

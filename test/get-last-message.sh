@@ -3,6 +3,8 @@
 echo
 echo "GET LAST MESSAGE"
 echo "================"
+echo "- Write 2 messages to an entity stream"
+echo "- Retrieve the last message in the stream"
 echo
 
 source test/stream-name.sh
@@ -13,7 +15,7 @@ echo "Stream Name:"
 echo $stream_name
 echo
 
-STREAM_NAME=$stream_name INSTANCES=3 database/write-test-message.sh > /dev/null
+STREAM_NAME=$stream_name INSTANCES=2 database/write-test-message.sh > /dev/null
 
 cmd="SELECT * FROM get_last_message('$stream_name');"
 
