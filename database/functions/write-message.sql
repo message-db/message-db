@@ -29,7 +29,11 @@ BEGIN
 
   if write_message.expected_version is not null then
     if write_message.expected_version != stream_version then
-      raise exception 'Wrong expected version: % (Stream: %, Stream Version: %)', write_message.expected_version, write_message.stream_name, stream_version;
+      raise exception
+        'Wrong expected version: % (Stream: %, Stream Version: %)',
+        write_message.expected_version,
+        write_message.stream_name,
+        stream_version;
     end if;
   end if;
 
