@@ -1,10 +1,10 @@
 CREATE OR REPLACE FUNCTION write_message(
-  _id varchar,
-  _stream_name varchar,
-  _type varchar,
-  _data jsonb,
-  _metadata jsonb DEFAULT NULL,
-  _expected_version bigint DEFAULT NULL
+  id varchar,
+  stream_name varchar,
+  "type" varchar,
+  data jsonb,
+  metadata jsonb DEFAULT NULL,
+  expected_version bigint DEFAULT NULL
 )
 RETURNS bigint
 AS $$
@@ -15,21 +15,21 @@ DECLARE
   category varchar;
   stream_name_hash bigint;
 BEGIN
-  message_id = uuid(_id);
+  message_id = uuid(write_message.id);
 
-  category := category(_stream_name);
+  category := category(write_message.stream_name);
   stream_name_hash := hash_64(category);
   PERFORM pg_advisory_xact_lock(stream_name_hash);
 
-  stream_version := stream_version(_stream_name);
+  stream_version := stream_version(write_message.stream_name);
 
   if stream_version is null then
     stream_version := -1;
   end if;
 
-  if _expected_version is not null then
-    if _expected_version != stream_version then
-      raise exception 'Wrong expected version: % (Stream: %, Stream Version: %)', _expected_version, _stream_name, stream_version;
+  if write_message.expected_version is not null then
+    if write_message.expected_version != stream_version then
+      raise exception 'Wrong expected version: % (Stream: %, Stream Version: %)', write_message.expected_version, write_message.stream_name, stream_version;
     end if;
   end if;
 
@@ -47,11 +47,11 @@ BEGIN
   values
     (
       message_id,
-      _stream_name,
+      write_message.stream_name,
       position,
-      _type,
-      _data,
-      _metadata
+      write_message.type,
+      write_message.data,
+      write_message.metadata
     )
   ;
 
