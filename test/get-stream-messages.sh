@@ -19,7 +19,7 @@ echo
 
 write-message $stream_name 3
 
-cmd="SELECT * FROM get_stream_messages('$stream_name', 0, 2, _condition => 'position >= 1');"
+cmd="SELECT * FROM get_stream_messages('$stream_name', 0, 2, condition => 'position >= 1');"
 
 echo "Command:"
 echo "$cmd"
