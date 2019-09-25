@@ -39,7 +39,10 @@ BEGIN
 
   -- RAISE NOTICE '%', command;
 
-  RETURN QUERY EXECUTE command USING get_category_messages.category_name, get_category_messages.position, get_category_messages.batch_size;
+  RETURN QUERY EXECUTE command USING
+    get_category_messages.category_name,
+    get_category_messages.position,
+    get_category_messages.batch_size;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;
