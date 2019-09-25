@@ -25,7 +25,7 @@ for i in {1..3}; do
 done
 echo
 
-cmd="SELECT * FROM get_category_messages('$category', 0, 2, _condition => 'position >= 1');"
+cmd="SELECT * FROM get_category_messages('$category', 0, 2, condition => 'position >= 1');"
 
 echo "Command:"
 echo "$cmd"
