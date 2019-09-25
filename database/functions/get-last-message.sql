@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION get_last_message(
-  _stream_name varchar
+  stream_name varchar
 )
 RETURNS SETOF message
 AS $$
@@ -27,7 +27,7 @@ BEGIN
 
   -- RAISE NOTICE '%', command;
 
-  RETURN QUERY EXECUTE command USING _stream_name;
+  RETURN QUERY EXECUTE command USING get_last_message.stream_name;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;
