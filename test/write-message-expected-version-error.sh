@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 echo
 echo "WRITE MESSAGE EXPECTED VERSION ERROR"
 echo "===================================="
@@ -23,7 +25,9 @@ echo "Command:"
 echo "$cmd"
 echo
 
+set +e
 psql message_store -U message_store -x -c "$cmd"
+set -e
 
 echo "= = ="
 echo
