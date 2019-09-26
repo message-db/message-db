@@ -9,57 +9,57 @@ CREATE OR REPLACE FUNCTION write_message(
 RETURNS bigint
 AS $$
 DECLARE
-  message_id uuid;
-  stream_version bigint;
-  position bigint;
-  category varchar;
-  stream_name_hash bigint;
+  _message_id uuid;
+  _stream_version bigint;
+  _position bigint;
+  _category varchar;
+  _stream_name_hash bigint;
 BEGIN
-  message_id = uuid(write_message.id);
+  _message_id = uuid(write_message.id);
 
-  category := category(write_message.stream_name);
-  stream_name_hash := hash_64(category);
-  PERFORM pg_advisory_xact_lock(stream_name_hash);
+  _category := category(write_message.stream_name);
+  _stream_name_hash := hash_64(_category);
+  PERFORM pg_advisory_xact_lock(_stream_name_hash);
 
-  stream_version := stream_version(write_message.stream_name);
+  _stream_version := stream_version(write_message.stream_name);
 
-  if stream_version is null then
-    stream_version := -1;
+  if _stream_version is null then
+    _stream_version := -1;
   end if;
 
   if write_message.expected_version is not null then
-    if write_message.expected_version != stream_version then
+    if write_message.expected_version != _stream_version then
       raise exception
         'Wrong expected version: % (Stream: %, Stream Version: %)',
         write_message.expected_version,
         write_message.stream_name,
-        stream_version;
+        _stream_version;
     end if;
   end if;
 
-  position := stream_version + 1;
+  _position := _stream_version + 1;
 
-  insert into "messages"
+  insert into messages
     (
-      "id",
-      "stream_name",
-      "position",
-      "type",
-      "data",
-      "metadata"
+      id,
+      stream_name,
+      position,
+      type,
+      data,
+      metadata
     )
   values
     (
-      message_id,
+      _message_id,
       write_message.stream_name,
-      position,
+      _position,
       write_message.type,
       write_message.data,
       write_message.metadata
     )
   ;
 
-  return position;
+  return _position;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;
