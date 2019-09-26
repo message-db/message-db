@@ -7,9 +7,9 @@ CREATE OR REPLACE FUNCTION get_category_messages(
 RETURNS SETOF message
 AS $$
 DECLARE
-  command text;
+  _command text;
 BEGIN
-  command := '
+  _command := '
     SELECT
       id::varchar,
       stream_name::varchar,
@@ -26,20 +26,20 @@ BEGIN
       global_position >= $2';
 
   if get_category_messages.condition is not null then
-    command := command || ' AND
+    _command := _command || ' AND
       %s';
-    command := format(command, get_category_messages.condition);
+    _command := format(_command, get_category_messages.condition);
   end if;
 
-  command := command || '
+  _command := _command || '
     ORDER BY
       global_position ASC
     LIMIT
       $3';
 
-  -- RAISE NOTICE '%', command;
+  -- RAISE NOTICE '%', _command;
 
-  RETURN QUERY EXECUTE command USING
+  RETURN QUERY EXECUTE _command USING
     get_category_messages.category_name,
     get_category_messages.position,
     get_category_messages.batch_size;

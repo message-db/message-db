@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION category(
 RETURNS varchar
 AS $$
 BEGIN
-  return split_part(stream_name, '-', 1);
+  return split_part(category.stream_name, '-', 1);
 END;
 $$ LANGUAGE plpgsql
 IMMUTABLE;
