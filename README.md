@@ -1,6 +1,6 @@
-# message_store-postgres-database
+# Postgres Message Store Database
 
-Message store PostgreSQL database definition
+Message store database definition for PostgreSQL
 
 ## Documentation
 
@@ -10,10 +10,10 @@ See the message store documentation on the Eventide docs site:
 
 ## Database Definition Script Files
 
-The database is defined by raw SQL scripts. You can examine them, or use them directly with the `psql` command line tool.
+The database is defined by raw SQL scripts. You can examine them, or execute them directly with the `psql` command line tool.
 
-[https://github.com/eventide-project/message-store-postgres-database/tree/master/database](https://github.com/eventide-project/message-store-postgres-database/tree/master/database)
+[https://github.com/eventide-project/postgres-message-store-database/tree/master/database/](https://github.com/eventide-project/postgres-message-store-database/tree/master/database/)
 
 ## License
 
-The `message_store-postgres-database` library is released under the [MIT License](https://github.com/eventide-project/message-store-postgres-database/blob/master/MIT-License.txt).
+The `Postgres Message Store Database` library is released under the [MIT License](https://github.com/eventide-project/postgres-message-store-database/blob/master/MIT-License.txt).
