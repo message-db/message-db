@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-
-root = File.expand_path '../database', __dir__
-script_filename = 'print-messages.sh'
-script_filepath = File.join root, script_filename
-
-system script_filepath
