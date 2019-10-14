@@ -29,6 +29,9 @@ function create-types {
 function create-functions {
   base=$(script_dir)
 
+  echo "message_store_version function"
+  psql $database -f $base/functions/message-store-version.sql
+
   echo "hash_64 function"
   psql $database -f $base/functions/hash-64.sql
 

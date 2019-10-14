@@ -2,6 +2,7 @@
 
 set -e
 
+test/print-schema-version.sh
 test/category.sh
 test/hash-64.sh
 
