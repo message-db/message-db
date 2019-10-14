@@ -12,7 +12,7 @@ See the message store documentation on the Eventide docs site:
 
 The database is defined by raw SQL scripts. You can examine them, or execute them directly with the `psql` command line tool.
 
-[https://github.com/eventide-project/postgres-message-store-database/tree/master/database/](https://github.com/eventide-project/postgres-message-store-database/tree/master/database/)
+[\https://github.com/eventide-project/postgres-message-store-database/tree/master/database/](https://github.com/eventide-project/postgres-message-store-database/tree/master/database/)
 
 ## License
 
