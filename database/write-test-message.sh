@@ -13,8 +13,18 @@ if [ ! -z ${STREAM_NAME+x} ]; then
   stream_name=$STREAM_NAME
 fi
 
+title="Writing $instances Messages to Stream $stream_name"
+if [ -z ${METADATA+x} ]; then
+  metadata="'{\"metaAttribute\": \"some meta value\"}'"
+else
+  metadata="$METADATA"
+  title="$title with Metadata $metadata"
+fi
+
+metadata="$metadata::jsonb"
+
 echo
-echo "Writing $instances Messages to Stream $stream_name"
+echo $title
 echo "= = ="
 echo
 
@@ -43,8 +53,9 @@ for (( i=1; i<=instances; i++ )); do
 
   echo "Instance: $i, Message ID: $uuid"
 
-  psql $database -U $user -c "SELECT write_message('$uuid'::varchar, '$stream_name'::varchar, 'SomeType'::varchar, '{\"attribute\": \"some value\"}'::jsonb, '{\"metaAttribute\": \"some meta value\"}'::jsonb);" > /dev/null
+  psql $database -U $user -c "SELECT write_message('$uuid'::varchar, '$stream_name'::varchar, 'SomeType'::varchar, '{\"attribute\": \"some value\"}'::jsonb, $metadata);" > /dev/null
 done
+
 
 echo
 psql $database -U $user -P pager=off -x -c "SELECT * FROM messages WHERE stream_name = '$stream_name';"
