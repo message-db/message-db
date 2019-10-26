@@ -9,6 +9,9 @@ AS $$
 DECLARE
   _command text;
 BEGIN
+  position := COALESCE(position, 0);
+  batch_size := COALESCE(batch_size, 1000);
+
   _command := '
     SELECT
       id::varchar,
@@ -37,7 +40,11 @@ BEGIN
     LIMIT
       $3';
 
-  -- RAISE NOTICE '%', _command;
+  RAISE NOTICE '%', _command;
+  RAISE NOTICE 'Category Name ($1): %', get_category_messages.category_name;
+  RAISE NOTICE 'Position ($2): %', get_category_messages.position;
+  RAISE NOTICE 'Batch Size ($3): %', get_category_messages.batch_size;
+  RAISE NOTICE 'Condition ($4): %', get_category_messages.condition;
 
   RETURN QUERY EXECUTE _command USING
     get_category_messages.category_name,

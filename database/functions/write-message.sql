@@ -59,6 +59,14 @@ BEGIN
     )
   ;
 
+  RAISE NOTICE 'Write Message';
+  RAISE NOTICE 'ID ($1): %', write_message.id;
+  RAISE NOTICE 'Stream Name ($2): %', write_message.stream_name;
+  RAISE NOTICE 'Type ($3): %', write_message.type;
+  RAISE NOTICE 'Data ($4): %', write_message.data;
+  RAISE NOTICE 'Metadata ($5): %', write_message.metadata;
+  RAISE NOTICE 'Expected Version ($6): %', write_message.expected_version;
+
   return _position;
 END;
 $$ LANGUAGE plpgsql

@@ -25,7 +25,8 @@ BEGIN
     LIMIT
       1';
 
-  -- RAISE NOTICE '%', _command;
+  RAISE NOTICE '%', _command;
+  RAISE NOTICE 'Stream Name ($1): %', get_last_message.stream_name;
 
   RETURN QUERY EXECUTE _command USING get_last_message.stream_name;
 END;

@@ -37,7 +37,11 @@ BEGIN
     LIMIT
       $3';
 
-  -- RAISE NOTICE '%', _command;
+  RAISE NOTICE '%', _command;
+  RAISE NOTICE 'Stream Name ($1): %', get_stream_messages.stream_name;
+  RAISE NOTICE 'Position ($2): %', get_stream_messages.position;
+  RAISE NOTICE 'Batch Size ($3): %', get_stream_messages.batch_size;
+  RAISE NOTICE 'Condition ($4): %', get_stream_messages.condition;
 
   RETURN QUERY EXECUTE _command USING
     get_stream_messages.stream_name,
