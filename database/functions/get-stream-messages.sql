@@ -9,6 +9,9 @@ AS $$
 DECLARE
   _command text;
 BEGIN
+  position := COALESCE(position, 0);
+  batch_size := COALESCE(batch_size, 1000);
+
   _command := '
     SELECT
       id::varchar,
