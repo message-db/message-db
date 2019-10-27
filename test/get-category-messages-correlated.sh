@@ -30,6 +30,7 @@ for i in {1..3}; do
   write-message-correlated $stream_name 1
   write-message-correlated $stream_name 1 $correlation_stream_name
 done
+echo
 
 metadata_condition="'(metadata->>''correlationStreamName'' like ''$correlation%'')'"
 
@@ -37,14 +38,13 @@ echo "Metadata Condition:"
 echo $metadata_condition
 echo
 
-# cmd="SELECT * FROM get_category_messages('$category', 0, 2, condition => $metadata_condition);"
 cmd="SELECT * FROM get_category_messages('$category', 0, 2, correlation => '$correlation');"
 
 echo "Command:"
 echo "$cmd"
 echo
 
-# psql message_store -U message_store -P pager=off -x -c "$cmd"
+psql message_store -U message_store -P pager=off -x -c "$cmd"
 
 echo "= = ="
 echo

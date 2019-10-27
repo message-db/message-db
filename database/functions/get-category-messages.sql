@@ -2,6 +2,7 @@ CREATE OR REPLACE FUNCTION get_category_messages(
   category_name varchar,
   "position" bigint DEFAULT 0,
   batch_size bigint DEFAULT 1000,
+  correlation varchar DEFAULT NULL,
   condition varchar DEFAULT NULL
 )
 RETURNS SETOF message
