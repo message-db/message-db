@@ -2,6 +2,7 @@ CREATE OR REPLACE FUNCTION get_stream_messages(
   stream_name varchar,
   "position" bigint DEFAULT 0,
   batch_size bigint DEFAULT 1000,
+  correlation varchar DEFAULT NULL,
   condition varchar DEFAULT NULL
 )
 RETURNS SETOF message
@@ -28,6 +29,12 @@ BEGIN
       stream_name = $1 AND
       position >= $2';
 
+  if get_stream_messages.correlation is not null then
+    _command := _command || ' AND
+      metadata->>''correlationStreamName'' like ''%s%%''';
+    _command := format(_command, get_stream_messages.correlation);
+  end if;
+
   if get_stream_messages.condition is not null then
     _command := _command || ' AND
       %s';
@@ -45,7 +52,8 @@ BEGIN
     RAISE NOTICE 'stream_name ($1): %', get_stream_messages.stream_name;
     RAISE NOTICE 'position ($2): %', get_stream_messages.position;
     RAISE NOTICE 'batch_size ($3): %', get_stream_messages.batch_size;
-    RAISE NOTICE 'condition ($4): %', get_stream_messages.condition;
+    RAISE NOTICE 'correlation ($4): %', get_stream_messages.correlation;
+    RAISE NOTICE 'condition ($5): %', get_stream_messages.condition;
     RAISE NOTICE 'Generated Command: %', _command;
   end if;
 
