@@ -32,12 +32,6 @@ for i in {1..3}; do
 done
 echo
 
-metadata_condition="'(metadata->>''correlationStreamName'' like ''$correlation%'')'"
-
-echo "Metadata Condition:"
-echo $metadata_condition
-echo
-
 cmd="SELECT * FROM get_category_messages('$category', 0, 2, correlation => '$correlation');"
 
 echo "Command:"
