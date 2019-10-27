@@ -29,6 +29,12 @@ BEGIN
       category(stream_name) = $1 AND
       global_position >= $2';
 
+  if get_category_messages.correlation is not null then
+    _command := _command || ' AND
+      metadata->>''correlationStreamName'' like ''%s%%''';
+    _command := format(_command, get_category_messages.correlation);
+  end if;
+
   if get_category_messages.condition is not null then
     _command := _command || ' AND
       %s';
@@ -46,7 +52,8 @@ BEGIN
     RAISE NOTICE 'category_name ($1): %', get_category_messages.category_name;
     RAISE NOTICE 'position ($2): %', get_category_messages.position;
     RAISE NOTICE 'batch_size ($3): %', get_category_messages.batch_size;
-    RAISE NOTICE 'condition ($4): %', get_category_messages.condition;
+    RAISE NOTICE 'correlation ($4): %', get_category_messages.correlation;
+    RAISE NOTICE 'condition ($5): %', get_category_messages.condition;
     RAISE NOTICE 'Generated Command: %', _command;
   end if;
 
