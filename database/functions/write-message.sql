@@ -59,13 +59,15 @@ BEGIN
     )
   ;
 
-  RAISE NOTICE 'Write Message';
-  RAISE NOTICE 'ID ($1): %', write_message.id;
-  RAISE NOTICE 'Stream Name ($2): %', write_message.stream_name;
-  RAISE NOTICE 'Type ($3): %', write_message.type;
-  RAISE NOTICE 'Data ($4): %', write_message.data;
-  RAISE NOTICE 'Metadata ($5): %', write_message.metadata;
-  RAISE NOTICE 'Expected Version ($6): %', write_message.expected_version;
+  if current_setting('message_store.debug_write', true) = 'on' then
+    RAISE NOTICE 'write_message';
+    RAISE NOTICE 'id ($1): %', write_message.id;
+    RAISE NOTICE 'stream_name ($2): %', write_message.stream_name;
+    RAISE NOTICE 'type ($3): %', write_message.type;
+    RAISE NOTICE 'data ($4): %', write_message.data;
+    RAISE NOTICE 'metadata ($5): %', write_message.metadata;
+    RAISE NOTICE 'expected_version ($6): %', write_message.expected_version;
+  end if;
 
   return _position;
 END;

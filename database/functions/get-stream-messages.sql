@@ -40,11 +40,14 @@ BEGIN
     LIMIT
       $3';
 
-  RAISE NOTICE '%', _command;
-  RAISE NOTICE 'Stream Name ($1): %', get_stream_messages.stream_name;
-  RAISE NOTICE 'Position ($2): %', get_stream_messages.position;
-  RAISE NOTICE 'Batch Size ($3): %', get_stream_messages.batch_size;
-  RAISE NOTICE 'Condition ($4): %', get_stream_messages.condition;
+  if current_setting('message_store.debug_get', true) = 'on' then
+    RAISE NOTICE 'get_stream_messages';
+    RAISE NOTICE 'stream_name ($1): %', get_stream_messages.stream_name;
+    RAISE NOTICE 'position ($2): %', get_stream_messages.position;
+    RAISE NOTICE 'batch_size ($3): %', get_stream_messages.batch_size;
+    RAISE NOTICE 'condition ($4): %', get_stream_messages.condition;
+    RAISE NOTICE 'Generated Command: %', _command;
+  end if;
 
   RETURN QUERY EXECUTE _command USING
     get_stream_messages.stream_name,

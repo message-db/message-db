@@ -40,11 +40,14 @@ BEGIN
     LIMIT
       $3';
 
-  RAISE NOTICE '%', _command;
-  RAISE NOTICE 'Category Name ($1): %', get_category_messages.category_name;
-  RAISE NOTICE 'Position ($2): %', get_category_messages.position;
-  RAISE NOTICE 'Batch Size ($3): %', get_category_messages.batch_size;
-  RAISE NOTICE 'Condition ($4): %', get_category_messages.condition;
+  if current_setting('message_store.debug_get', true) = 'on' then
+    RAISE NOTICE 'get_category_messages';
+    RAISE NOTICE 'category_name ($1): %', get_category_messages.category_name;
+    RAISE NOTICE 'position ($2): %', get_category_messages.position;
+    RAISE NOTICE 'batch_size ($3): %', get_category_messages.batch_size;
+    RAISE NOTICE 'condition ($4): %', get_category_messages.condition;
+    RAISE NOTICE 'Generated Command: %', _command;
+  end if;
 
   RETURN QUERY EXECUTE _command USING
     get_category_messages.category_name,

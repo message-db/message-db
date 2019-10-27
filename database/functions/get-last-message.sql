@@ -25,8 +25,11 @@ BEGIN
     LIMIT
       1';
 
-  RAISE NOTICE '%', _command;
-  RAISE NOTICE 'Stream Name ($1): %', get_last_message.stream_name;
+  if current_setting('message_store.debug_get', true) = 'on' then
+    RAISE NOTICE 'get_last_message';
+    RAISE NOTICE 'stream_name ($1): %', get_last_message.stream_name;
+    RAISE NOTICE 'Generated Command: %', _command;
+  end if;
 
   RETURN QUERY EXECUTE _command USING get_last_message.stream_name;
 END;
