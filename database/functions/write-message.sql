@@ -67,6 +67,10 @@ BEGIN
     RAISE NOTICE 'data ($4): %', write_message.data;
     RAISE NOTICE 'metadata ($5): %', write_message.metadata;
     RAISE NOTICE 'expected_version ($6): %', write_message.expected_version;
+    RAISE NOTICE '_category: %', _category;
+    RAISE NOTICE '_stream_name_hash: %', _stream_name_hash;
+    RAISE NOTICE '_stream_version: %', _stream_version;
+    RAISE NOTICE '_position: %', _position;
   end if;
 
   return _position;
