@@ -6,7 +6,7 @@ echo
 echo "GET CATEGORY MESSAGES CORRELATED"
 echo "================================"
 echo "- Write 2 messages each to 3 entity streams in the same category"
-echo "- Retrieve a batch of 2 messages from the category, starting at global position 0 and matching the correlation stream name"
+echo "- Retrieve a batch of 2 messages from the category, starting at global position 0 and matching the correlation category"
 echo
 
 source test/controls.sh
@@ -16,7 +16,8 @@ echo "Category:"
 echo $category
 echo
 
-correlation=$(stream-name)
+correlation=$(category)
+correlation_stream_name=$(stream-name $correlation)
 echo "Correlation:"
 echo $correlation
 echo
@@ -27,7 +28,7 @@ for i in {1..3}; do
   echo "Stream Name: $stream_name"
 
   write-message-correlated $stream_name 1
-  write-message-correlated $stream_name 1 $correlation
+  write-message-correlated $stream_name 1 $correlation_stream_name
 done
 
 metadata_condition="'(metadata->>''correlationStreamName'' like ''$correlation%'')'"
@@ -36,13 +37,14 @@ echo "Metadata Condition:"
 echo $metadata_condition
 echo
 
-cmd="SELECT * FROM get_category_messages('$category', 0, 2, condition => $metadata_condition);"
+# cmd="SELECT * FROM get_category_messages('$category', 0, 2, condition => $metadata_condition);"
+cmd="SELECT * FROM get_category_messages('$category', 0, 2, correlation => '$correlation');"
 
 echo "Command:"
 echo "$cmd"
 echo
 
-psql message_store -U message_store -P pager=off -x -c "$cmd"
+# psql message_store -U message_store -P pager=off -x -c "$cmd"
 
 echo "= = ="
 echo
