@@ -29,6 +29,7 @@ for i in {1..3}; do
   write-message-correlated $stream_name 1
   write-message-correlated $stream_name 1 $correlation
 done
+echo
 
 metadata_condition="'(metadata->>''correlationStreamName'' like ''$correlation%'')'"
 
