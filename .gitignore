@@ -9,3 +9,4 @@ gems
 loader.rb
 /test/package/installed
 /test/benchmark/tmp/**/*
+_*
