@@ -11,15 +11,15 @@ AS $$
 DECLARE
   _message_id uuid;
   _stream_version bigint;
-  _position bigint;
+  _next_position bigint;
   _category varchar;
-  _stream_name_hash bigint;
+  _category_name_hash bigint;
 BEGIN
   _message_id = uuid(write_message.id);
 
   _category := category(write_message.stream_name);
-  _stream_name_hash := hash_64(_category);
-  PERFORM pg_advisory_xact_lock(_stream_name_hash);
+  _category_name_hash := hash_64(_category);
+  PERFORM pg_advisory_xact_lock(_category_name_hash);
 
   _stream_version := stream_version(write_message.stream_name);
 
@@ -37,7 +37,7 @@ BEGIN
     end if;
   end if;
 
-  _position := _stream_version + 1;
+  _next_position := _stream_version + 1;
 
   insert into messages
     (
@@ -52,14 +52,14 @@ BEGIN
     (
       _message_id,
       write_message.stream_name,
-      _position,
+      _next_position,
       write_message.type,
       write_message.data,
       write_message.metadata
     )
   ;
 
-  if current_setting('message_store.debug_write', true) = 'on' then
+  if current_setting('message_store.debug_write', true) = 'on' OR current_setting('message_store.debug', true) = 'on' then
     RAISE NOTICE 'write_message';
     RAISE NOTICE 'id ($1): %', write_message.id;
     RAISE NOTICE 'stream_name ($2): %', write_message.stream_name;
@@ -68,12 +68,12 @@ BEGIN
     RAISE NOTICE 'metadata ($5): %', write_message.metadata;
     RAISE NOTICE 'expected_version ($6): %', write_message.expected_version;
     RAISE NOTICE '_category: %', _category;
-    RAISE NOTICE '_stream_name_hash: %', _stream_name_hash;
+    RAISE NOTICE '_category_name_hash: %', _category_name_hash;
     RAISE NOTICE '_stream_version: %', _stream_version;
-    RAISE NOTICE '_position: %', _position;
+    RAISE NOTICE '_next_position: %', _next_position;
   end if;
 
-  return _position;
+  return _next_position;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;
