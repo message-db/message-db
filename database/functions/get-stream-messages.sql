@@ -1,15 +1,15 @@
 CREATE OR REPLACE FUNCTION get_stream_messages(
-  _stream_name varchar,
-  _position bigint DEFAULT 0,
-  _batch_size bigint DEFAULT 1000,
-  _condition varchar DEFAULT NULL
+  stream_name varchar,
+  "position" bigint DEFAULT 0,
+  batch_size bigint DEFAULT 1000,
+  condition varchar DEFAULT NULL
 )
 RETURNS SETOF message
 AS $$
 DECLARE
-  command text;
+  _command text;
 BEGIN
-  command := '
+  _command := '
     SELECT
       id::varchar,
       stream_name::varchar,
@@ -25,21 +25,24 @@ BEGIN
       stream_name = $1 AND
       position >= $2';
 
-  if _condition is not null then
-    command := command || ' AND
+  if get_stream_messages.condition is not null then
+    _command := _command || ' AND
       %s';
-    command := format(command, _condition);
+    _command := format(_command, get_stream_messages.condition);
   end if;
 
-  command := command || '
+  _command := _command || '
     ORDER BY
       position ASC
     LIMIT
       $3';
 
-  -- RAISE NOTICE '%', command;
+  -- RAISE NOTICE '%', _command;
 
-  RETURN QUERY EXECUTE command USING _stream_name, _position, _batch_size;
+  RETURN QUERY EXECUTE _command USING
+    get_stream_messages.stream_name,
+    get_stream_messages.position,
+    get_stream_messages.batch_size;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;

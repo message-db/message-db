@@ -2,6 +2,7 @@
 
 set -e
 
+test/category.sh
 test/hash-64.sh
 
 test/write-message.sh
