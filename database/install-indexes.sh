@@ -29,6 +29,9 @@ function create-indexes {
   echo "messages_stream_name_position_uniq_idx"
   psql $database -f $base/indexes/messages-stream-name-position-uniq.sql
 
+  echo "messages_metadata_correlation_idx"
+  psql $database -f $base/indexes/messages-metadata-correlation.sql
+
   echo
 }
 

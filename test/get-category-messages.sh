@@ -17,7 +17,6 @@ echo "Category:"
 echo $category
 echo
 
-echo "Stream Names:"
 for i in {1..3}; do
   stream_name=$(stream-name $category)
   echo $stream_name

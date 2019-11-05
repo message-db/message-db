@@ -2,6 +2,7 @@ CREATE OR REPLACE FUNCTION get_category_messages(
   category_name varchar,
   "position" bigint DEFAULT 0,
   batch_size bigint DEFAULT 1000,
+  correlation varchar DEFAULT NULL,
   condition varchar DEFAULT NULL
 )
 RETURNS SETOF message
@@ -9,6 +10,9 @@ AS $$
 DECLARE
   _command text;
 BEGIN
+  position := COALESCE(position, 0);
+  batch_size := COALESCE(batch_size, 1000);
+
   _command := '
     SELECT
       id::varchar,
@@ -25,6 +29,12 @@ BEGIN
       category(stream_name) = $1 AND
       global_position >= $2';
 
+  if get_category_messages.correlation is not null then
+    _command := _command || ' AND
+      metadata->>''correlationStreamName'' like ''%s%%''';
+    _command := format(_command, get_category_messages.correlation);
+  end if;
+
   if get_category_messages.condition is not null then
     _command := _command || ' AND
       %s';
@@ -37,7 +47,15 @@ BEGIN
     LIMIT
       $3';
 
-  -- RAISE NOTICE '%', _command;
+  if current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' then
+    RAISE NOTICE '* get_category_messages';
+    RAISE NOTICE 'category_name ($1): %', get_category_messages.category_name;
+    RAISE NOTICE 'position ($2): %', get_category_messages.position;
+    RAISE NOTICE 'batch_size ($3): %', get_category_messages.batch_size;
+    RAISE NOTICE 'correlation ($4): %', get_category_messages.correlation;
+    RAISE NOTICE 'condition ($5): %', get_category_messages.condition;
+    RAISE NOTICE 'Generated Command: %', _command;
+  end if;
 
   RETURN QUERY EXECUTE _command USING
     get_category_messages.category_name,
