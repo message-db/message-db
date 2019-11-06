@@ -6,7 +6,7 @@ echo
 echo "GET CATEGORY MESSAGES CORRELATED STREAM NAME ERROR"
 echo "=================================================="
 echo "- Retrieve a messages using a stream name as the correlation value"
-echo "- Ensure that this is reported as an error"
+echo "- Terminates with an error"
 echo
 
 source test/controls.sh
