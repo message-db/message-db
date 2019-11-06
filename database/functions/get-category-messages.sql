@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION get_category_messages(
   category_name varchar,
-  "position" bigint DEFAULT 0,
+  "position" bigint DEFAULT 1,
   batch_size bigint DEFAULT 1000,
   correlation varchar DEFAULT NULL,
   condition varchar DEFAULT NULL
@@ -10,7 +10,7 @@ AS $$
 DECLARE
   _command text;
 BEGIN
-  position := COALESCE(position, 0);
+  position := COALESCE(position, 1);
   batch_size := COALESCE(batch_size, 1000);
 
   _command := '
