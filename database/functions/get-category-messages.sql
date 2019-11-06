@@ -37,8 +37,7 @@ BEGIN
     end if;
 
     _command := _command || ' AND
-      category(metadata->>''correlationStreamName'') = ''%s''';
-    _command := format(_command, get_category_messages.correlation);
+      category(metadata->>''correlationStreamName'') = $4';
   end if;
 
   if get_category_messages.condition is not null then
@@ -66,7 +65,8 @@ BEGIN
   RETURN QUERY EXECUTE _command USING
     get_category_messages.category_name,
     get_category_messages.position,
-    get_category_messages.batch_size;
+    get_category_messages.batch_size,
+    get_category_messages.correlation;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;
