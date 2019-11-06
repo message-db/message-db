@@ -30,8 +30,14 @@ BEGIN
       global_position >= $2';
 
   if get_category_messages.correlation is not null then
+    if position('-' in get_category_messages.correlation) > 0 then
+      RAISE EXCEPTION
+       'Correlation must be a category (Correlation: %)',
+        get_category_messages.correlation;
+    end if;
+
     _command := _command || ' AND
-      metadata->>''correlationStreamName'' like ''%s%%''';
+      category(metadata->>''correlationStreamName'') = ''%s''';
     _command := format(_command, get_category_messages.correlation);
   end if;
 
