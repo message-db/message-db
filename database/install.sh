@@ -5,18 +5,14 @@ set -e
 echo
 echo "Installing Database"
 echo "= = ="
-echo
 
-default_name=message_store
 if [ -z ${DATABASE_NAME+x} ]; then
-  echo "(DATABASE_NAME is not set. Default will be used.)"
-  database=$default_name
+  database=message_store
+  echo "DATABASE_NAME is not set. Using: $database."
+  export DATABASE_NAME=$database
 else
   database=$DATABASE_NAME
 fi
-echo "Database name is: $database"
-
-echo
 
 function script_dir {
   val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -25,48 +21,55 @@ function script_dir {
 
 function create-user {
   base=$(script_dir)
-  psql -f $base/access-control/role.sql
-  echo
+
+  echo "» message_store role"
+  psql -q -f $base/roles/message-store.sql
 }
 
 function create-database {
+  echo "» $database database"
   createdb $database
-  echo
 }
 
 function create-extensions {
   base=$(script_dir)
-  psql $database -f $base/extension/pgcrypto.sql
-  echo
+
+  echo "» pgcrypto extension"
+  psql $database -q -f $base/extensions/pgcrypto.sql
 }
 
 function create-table {
   base=$(script_dir)
-  psql $database -f $base/table/messages.sql
-  echo
+
+  echo "» messages table"
+  psql $database -q -f $base/tables/messages.sql
 }
 
 base=$(script_dir)
 
+export PGOPTIONS='-c client_min_messages=warning'
+
 echo
-echo "Creating User: message_store"
+
+echo "Creating User"
 echo "- - -"
 create-user
-
 echo
-echo "Creating Database: $database"
+
+echo "Creating Database"
 echo "- - -"
 create-database
-
 echo
+
 echo "Creating Extensions"
 echo "- - -"
 create-extensions
-
 echo
+
 echo "Creating Table"
 echo "- - -"
 create-table
+echo
 
 # Install functions
 source $base/install-functions.sh
@@ -79,3 +82,5 @@ source $base/install-views.sh
 
 # Install privileges
 source $base/install-privileges.sh
+
+echo

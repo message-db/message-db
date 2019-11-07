@@ -5,33 +5,35 @@ set -e
 echo
 echo "Uninstalling Database"
 echo "= = ="
-echo
 
 if [ -z ${DATABASE_NAME+x} ]; then
-  echo "(DATABASE_NAME is not set. Default will be used.)"
   database=message_store
+  echo "DATABASE_NAME is not set. Using: $database."
 else
   database=$DATABASE_NAME
 fi
-echo "Database name is: $database"
 echo
 
 function delete-user {
-  psql -P pager=off -c "DROP ROLE IF EXISTS message_store;"
-  echo
+  echo "» message_store user"
+  psql -P pager=off -q -c "DROP OWNED BY message_store;"
+  psql -P pager=off -q -c "DROP ROLE IF EXISTS message_store;"
 }
 
 function delete-database {
-  psql -P pager=off -c "DROP DATABASE IF EXISTS $database;"
-  echo
+  echo "» $database database"
+  psql -P pager=off -q -c "DROP DATABASE IF EXISTS $database;"
 }
 
-echo
-echo "Deleting database \"$database\"..."
+export PGOPTIONS='-c client_min_messages=warning'
+
+echo "Deleting database"
 echo "- - -"
 delete-database
-
 echo
-echo "Deleting database user \"$user\"..."
+
+echo "Deleting database user"
 echo "- - -"
 delete-user
+
+echo
