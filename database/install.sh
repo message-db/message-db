@@ -25,7 +25,7 @@ function script_dir {
 
 function create-user {
   base=$(script_dir)
-  psql -f $base/user/role.sql
+  psql -f $base/access-control/role.sql
   echo
 }
 

@@ -19,7 +19,7 @@ function script_dir {
 
 function grant-privileges {
   base=$(script_dir)
-  psql $database -f $base/user/privileges.sql
+  psql $database -f $base/access-control/privileges.sql
   echo
 }
 
