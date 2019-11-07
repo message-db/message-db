@@ -29,7 +29,7 @@ BEGIN
 
   if write_message.expected_version is not null then
     if write_message.expected_version != _stream_version then
-      raise exception
+      RAISE EXCEPTION
         'Wrong expected version: % (Stream: %, Stream Version: %)',
         write_message.expected_version,
         write_message.stream_name,
@@ -39,7 +39,7 @@ BEGIN
 
   _next_position := _stream_version + 1;
 
-  insert into messages
+  INSERT INTO messages
     (
       id,
       stream_name,
@@ -48,7 +48,7 @@ BEGIN
       data,
       metadata
     )
-  values
+  VALUES
     (
       _message_id,
       write_message.stream_name,
