@@ -29,17 +29,29 @@ function delete-indexes {
   psql $database -q -c "DROP INDEX CONCURRENTLY IF EXISTS messages_category_global_position_idx";
 }
 
+function create-indexes {
+  base=$(script_dir)
+
+  echo "» messages_stream_name_position_correlation_uniq_idx index"
+  psql $database -q -f $base/indexes/messages-stream-name-position-correlation-uniq.sql
+
+  echo "» messages_category_global_position_correlation_idx index"
+  psql $database -q -f $base/indexes/messages-category-global-position-correlation.sql
+}
+
 base=$(script_dir)
 
 export PGOPTIONS='-c client_min_messages=warning'
+
+# Install functions
+source $base/install-functions.sh
 
 echo "Deleting Indexes"
 echo "- - -"
 delete-indexes
 echo
 
-# Install functions
-source $base/install-functions.sh
-
-# Install indexes
-source $base/install-indexes.sh
+echo "Creating Indexes"
+echo "- - -"
+create-indexes
+echo
