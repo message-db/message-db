@@ -27,7 +27,7 @@ if [ -z ${CATEGORY+x} ]; then
   category=''
 else
   category=$CATEGORY
-  echo "Stream name is: $CATEGORY"
+  echo "Category is: $CATEGORY"
 fi
 
 echo
