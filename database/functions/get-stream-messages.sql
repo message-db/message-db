@@ -53,7 +53,7 @@ BEGIN
       $3';
 
   if current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' then
-    RAISE NOTICE '* get_stream_messages';
+    RAISE NOTICE '» get_stream_messages';
     RAISE NOTICE 'stream_name ($1): %', get_stream_messages.stream_name;
     RAISE NOTICE 'position ($2): %', get_stream_messages.position;
     RAISE NOTICE 'batch_size ($3): %', get_stream_messages.batch_size;

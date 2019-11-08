@@ -60,7 +60,7 @@ BEGIN
   ;
 
   if current_setting('message_store.debug_write', true) = 'on' OR current_setting('message_store.debug', true) = 'on' then
-    RAISE NOTICE '* write_message';
+    RAISE NOTICE '» write_message';
     RAISE NOTICE 'id ($1): %', write_message.id;
     RAISE NOTICE 'stream_name ($2): %', write_message.stream_name;
     RAISE NOTICE 'type ($3): %', write_message.type;

@@ -26,7 +26,7 @@ BEGIN
       1';
 
   if current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' then
-    RAISE NOTICE '* get_last_message';
+    RAISE NOTICE '» get_last_message';
     RAISE NOTICE 'stream_name ($1): %', get_last_message.stream_name;
     RAISE NOTICE 'Generated Command: %', _command;
   end if;
