@@ -14,6 +14,10 @@ else
   database=$DATABASE_NAME
 fi
 
+if [ -z ${PGOPTIONS+x} ]; then
+  export PGOPTIONS='-c client_min_messages=warning'
+fi
+
 function script_dir {
   val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   echo "$val"
@@ -46,8 +50,6 @@ function create-table {
 }
 
 base=$(script_dir)
-
-export PGOPTIONS='-c client_min_messages=warning'
 
 echo
 

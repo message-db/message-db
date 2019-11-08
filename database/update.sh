@@ -13,8 +13,11 @@ if [ -z ${DATABASE_NAME+x} ]; then
 else
   database=$DATABASE_NAME
 fi
-
 echo
+
+if [ -z ${PGOPTIONS+x} ]; then
+  export PGOPTIONS='-c client_min_messages=warning'
+fi
 
 function script_dir {
   val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -40,8 +43,6 @@ function create-indexes {
 }
 
 base=$(script_dir)
-
-export PGOPTIONS='-c client_min_messages=warning'
 
 # Install functions
 source $base/install-functions.sh

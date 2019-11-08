@@ -14,6 +14,10 @@ else
 fi
 echo
 
+if [ -z ${PGOPTIONS+x} ]; then
+  export PGOPTIONS='-c client_min_messages=warning'
+fi
+
 function delete-user {
   echo "» message_store user"
   psql -P pager=off -q -c "DROP OWNED BY message_store;"
@@ -24,8 +28,6 @@ function delete-database {
   echo "» $database database"
   psql -P pager=off -q -c "DROP DATABASE IF EXISTS $database;"
 }
-
-export PGOPTIONS='-c client_min_messages=warning'
 
 echo "Deleting database"
 echo "- - -"
