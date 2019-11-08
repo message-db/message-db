@@ -26,19 +26,9 @@ echo "Benchmark $cycles cycles (Stream Name: $stream_name)"
 echo "= = ="
 echo
 
-default_name=message_store
-
-if [ -z ${DATABASE_USER+x} ]; then
-  echo "(DATABASE_USER is not set)"
-  user=$default_name
-else
-  user=$DATABASE_USER
-fi
-echo "Database user is: $user"
-
 if [ -z ${DATABASE_NAME+x} ]; then
   echo "(DATABASE_NAME is not set)"
-  database=$default_name
+  database=message_store
 else
   database=$DATABASE_NAME
 fi
@@ -48,8 +38,8 @@ echo
 echo "Installing benchmark scripts"
 echo
 
-psql $database -f $base/benchmark_write.sql
-psql $database -f $base/benchmark_get.sql
+psql $database -q -f $base/benchmark_write.sql
+psql $database -q -f $base/benchmark_get.sql
 
 echo
 echo "Benchmarking write"
@@ -59,7 +49,6 @@ echo
 psql $database -c "EXPLAIN ANALYZE SELECT benchmark_write('$stream_name'::varchar, $cycles::int);"
 
 echo
-
 
 echo
 echo "Benchmarking get"
