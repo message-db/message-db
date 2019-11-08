@@ -23,7 +23,7 @@ function create-views {
   echo "» type_summary view"
   psql $database -q -f $base/views/type-summary.sql
 
-  echo "» type_stream_summary view"
+  echo "» stream_type_summary view"
   psql $database -q -f $base/views/stream-type-summary.sql
 
   echo "» type_stream_summary view"
