@@ -64,3 +64,4 @@ echo
 echo "Creating Functions"
 echo "- - -"
 create-functions
+echo

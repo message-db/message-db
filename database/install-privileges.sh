@@ -30,7 +30,7 @@ function grant-privileges {
   psql $database -q -f $base/privileges/views.sql
 }
 
-echo
 echo "Granting Privileges"
 echo "- - -"
 grant-privileges
+echo

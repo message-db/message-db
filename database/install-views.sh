@@ -36,7 +36,7 @@ function create-views {
   psql $database -q -f $base/views/type-category-summary.sql
 }
 
-echo
 echo "Creating Views"
 echo "- - -"
 create-views
+echo

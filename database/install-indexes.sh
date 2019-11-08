@@ -27,7 +27,7 @@ function create-indexes {
   psql $database -q -f $base/indexes/messages-stream-name-position-correlation-uniq.sql
 }
 
-echo
 echo "Creating Indexes"
 echo "- - -"
 create-indexes
+echo
