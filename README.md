@@ -49,7 +49,7 @@ write_message(
 ### Usage
 
 ``` sql
-SELECT write_message('uuid'::varchar, 'stream_name'::varchar, 'message_type'::varchar, '{"messageAttribute": "some value"}'::jsonb, '{"metaDataAttribute": "some meta data value"}'::jsonb);"
+SELECT write_message('someUUID'::varchar, 'someStream-123'::varchar, 'SomeMessageType'::varchar, '{"messageAttribute": "some value"}'::jsonb, '{"metaDataAttribute": "some meta data value"}'::jsonb);"
 ```
 
 Example: [https://github.com/eventide-project/postgres-message-store/blob/master/database/write-test-message.sh](https://github.com/eventide-project/postgres-message-store/blob/master/database/write-test-message.sh)
@@ -57,7 +57,7 @@ Example: [https://github.com/eventide-project/postgres-message-store/blob/master
 ### Specifying the Expected Version of the Stream
 
 ``` sql
-SELECT write_message('uuid'::varchar, 'stream_name'::varchar, 'message_type'::varchar, '{"messageAttribute": "some value"}'::jsonb, '{"metaDataAttribute": "some meta data value"}'::jsonb, expected_version::bigint);"
+SELECT write_message('uuid'::varchar, 'someStream-123'::varchar, 'SomeMessageType'::varchar, '{"messageAttribute": "some value"}'::jsonb, '{"metaDataAttribute": "some meta data value"}'::jsonb, expected_version::bigint);"
 ```
 
 NOTE: If the expected version does not match the stream version at the time of the write, an error is raised of the form:
@@ -97,7 +97,7 @@ get_stream_messages(
 ### Usage
 
 ``` sql
-SELECT * FROM get_stream_messages('stream_name'::varchar, starting_position::bigint, batch_size::bigint, correlation => 'someCateogry'::varchar, condition => 'messages.time >= current_time'::varchar);"
+SELECT * FROM get_stream_messages('someStream-123'::varchar, starting_position::bigint, batch_size::bigint, correlation => 'someCateogry'::varchar, condition => 'messages.time >= current_time'::varchar);"
 ```
 
 Example: [https://github.com/eventide-project/postgres-message-store/blob/master/test/get-stream-messages.sh](https://github.com/eventide-project/postgres-message-store/blob/master/test/get-stream-messages.sh)
@@ -129,11 +129,11 @@ CREATE OR REPLACE FUNCTION get_category_messages(
 ### Usage
 
 ``` sql
-SELECT * FROM get_category_messages('cateogry_name'::varchar, starting_position::bigint, batch_size::bigint, correlation => 'someCateogry'::varchar, condition => 'messages.time >= current_time'::varchar);"
+SELECT * FROM get_category_messages('someStream'::varchar, starting_position::bigint, batch_size::bigint, correlation => 'someCateogry'::varchar, condition => 'messages.time >= current_time'::varchar);"
 ```
 
 ::: tip
-Where `someThing-123` is a _stream name_, `someThing` is a _category_. Reading the `someThing` category retrieves messages from all streams whose names start with `someThing-`.
+Where `someStream-123` is a _stream name_, `someStream` is a _category_. Reading the `someStream` category retrieves messages from all streams whose names start with `someStream-`.
 :::
 
 Example: [https://github.com/eventide-project/postgres-message-store/blob/master/test/get-category-messages.sh](https://github.com/eventide-project/postgres-message-store/blob/master/test/get-category-messages.sh)
@@ -157,7 +157,7 @@ get_last_message(
 ### Usage
 
 ``` sql
-SELECT * FROM get_last_message('stream_name'::varchar)
+SELECT * FROM get_last_message('someStream'::varchar)
 ```
 
 Note: This is only for entity streams, and does not work for categories.
