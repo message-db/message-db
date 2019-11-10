@@ -12,7 +12,6 @@ A fully-featured event store and message store implemented entirely in PostgreSQ
 - Stream categories
 - Consumer groups
 - Optimistic concurrency
-- Single messages table
 - Administration tools
 - Reports
 
