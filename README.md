@@ -16,6 +16,28 @@ A fully-featured event store and message store implemented entirely in PostgreSQ
 - Administration tools
 - Reports
 
+## Installation
+
+The Postgres Message Store can be installed either as a Ruby Gem, an NPM package or can simply be cloned from this repository.
+
+### As a Ruby Gem
+
+``` bash
+gem install evt-message_store-postgres-database
+```
+
+### As an NPM Module
+
+``` bash
+npm install @eventide/postgres-message-store
+```
+
+### Git Clone
+
+``` bash
+git clone git@github.com:eventide-project/postgres-message-store.git
+```
+
 ## Server Functions
 
 The message store provides an interface of Postgres server functions that you can be used with any programming language or through the `psql` command line tool.
