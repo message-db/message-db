@@ -3,8 +3,8 @@
 set -e
 
 echo
-echo "GET STREAM MESSAGES CORRELATED STREAM NAME ERROR"
-echo "================================================"
+echo "GET STREAM MESSAGES - CORRELATED STREAM NAME ERROR"
+echo "=================================================="
 echo "- Retrieve a messages using a stream name as the correlation value"
 echo "- Terminates with an error"
 echo

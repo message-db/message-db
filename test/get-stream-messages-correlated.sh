@@ -3,8 +3,8 @@
 set -e
 
 echo
-echo "GET STREAM MESSAGES CORRELATED"
-echo "=============================="
+echo "GET STREAM MESSAGES - CORRELATED"
+echo "================================"
 echo "- Write 3 messages to an entity stream"
 echo "- Retrieve a batch of 2 messages from the stream, starting at position 0 and matching the correlation category"
 echo

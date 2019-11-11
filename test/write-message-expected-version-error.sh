@@ -3,8 +3,8 @@
 set -e
 
 echo
-echo "WRITE MESSAGE EXPECTED VERSION ERROR"
-echo "===================================="
+echo "WRITE MESSAGE - EXPECTED VERSION ERROR"
+echo "======================================"
 echo "- Write a single message to an entity stream"
 echo "- Write another message with the expected version of 1 that does not match a stream with one message"
 echo "- Terminates with an error"
