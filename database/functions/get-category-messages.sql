@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION get_category_messages(
-  category_name varchar,
+  category varchar,
   "position" bigint DEFAULT 1,
   batch_size bigint DEFAULT 1000,
   correlation varchar DEFAULT NULL,
@@ -13,10 +13,10 @@ DECLARE
 DECLARE
   _command text;
 BEGIN
-  IF position('-' IN get_category_messages.category_name) > 0 THEN
+  IF position('-' IN get_category_messages.category) > 0 THEN
     RAISE EXCEPTION
       'Must be a category: %',
-      get_category_messages.category_name;
+      get_category_messages.category;
   END IF;
 
   position := COALESCE(position, 1);
@@ -102,19 +102,19 @@ BEGIN
 
   IF current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' THEN
     RAISE NOTICE '» get_category_messages';
-    RAISE NOTICE 'category_name ($1): %', get_category_messages.category_name;
+    RAISE NOTICE 'category ($1): %', get_category_messages.category;
     RAISE NOTICE 'position ($2): %', get_category_messages.position;
     RAISE NOTICE 'batch_size ($3): %', get_category_messages.batch_size;
     RAISE NOTICE 'correlation ($4): %', get_category_messages.correlation;
     RAISE NOTICE 'consumer_group_member ($5): %', get_category_messages.consumer_group_member;
     RAISE NOTICE 'consumer_group_size ($6): %', get_category_messages.consumer_group_size;
-    RAISE NOTICE 'hash_64(category): %', hash_64(get_category_messages.category_name);
+    RAISE NOTICE 'hash_64(category): %', hash_64(get_category_messages.category);
     RAISE NOTICE 'condition: %', get_category_messages.condition;
     RAISE NOTICE 'Generated Command: %', _command;
   END IF;
 
   RETURN QUERY EXECUTE _command USING
-    get_category_messages.category_name,
+    get_category_messages.category,
     get_category_messages.position,
     get_category_messages.batch_size,
     get_category_messages.correlation,
