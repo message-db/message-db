@@ -30,7 +30,7 @@ BEGIN
       position >= $2';
 
   IF get_stream_messages.correlation IS NOT NULL THEN
-    if position('-' in get_stream_messages.correlation) > 0 THEN
+    IF position('-' IN get_stream_messages.correlation) > 0 THEN
       RAISE EXCEPTION
        'Correlation must be a category (Correlation: %)',
         get_stream_messages.correlation;
