@@ -11,11 +11,6 @@ echo
 
 source test/controls.sh
 
-category=$(category)
-echo "Category:"
-echo $category
-echo
-
 cmd="SELECT * FROM get_category_messages('someCategory', consumer_group_size => 1);"
 
 echo "Command:"

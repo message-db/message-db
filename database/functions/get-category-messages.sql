@@ -35,7 +35,7 @@ BEGIN
   if get_category_messages.correlation is not null then
     if position('-' in get_category_messages.correlation) > 0 then
       RAISE EXCEPTION
-       'Correlation must be a category (Correlation: %)',
+        'Correlation must be a category (Correlation: %)',
         get_category_messages.correlation;
     end if;
 
@@ -47,19 +47,43 @@ BEGIN
       get_category_messages.consumer_group_size IS NULL) OR
       (get_category_messages.consumer_group_member IS NULL AND
       get_category_messages.consumer_group_size IS NOT NULL) THEN
+
     RAISE EXCEPTION
-     'Consumer group member and size must be specified (Consumer Group Member: %, Consumer Group Size: %)',
+      'Consumer group member and size must be specified (Consumer Group Member: %, Consumer Group Size: %)',
       get_category_messages.consumer_group_member,
       get_category_messages.consumer_group_size;
   END IF;
 
+
+-- if group_size < 1
+--   raise Error, "#{error_message} Group size must not be less than 1. (Group Member: #{group_member.inspect}, Group Size: #{group_size.inspect})"
+-- end
+
+-- if group_member < 0
+--   raise Error, "#{error_message} Group member must not be less than 0. (Group Member: #{group_member.inspect}, Group Size: #{group_size.inspect})"
+-- end
+
+-- if group_member >= group_size
+--   raise Error, "#{error_message} Group member must be at least one less than group size. (Group Member: #{group_member.inspect}, Group Size: #{group_size.inspect})"
+-- end
+
+
+
+
   IF get_category_messages.consumer_group_member IS NOT NULL AND
       get_category_messages.consumer_group_size IS NOT NULL THEN
+
+    IF get_category_messages.consumer_group_size < 1 THEN
+      RAISE EXCEPTION
+        'Consumer group size must not be less than 1 (Consumer Group Member: %, Consumer Group Size: %)',
+        get_category_messages.consumer_group_member,
+        get_category_messages.consumer_group_size;
+    END IF;
 
     _command := _command || ' AND
       @hash_64(stream_name) % $6 = $5';
   END IF;
-s
+
   if get_category_messages.condition is not null then
     _command := _command || ' AND
       %s';
