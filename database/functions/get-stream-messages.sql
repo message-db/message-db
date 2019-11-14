@@ -10,6 +10,12 @@ AS $$
 DECLARE
   _command text;
 BEGIN
+  IF position('-' IN get_stream_messages.stream_name) = 0 THEN
+    RAISE EXCEPTION
+      'Must be a stream name: %',
+      get_stream_messages.stream_name;
+  END IF;
+
   position := COALESCE(position, 0);
   batch_size := COALESCE(batch_size, 1000);
 
