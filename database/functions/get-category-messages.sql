@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION get_category_messages(
   consumer_group_size bigint DEFAULT NULL,
   condition varchar DEFAULT NULL
 )
-RETURNS SETOF category_message
+RETURNS SETOF message
 AS $$
 DECLARE
 DECLARE
@@ -25,9 +25,7 @@ BEGIN
       global_position::bigint,
       data::varchar,
       metadata::varchar,
-      time::timestamp,
-      hash_64(stream_name)::bigint AS stream_name_hash,
-      (hash_64(stream_name) % $6)::bigint AS stream_name_modulo
+      time::timestamp
     FROM
       messages
     WHERE
