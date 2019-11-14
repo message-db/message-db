@@ -3,10 +3,13 @@ CREATE OR REPLACE FUNCTION get_category_messages(
   "position" bigint DEFAULT 1,
   batch_size bigint DEFAULT 1000,
   correlation varchar DEFAULT NULL,
+  consumer_group_member bigint DEFAULT NULL,
+  consumer_group_size bigint DEFAULT NULL,
   condition varchar DEFAULT NULL
 )
-RETURNS SETOF message
+RETURNS SETOF category_message
 AS $$
+DECLARE
 DECLARE
   _command text;
 BEGIN
@@ -22,7 +25,9 @@ BEGIN
       global_position::bigint,
       data::varchar,
       metadata::varchar,
-      time::timestamp
+      time::timestamp,
+      hash_64(stream_name)::bigint AS stream_name_hash,
+      (hash_64(stream_name) % $6)::bigint AS stream_name_modulo
     FROM
       messages
     WHERE
@@ -39,6 +44,17 @@ BEGIN
     _command := _command || ' AND
       category(metadata->>''correlationStreamName'') = $4';
   end if;
+
+
+
+  IF get_category_messages.consumer_group_member IS NOT NULL AND
+      get_category_messages.consumer_group_size IS NOT NULL THEN
+
+    _command := _command || ' AND
+      @hash_64(stream_name) % $6 = $5';
+  END IF;
+
+
 
   if get_category_messages.condition is not null then
     _command := _command || ' AND
@@ -58,7 +74,10 @@ BEGIN
     RAISE NOTICE 'position ($2): %', get_category_messages.position;
     RAISE NOTICE 'batch_size ($3): %', get_category_messages.batch_size;
     RAISE NOTICE 'correlation ($4): %', get_category_messages.correlation;
-    RAISE NOTICE 'condition ($5): %', get_category_messages.condition;
+    RAISE NOTICE 'consumer_group_member ($5): %', get_category_messages.consumer_group_member;
+    RAISE NOTICE 'consumer_group_size ($6): %', get_category_messages.consumer_group_size;
+    RAISE NOTICE 'hash_64(category): %', hash_64(get_category_messages.category_name);
+    RAISE NOTICE 'condition: %', get_category_messages.condition;
     RAISE NOTICE 'Generated Command: %', _command;
   end if;
 
@@ -66,7 +85,9 @@ BEGIN
     get_category_messages.category_name,
     get_category_messages.position,
     get_category_messages.batch_size,
-    get_category_messages.correlation;
+    get_category_messages.correlation,
+    get_category_messages.consumer_group_member,
+    get_category_messages.consumer_group_size;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;

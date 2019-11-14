@@ -19,6 +19,9 @@ function create-types {
 
   echo "» message type"
   psql $database -q -f $base/types/message.sql
+
+  echo "» category_message type"
+  psql $database -q -f $base/types/category_message.sql
 }
 
 function create-functions {
