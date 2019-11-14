@@ -6,14 +6,14 @@ AS $$
 DECLARE
   _stream_version bigint;
 BEGIN
-  select
+  SELECT
     max(position) into _stream_version
-  from
+  FROM
     messages
-  where
+  WHERE
     messages.stream_name = stream_version.stream_name;
 
-  return _stream_version;
+  RETURN _stream_version;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;

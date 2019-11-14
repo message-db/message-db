@@ -23,19 +23,19 @@ BEGIN
 
   _stream_version := stream_version(write_message.stream_name);
 
-  if _stream_version is null then
+  IF _stream_version IS NULL THEN
     _stream_version := -1;
-  end if;
+  END IF;
 
-  if write_message.expected_version is not null then
-    if write_message.expected_version != _stream_version then
+  IF write_message.expected_version IS NOT NULL THEN
+    IF write_message.expected_version != _stream_version THEN
       RAISE EXCEPTION
         'Wrong expected version: % (Stream: %, Stream Version: %)',
         write_message.expected_version,
         write_message.stream_name,
         _stream_version;
-    end if;
-  end if;
+    END IF;
+  END IF;
 
   _next_position := _stream_version + 1;
 
@@ -59,7 +59,7 @@ BEGIN
     )
   ;
 
-  if current_setting('message_store.debug_write', true) = 'on' OR current_setting('message_store.debug', true) = 'on' then
+  IF current_setting('message_store.debug_write', true) = 'on' OR current_setting('message_store.debug', true) = 'on' THEN
     RAISE NOTICE '» write_message';
     RAISE NOTICE 'id ($1): %', write_message.id;
     RAISE NOTICE 'stream_name ($2): %', write_message.stream_name;
@@ -71,9 +71,9 @@ BEGIN
     RAISE NOTICE '_category_name_hash: %', _category_name_hash;
     RAISE NOTICE '_stream_version: %', _stream_version;
     RAISE NOTICE '_next_position: %', _next_position;
-  end if;
+  END IF;
 
-  return _next_position;
+  RETURN _next_position;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;

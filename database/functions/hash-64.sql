@@ -6,7 +6,7 @@ AS $$
 DECLARE
   _hash bigint;
 BEGIN
-  select left('x' || md5(hash_64.stream_name), 17)::bit(64)::bigint into _hash;
+  SELECT left('x' || md5(hash_64.stream_name), 17)::bit(64)::bigint INTO _hash;
   return _hash;
 END;
 $$ LANGUAGE plpgsql
