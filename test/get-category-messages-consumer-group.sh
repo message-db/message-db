@@ -26,7 +26,7 @@ done
 echo
 
 
-cmd="SELECT * FROM get_category_messages('$category', consumer_group_size => 2);"
+cmd="SELECT * FROM get_category_messages('$category');"
 cmd_0="SELECT * FROM get_category_messages('$category', consumer_group_member => 0, consumer_group_size => 2);"
 cmd_1="SELECT * FROM get_category_messages('$category', consumer_group_member => 1, consumer_group_size => 2);"
 
@@ -49,7 +49,7 @@ echo
 psql message_store -U message_store -P pager=off -x -c "$cmd_1"
 
 
-cmd_count="SELECT COUNT(*) AS total FROM get_category_messages('$category', consumer_group_size => 2);"
+cmd_count="SELECT COUNT(*) AS total FROM get_category_messages('$category');"
 cmd_count_0="SELECT COUNT(*) AS modulo_0 FROM get_category_messages('$category', consumer_group_member => 0, consumer_group_size => 2);"
 cmd_count_1="SELECT COUNT(*) AS modulo_1 FROM get_category_messages('$category', consumer_group_member => 1, consumer_group_size => 2);"
 
