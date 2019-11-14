@@ -54,15 +54,6 @@ BEGIN
       get_category_messages.consumer_group_size;
   END IF;
 
-
-
--- if group_member >= group_size
---   raise Error, "#{error_message} Group member must be at least one less than group size. (Group Member: #{group_member.inspect}, Group Size: #{group_size.inspect})"
--- end
-
-
-
-
   IF get_category_messages.consumer_group_member IS NOT NULL AND
       get_category_messages.consumer_group_size IS NOT NULL THEN
 
@@ -80,6 +71,12 @@ BEGIN
         get_category_messages.consumer_group_size;
     END IF;
 
+    IF get_category_messages.consumer_group_member >= get_category_messages.consumer_group_size THEN
+      RAISE EXCEPTION
+        'Consumer group member must be less than the group size (Consumer Group Member: %, Consumer Group Size: %)',
+        get_category_messages.consumer_group_member,
+        get_category_messages.consumer_group_size;
+    END IF;
 
     _command := _command || ' AND
       @hash_64(stream_name) % $6 = $5';
