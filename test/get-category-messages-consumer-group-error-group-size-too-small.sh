@@ -5,7 +5,7 @@ set -e
 echo
 echo "GET CATEGORY MESSAGES - CONSUMER GROUP - ERROR - GROUP SIZE TOO SMALL"
 echo "====================================================================="
-echo "- Retrieve a batch of messages from the category with a group size that is too small"
+echo "- Retrieve a batch of messages from the category with a consumer group size that is too small"
 echo "- Terminates with an error"
 echo
 

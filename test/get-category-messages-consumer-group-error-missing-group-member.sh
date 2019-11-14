@@ -5,7 +5,7 @@ set -e
 echo
 echo "GET CATEGORY MESSAGES - CONSUMER GROUP - ERROR - MISSING GROUP MEMBER"
 echo "====================================================================="
-echo "- Retrieve a batch of messages from the category, omitting the group member argument"
+echo "- Retrieve a batch of messages from the category, omitting the consumer group member argument"
 echo "- Terminates with an error"
 echo
 
