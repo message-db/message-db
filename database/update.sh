@@ -38,8 +38,8 @@ function create-indexes {
   echo "» messages_stream_name_position_correlation_uniq_idx index"
   psql $database -q -f $base/indexes/messages-stream-name-position-correlation-uniq.sql
 
-  echo "» messages_category_global_position_correlation_idx index"
-  psql $database -q -f $base/indexes/messages-category-global-position-correlation.sql
+  echo "» messages_category_global_position_correlation_stream_name_hash_idx index"
+  psql $database -q -f $base/indexes/messages_category_global_position_correlation_stream_name_hash_idx.sql
 }
 
 base=$(script_dir)
