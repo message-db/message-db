@@ -43,7 +43,15 @@ BEGIN
       category(metadata->>''correlationStreamName'') = $4';
   end if;
 
-
+  IF (get_category_messages.consumer_group_member IS NOT NULL AND
+      get_category_messages.consumer_group_size IS NULL) OR
+      (get_category_messages.consumer_group_member IS NULL AND
+      get_category_messages.consumer_group_size IS NOT NULL) THEN
+    RAISE EXCEPTION
+     'Consumer group member and size must be specified (Consumer Group Member: %, Consumer Group Size: %)',
+      get_category_messages.consumer_group_member,
+      get_category_messages.consumer_group_size;
+  END IF;
 
   IF get_category_messages.consumer_group_member IS NOT NULL AND
       get_category_messages.consumer_group_size IS NOT NULL THEN
@@ -51,9 +59,7 @@ BEGIN
     _command := _command || ' AND
       @hash_64(stream_name) % $6 = $5';
   END IF;
-
-
-
+s
   if get_category_messages.condition is not null then
     _command := _command || ' AND
       %s';
