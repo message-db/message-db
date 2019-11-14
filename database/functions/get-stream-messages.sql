@@ -29,22 +29,22 @@ BEGIN
       stream_name = $1 AND
       position >= $2';
 
-  if get_stream_messages.correlation is not null then
-    if position('-' in get_stream_messages.correlation) > 0 then
+  IF get_stream_messages.correlation IS NOT NULL THEN
+    if position('-' in get_stream_messages.correlation) > 0 THEN
       RAISE EXCEPTION
        'Correlation must be a category (Correlation: %)',
         get_stream_messages.correlation;
-    end if;
+    END IF;
 
     _command := _command || ' AND
       category(metadata->>''correlationStreamName'') = $4';
-  end if;
+  END IF;
 
-  if get_stream_messages.condition is not null then
+  IF get_stream_messages.condition IS NOT NULL THEN
     _command := _command || ' AND
       %s';
     _command := format(_command, get_stream_messages.condition);
-  end if;
+  END IF;
 
   _command := _command || '
     ORDER BY
@@ -52,7 +52,7 @@ BEGIN
     LIMIT
       $3';
 
-  if current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' then
+  IF current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' THEN
     RAISE NOTICE '» get_stream_messages';
     RAISE NOTICE 'stream_name ($1): %', get_stream_messages.stream_name;
     RAISE NOTICE 'position ($2): %', get_stream_messages.position;

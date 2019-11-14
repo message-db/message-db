@@ -32,16 +32,16 @@ BEGIN
       category(stream_name) = $1 AND
       global_position >= $2';
 
-  if get_category_messages.correlation is not null then
-    if position('-' in get_category_messages.correlation) > 0 then
+  IF get_category_messages.correlation IS NOT NULL THEN
+    if position('-' in get_category_messages.correlation) > 0 THEN
       RAISE EXCEPTION
         'Correlation must be a category (Correlation: %)',
         get_category_messages.correlation;
-    end if;
+    END IF;
 
     _command := _command || ' AND
       category(metadata->>''correlationStreamName'') = $4';
-  end if;
+  END IF;
 
   IF (get_category_messages.consumer_group_member IS NOT NULL AND
       get_category_messages.consumer_group_size IS NULL) OR
@@ -82,11 +82,11 @@ BEGIN
       @hash_64(stream_name) % $6 = $5';
   END IF;
 
-  if get_category_messages.condition is not null then
+  IF get_category_messages.condition IS NOT NULL THEN
     _command := _command || ' AND
       %s';
     _command := format(_command, get_category_messages.condition);
-  end if;
+  END IF;
 
   _command := _command || '
     ORDER BY
@@ -94,7 +94,7 @@ BEGIN
     LIMIT
       $3';
 
-  if current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' then
+  IF current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' THEN
     RAISE NOTICE '» get_category_messages';
     RAISE NOTICE 'category_name ($1): %', get_category_messages.category_name;
     RAISE NOTICE 'position ($2): %', get_category_messages.position;
@@ -105,7 +105,7 @@ BEGIN
     RAISE NOTICE 'hash_64(category): %', hash_64(get_category_messages.category_name);
     RAISE NOTICE 'condition: %', get_category_messages.condition;
     RAISE NOTICE 'Generated Command: %', _command;
-  end if;
+  END IF;
 
   RETURN QUERY EXECUTE _command USING
     get_category_messages.category_name,
