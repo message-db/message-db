@@ -33,7 +33,7 @@ BEGIN
       global_position >= $2';
 
   IF get_category_messages.correlation IS NOT NULL THEN
-    if position('-' in get_category_messages.correlation) > 0 THEN
+    IF position('-' in get_category_messages.correlation) > 0 THEN
       RAISE EXCEPTION
         'Correlation must be a category (Correlation: %)',
         get_category_messages.correlation;
