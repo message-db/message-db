@@ -10,7 +10,6 @@ CREATE OR REPLACE FUNCTION get_category_messages(
 RETURNS SETOF message
 AS $$
 DECLARE
-DECLARE
   _command text;
 BEGIN
   IF position('-' IN get_category_messages.category) > 0 THEN
