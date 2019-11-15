@@ -24,7 +24,7 @@ function create-indexes {
   psql $database -q -f $base/indexes/messages-stream-name-position-correlation-uniq.sql
 
   echo "» messages_category_global_position_correlation_idx index"
-  psql $database -q -f $base/indexes/messages_category_global_position_correlation_stream_name_hash_idx.sql
+  psql $database -q -f $base/indexes/messages_category_global_position_correlation_idx.sql
 }
 
 echo "Creating Indexes"

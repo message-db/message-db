@@ -118,7 +118,7 @@ BEGIN
     get_category_messages.batch_size,
     get_category_messages.correlation,
     get_category_messages.consumer_group_member,
-    get_category_messages.consumer_group_size;
+    get_category_messages.consumer_group_size::smallint;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;

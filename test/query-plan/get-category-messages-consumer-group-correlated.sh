@@ -22,7 +22,7 @@ echo "Correlation:"
 echo $correlation
 echo
 
-for i in {1..5}; do
+for i in {1..1000}; do
   stream_name=$(stream-name $category)
 
   echo "Stream Name: $stream_name"
