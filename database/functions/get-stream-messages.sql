@@ -48,7 +48,7 @@ BEGIN
 
   IF get_stream_messages.condition IS NOT NULL THEN
     _command := _command || ' AND
-      %s';
+      (%s)';
     _command := format(_command, get_stream_messages.condition);
   END IF;
 

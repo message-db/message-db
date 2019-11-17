@@ -89,7 +89,7 @@ BEGIN
 
   IF get_category_messages.condition IS NOT NULL THEN
     _command := _command || ' AND
-      %s';
+      (%s)';
     _command := format(_command, get_category_messages.condition);
   END IF;
 
