@@ -40,6 +40,12 @@ function create-functions {
   echo "» category function"
   psql $database -q -f $base/functions/category.sql
 
+  echo "» id function"
+  psql $database -q -f $base/functions/id.sql
+
+  echo "» ids function"
+  psql $database -q -f $base/functions/ids.sql
+
   echo "» stream_version function"
   psql $database -q -f $base/functions/stream-version.sql
 
