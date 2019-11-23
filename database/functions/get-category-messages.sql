@@ -91,7 +91,7 @@ BEGIN
     IF current_setting('message_store.sql_condition', true) IS NULL OR
         current_setting('message_store.sql_condition', true) = 'off' THEN
       RAISE EXCEPTION
-        'Retrieval with additional SQL condition is not activated';
+        'Retrieval with SQL condition is not activated';
     END IF;
 
     _command := _command || ' AND
