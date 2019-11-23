@@ -25,7 +25,7 @@ echo "Command:"
 echo "$cmd"
 echo
 
-psql message_store -U message_store -P pager=off -x -c "$cmd"
+PGOPTIONS='-c message_store.sql_condition=on' psql message_store -U message_store -P pager=off -x -c "$cmd"
 
 echo "= = ="
 echo

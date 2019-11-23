@@ -88,6 +88,12 @@ BEGIN
   END IF;
 
   IF get_category_messages.condition IS NOT NULL THEN
+    IF current_setting('message_store.sql_condition', true) IS NULL OR
+        current_setting('message_store.sql_condition', true) = 'off' THEN
+      RAISE EXCEPTION
+        'Retrieval with additional SQL condition is not activated';
+    END IF;
+
     _command := _command || ' AND
       (%s)';
     _command := format(_command, get_category_messages.condition);

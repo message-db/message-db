@@ -9,6 +9,7 @@ RETURNS SETOF message
 AS $$
 DECLARE
   _command text;
+  _setting text;
 BEGIN
   IF position('-' IN get_stream_messages.stream_name) = 0 THEN
     RAISE EXCEPTION
@@ -47,6 +48,12 @@ BEGIN
   END IF;
 
   IF get_stream_messages.condition IS NOT NULL THEN
+    IF current_setting('message_store.sql_condition', true) IS NULL OR
+        current_setting('message_store.sql_condition', true) = 'off' THEN
+      RAISE EXCEPTION
+        'Retrieval with additional SQL condition is not activated';
+    END IF;
+
     _command := _command || ' AND
       (%s)';
     _command := format(_command, get_stream_messages.condition);

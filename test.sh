@@ -23,8 +23,11 @@ test/get-stream-messages/get-stream-messages.sh
 test/get-stream-messages/error-not-stream-name.sh
 test/get-stream-messages/correlated.sh
 test/get-stream-messages/correlated-stream-name-error.sh
-test/get-stream-messages/condition.sh
-test/get-stream-messages/condition-correlated.sh
+
+test/get-stream-messages/condition/condition.sh
+test/get-stream-messages/condition/error-deactivated.sh
+test/get-stream-messages/condition/error-not-activated.sh
+test/get-stream-messages/condition/condition-correlated.sh
 
 test/get-category-messages/get-category-messages.sh
 test/get-category-messages/error-not-category.sh
@@ -43,6 +46,8 @@ test/get-category-messages/consumer-group/error/group-member-too-small.sh
 test/get-category-messages/consumer-group/error/group-size-too-small.sh
 
 test/get-category-messages/condition/condition.sh
+test/get-category-messages/condition/error-deactivated.sh
+test/get-category-messages/condition/error-not-activated.sh
 test/get-category-messages/condition/condition-correlated.sh
 
 test/get-last-message/get-last-message.sh
