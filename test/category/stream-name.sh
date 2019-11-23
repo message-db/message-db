@@ -2,8 +2,6 @@
 
 set -e
 
-echo "$0"
-
 echo
 echo "CATEGORY - FROM STREAM NAME"
 echo "==========================="
