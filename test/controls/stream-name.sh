@@ -1,6 +1,5 @@
 function stream-name {
   local category=${1:-$(category)}
-  local uuid=$(echo $(uuidgen) | tr '[:upper:]' '[:lower:]')
-  local stream_name="$category-$uuid"
+  local stream_name="$category-$(id)"
   echo $stream_name
 }

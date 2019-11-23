@@ -5,7 +5,7 @@ set -e
 echo
 echo "GET CATEGORY MESSAGES - CONSUMER GROUP"
 echo "======================================"
-echo "- Write 2 messages each to 5 entity streams in the same category"
+echo "- Write 10 messages to 2 entity streams in the same category but with different cardinal IDs"
 echo "- Retrieve a batch of messages from the category that match the consumer group conditions"
 echo
 
@@ -16,8 +16,29 @@ echo "Category:"
 echo $category
 echo
 
-for i in {1..20}; do
-  stream_name=$(stream-name $category)
+
+cardinal_id_1=$(id)
+echo "Cardinal ID 1:"
+echo $cardinal_id_1
+echo
+
+for i in {1..10}; do
+  stream_name=$(compound-id-stream-name $category $cardinal_id_1)
+
+  echo "Stream Name: $stream_name"
+
+  write-message-correlated $stream_name
+done
+echo
+
+
+cardinal_id_2=$(id)
+echo "Cardinal ID 2:"
+echo $cardinal_id_2
+echo
+
+for i in {1..10}; do
+  stream_name=$(compound-id-stream-name $category $cardinal_id_2)
 
   echo "Stream Name: $stream_name"
 
