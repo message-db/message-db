@@ -20,15 +20,21 @@ test/write-message.sh
 test/write-message-expected-version.sh
 test/write-message-expected-version-error.sh
 
-test/get-stream-messages.sh
-test/get-stream-messages-condition.sh
-test/get-stream-messages-correlated.sh
-test/get-stream-messages-correlated-stream-name-error.sh
+test/get-stream-messages/get-stream-messages.sh
+test/get-stream-messages/get-stream-messages-condition.sh
+test/get-stream-messages/get-stream-messages-correlated.sh
+test/get-stream-messages/get-stream-messages-correlated-stream-name-error.sh
 
 test/get-category-messages.sh
 test/get-category-messages-condition.sh
 test/get-category-messages-correlated.sh
 test/get-category-messages-correlated-stream-name-error.sh
+
+
+
+
+
+
 
 test/get-last-message.sh
 

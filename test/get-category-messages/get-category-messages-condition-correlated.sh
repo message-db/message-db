@@ -9,7 +9,7 @@ echo "- Write 2 messages each to 3 entity streams in the same category"
 echo "- Retrieve a batch of 2 messages from the category, starting at global position 0, where the position is greater than or equal to 1, and matching the correlation category"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 category=$(category)
 echo "Category:"

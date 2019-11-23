@@ -9,7 +9,7 @@ echo "- Write 3 messages to an entity stream"
 echo "- Retrieve a batch of 2 messages from the stream"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 stream_name=$(stream-name)
 

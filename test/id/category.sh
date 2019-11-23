@@ -7,7 +7,7 @@ echo "ID - FROM CATEGORY"
 echo "=================="
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 stream_name=$(category)
 

@@ -9,7 +9,7 @@ echo "- Retrieve a messages using a stream name as the correlation value"
 echo "- Terminates with an error"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 stream_name=$(stream-name)
 

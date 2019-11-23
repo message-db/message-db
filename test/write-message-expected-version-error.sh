@@ -10,7 +10,7 @@ echo "- Write another message with the expected version of 1 that does not match
 echo "- Terminates with an error"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 stream_name=$(stream-name)
 

@@ -10,7 +10,7 @@ echo "- Write a messages to another entity stream"
 echo "- Print the message summary for the stream"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 stream_name=$(stream-name)
 

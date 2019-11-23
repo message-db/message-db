@@ -7,7 +7,7 @@ echo "CATEGORY - FROM CATEGORY"
 echo "========================"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 category=$(category)
 

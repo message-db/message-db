@@ -7,7 +7,7 @@ echo "CATEGORY - FROM STREAM NAME"
 echo "==========================="
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 stream_name=$(stream-name)
 
