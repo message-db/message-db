@@ -3,8 +3,8 @@
 set -e
 
 echo
-echo "GET CATEGORY"
-echo "============"
+echo "CATEGORY - FROM STREAM NAME"
+echo "==========================="
 echo
 
 source test/controls.sh

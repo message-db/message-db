@@ -3,8 +3,10 @@
 set -e
 
 test/print-message-store-version.sh
-test/category.sh
 test/hash-64.sh
+
+test/category/stream-name.sh
+test/category/category.sh
 
 test/id/stream-name.sh
 test/id/category.sh
