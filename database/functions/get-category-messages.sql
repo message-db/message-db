@@ -84,7 +84,7 @@ BEGIN
     END IF;
 
     _command := _command || ' AND
-      @hash_64(stream_name) % $6 = $5';
+      @hash_64(cardinal_id(stream_name)) % $6 = $5';
   END IF;
 
   IF get_category_messages.condition IS NOT NULL THEN
@@ -107,7 +107,6 @@ BEGIN
     RAISE NOTICE 'correlation ($4): %', get_category_messages.correlation;
     RAISE NOTICE 'consumer_group_member ($5): %', get_category_messages.consumer_group_member;
     RAISE NOTICE 'consumer_group_size ($6): %', get_category_messages.consumer_group_size;
-    RAISE NOTICE 'hash_64(category): %', hash_64(get_category_messages.category);
     RAISE NOTICE 'condition: %', get_category_messages.condition;
     RAISE NOTICE 'Generated Command: %', _command;
   END IF;

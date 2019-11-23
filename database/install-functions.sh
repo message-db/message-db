@@ -43,8 +43,8 @@ function create-functions {
   echo "» id function"
   psql $database -q -f $base/functions/id.sql
 
-  echo "» ids function"
-  psql $database -q -f $base/functions/ids.sql
+  echo "» cardinal_id function"
+  psql $database -q -f $base/functions/cardinal-id.sql
 
   echo "» stream_version function"
   psql $database -q -f $base/functions/stream-version.sql

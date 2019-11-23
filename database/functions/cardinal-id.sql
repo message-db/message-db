@@ -1,12 +1,12 @@
-CREATE OR REPLACE FUNCTION first_id(
+CREATE OR REPLACE FUNCTION cardinal_id(
   stream_name varchar
 )
-RETURNS varchar[]
+RETURNS varchar
 AS $$
 DECLARE
   _id varchar;
 BEGIN
-  _id := id(first_id.stream_name);
+  _id := id(cardinal_id.stream_name);
 
   IF _id IS NULL THEN
     RETURN NULL;

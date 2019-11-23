@@ -6,6 +6,14 @@ test/print-message-store-version.sh
 test/category.sh
 test/hash-64.sh
 
+test/id/stream-name.sh
+test/id/category.sh
+test/id/compound-id/stream-name.sh
+
+test/cardinal-id/stream-name-with-compound-id.sh
+test/cardinal-id/stream-name-with-single-id.sh
+test/cardinal-id/category.sh
+
 test/write-message.sh
 test/write-message-expected-version.sh
 test/write-message-expected-version-error.sh

@@ -3,8 +3,8 @@
 set -e
 
 echo
-echo "GET ID FROM STREAM NAME"
-echo "======================="
+echo "ID - FROM STREAM NAME"
+echo "====================="
 echo
 
 source test/controls.sh
