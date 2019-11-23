@@ -9,7 +9,7 @@ echo "- Write 3 messages to an entity stream"
 echo "- Retrieve a batch of 2 messages from the stream, starting at position 0, where the global position is greater than or equal to 1, and matching the correlation category"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 correlation=$(category)
 correlation_stream_name=$(stream-name $correlation)

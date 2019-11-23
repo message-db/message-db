@@ -10,7 +10,7 @@ echo "- Half of the messages have a different cardinal ID that the other half"
 echo "- Retrieve messages from the category that match the consumer group conditions"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 category=$(category)
 echo "Category:"

@@ -9,7 +9,7 @@ echo "- Write 3 messages to 3 entity streams"
 echo "- Print the type category summary"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 write-message
 write-message

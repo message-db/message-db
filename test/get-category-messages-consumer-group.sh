@@ -9,7 +9,7 @@ echo "- Write 10 messages to 2 entity streams in the same category but with diff
 echo "- Retrieve a batch of messages from the category that match the consumer group conditions"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 category=$(category)
 echo "Category:"

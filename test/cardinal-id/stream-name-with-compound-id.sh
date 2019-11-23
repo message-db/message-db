@@ -7,7 +7,7 @@ echo "CARDINAL ID - FROM STREAM NAME WITH COMPOUND ID"
 echo "==============================================="
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 stream_name=$(compound-id-stream-name)
 

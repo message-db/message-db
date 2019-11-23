@@ -7,7 +7,7 @@ echo "CARDINAL ID - FROM STREAM NAME WITH SINGLE ID"
 echo "============================================="
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 stream_name=$(stream-name)
 

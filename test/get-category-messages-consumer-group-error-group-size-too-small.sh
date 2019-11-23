@@ -9,7 +9,7 @@ echo "- Retrieve a batch of messages from the category with a consumer group siz
 echo "- Terminates with an error"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 cmd="SELECT * FROM get_category_messages('someCategory', consumer_group_member => 0, consumer_group_size => 0);"
 

@@ -9,7 +9,7 @@ echo "- Retrieve a batch of messages from the stream using a category instead of
 echo "- Terminates with an error"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 category=$(category)
 

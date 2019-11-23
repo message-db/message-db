@@ -9,7 +9,7 @@ echo "- Write 2 messages to an entity stream"
 echo "- Retrieve the last message in the stream"
 echo
 
-source test/controls.sh
+source test/_controls.sh
 
 stream_name=$(stream-name)
 
