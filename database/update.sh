@@ -25,7 +25,7 @@ function script_dir {
 }
 
 function delete-indexes {
-  echo "messages_id_uniq_idx index"
+  echo "» messages_id_uniq_idx index"
   psql $database -q -c "DROP INDEX IF EXISTS messages_id_uniq_idx";
 
   echo "» messages_stream_name_position_uniq_idx index"
