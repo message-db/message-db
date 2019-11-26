@@ -35,30 +35,26 @@ function delete-indexes {
   psql $database -q -c "DROP INDEX IF EXISTS messages_category_global_position_idx";
 }
 
-function create-indexes {
-  base=$(script_dir)
-
-  echo "» messages_id index"
-  psql $database -q -f $base/indexes/messages-id.sql
-
-  echo "» messages_stream index"
-  psql $database -q -f $base/indexes/messages-stream.sql
-
-  echo "» messages_category index"
-  psql $database -q -f $base/indexes/messages-category.sql
+function delete-functions {
+  echo "get_last_message function"
+  psql $database -q -c "DROP FUNCTION IF EXISTS get_last_message";
 }
 
 base=$(script_dir)
-
-# Install functions
-source $base/install-functions.sh
 
 echo "Deleting Indexes"
 echo "- - -"
 delete-indexes
 echo
 
-echo "Creating Indexes"
+echo "Deleting Functions"
 echo "- - -"
-create-indexes
+delete-functions
+echo
+
+# Install functions
+source $base/install-functions.sh
+
+# Install indexes
+source $base/install-indexes.sh
 echo
