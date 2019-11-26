@@ -61,5 +61,5 @@ test/reports/category-type-summary.sh
 test/reports/type-category-summary.sh
 test/reports/message-store-version.sh
 
-echo "DONE"
+echo "Done"
 echo

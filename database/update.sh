@@ -71,6 +71,12 @@ source $base/install-functions.sh
 # Install indexes
 source $base/install-indexes.sh
 
+# Install views
+source $base/install-views.sh
+
+# Install privileges
+source $base/install-privileges.sh
+
 echo "= = ="
 echo "Done Updating Database"
 echo "Version: $(cat $base/VERSION.txt)"
