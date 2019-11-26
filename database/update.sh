@@ -36,7 +36,20 @@ function delete-indexes {
 }
 
 function delete-functions {
-  echo "get_last_message function"
+
+  echo "» get_last_message function"
+  psql $database -q -c "DROP FUNCTION IF EXISTS hash_64";
+
+  echo "» category function"
+  psql $database -q -c "DROP FUNCTION IF EXISTS category";
+
+  echo "» stream_version function"
+  psql $database -q -c "DROP FUNCTION IF EXISTS stream_version";
+
+  echo "» write_message function"
+  psql $database -q -c "DROP FUNCTION IF EXISTS write_message";
+
+  echo "» get_last_message function"
   psql $database -q -c "DROP FUNCTION IF EXISTS get_last_message";
 }
 
