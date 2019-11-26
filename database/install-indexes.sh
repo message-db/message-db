@@ -17,14 +17,14 @@ function create-indexes {
 
   base=$(script_dir)
 
-  echo "» messages_id_uniq_idx index"
-  psql $database -q -f $base/indexes/messages-id-uniq.sql
+  echo "» messages_id index"
+  psql $database -q -f $base/indexes/messages-id.sql
 
-  echo "» messages_stream_name_position_correlation_uniq_idx index"
-  psql $database -q -f $base/indexes/messages-stream-name-position-correlation-uniq.sql
+  echo "» messages_stream index"
+  psql $database -q -f $base/indexes/messages-stream.sql
 
-  echo "» messages_category_global_position_correlation_idx index"
-  psql $database -q -f $base/indexes/messages_category_global_position_correlation_idx.sql
+  echo "» messages_category index"
+  psql $database -q -f $base/indexes/messages-category.sql
 }
 
 echo "Creating Indexes"

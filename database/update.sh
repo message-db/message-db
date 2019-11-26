@@ -25,21 +25,27 @@ function script_dir {
 }
 
 function delete-indexes {
+  echo "messages_id_uniq_idx index"
+  psql $database -q -c "DROP INDEX IF EXISTS messages_id_uniq_idx";
+
   echo "» messages_stream_name_position_uniq_idx index"
-  psql $database -q -c "DROP INDEX CONCURRENTLY IF EXISTS messages_stream_name_position_uniq_idx";
+  psql $database -q -c "DROP INDEX IF EXISTS messages_stream_name_position_uniq_idx";
 
   echo "» messages_category_global_position_idx index"
-  psql $database -q -c "DROP INDEX CONCURRENTLY IF EXISTS messages_category_global_position_idx";
+  psql $database -q -c "DROP INDEX IF EXISTS messages_category_global_position_idx";
 }
 
 function create-indexes {
   base=$(script_dir)
 
-  echo "» messages_stream_name_position_correlation_uniq_idx index"
-  psql $database -q -f $base/indexes/messages-stream-name-position-correlation-uniq.sql
+  echo "» messages_id index"
+  psql $database -q -f $base/indexes/messages-id.sql
 
-  echo "» messages_category_global_position_correlation_stream_name_hash_idx index"
-  psql $database -q -f $base/indexes/messages_category_global_position_correlation_idx.sql
+  echo "» messages_stream index"
+  psql $database -q -f $base/indexes/messages-stream.sql
+
+  echo "» messages_category index"
+  psql $database -q -f $base/indexes/messages-category.sql
 }
 
 base=$(script_dir)
