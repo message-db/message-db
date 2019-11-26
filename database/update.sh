@@ -2,8 +2,16 @@
 
 set -e
 
+function script_dir {
+  val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  echo "$val"
+}
+
+base=$(script_dir)
+
 echo
 echo "Updating Database"
+echo "Version: $(cat $base/VERSION.txt)"
 echo "= = ="
 
 if [ -z ${DATABASE_NAME+x} ]; then
@@ -19,14 +27,9 @@ if [ -z ${PGOPTIONS+x} ]; then
   export PGOPTIONS='-c client_min_messages=warning'
 fi
 
-function script_dir {
-  val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-  echo "$val"
-}
-
 function delete-indexes {
   echo "» messages_id_uniq_idx index"
-  psql $database -q -c "DROP INDEX IF EXISTS messages_id_uniq_idx";
+  psql $database -q -c "DROP INDEX IF EXISTS messages_id_uniq_idx CASCADE";
 
   echo "» messages_stream_name_position_uniq_idx index"
   psql $database -q -c "DROP INDEX IF EXISTS messages_stream_name_position_uniq_idx";
@@ -36,24 +39,21 @@ function delete-indexes {
 }
 
 function delete-functions {
-
   echo "» get_last_message function"
-  psql $database -q -c "DROP FUNCTION IF EXISTS hash_64";
+  psql $database -q -c "DROP FUNCTION IF EXISTS hash_64 CASCADE";
 
   echo "» category function"
-  psql $database -q -c "DROP FUNCTION IF EXISTS category";
+  psql $database -q -c "DROP FUNCTION IF EXISTS category CASCADE";
 
   echo "» stream_version function"
-  psql $database -q -c "DROP FUNCTION IF EXISTS stream_version";
+  psql $database -q -c "DROP FUNCTION IF EXISTS stream_version CASCADE";
 
   echo "» write_message function"
-  psql $database -q -c "DROP FUNCTION IF EXISTS write_message";
+  psql $database -q -c "DROP FUNCTION IF EXISTS write_message CASCADE";
 
   echo "» get_last_message function"
-  psql $database -q -c "DROP FUNCTION IF EXISTS get_last_message";
+  psql $database -q -c "DROP FUNCTION IF EXISTS get_last_message CASCADE";
 }
-
-base=$(script_dir)
 
 echo "Deleting Indexes"
 echo "- - -"
@@ -70,7 +70,6 @@ source $base/install-functions.sh
 
 # Install indexes
 source $base/install-indexes.sh
-echo
 
 echo "= = ="
 echo "Done Updating Database"

@@ -2,6 +2,13 @@
 
 set -e
 
+function script_dir {
+  val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  echo "$val"
+}
+
+base=$(script_dir)
+
 echo
 echo "Installing Database"
 echo "Version: $(cat $base/VERSION.txt)"
@@ -18,11 +25,6 @@ fi
 if [ -z ${PGOPTIONS+x} ]; then
   export PGOPTIONS='-c client_min_messages=warning'
 fi
-
-function script_dir {
-  val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-  echo "$val"
-}
 
 function create-user {
   base=$(script_dir)
@@ -49,8 +51,6 @@ function create-table {
   echo "» messages table"
   psql $database -q -f $base/tables/messages.sql
 }
-
-base=$(script_dir)
 
 echo
 

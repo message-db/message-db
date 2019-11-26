@@ -2,6 +2,13 @@
 
 set -e
 
+function script_dir {
+  val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  echo "$val"
+}
+
+base=$(script_dir)
+
 echo
 echo "Uninstalling Database"
 echo "Version: $(cat $base/VERSION.txt)"
