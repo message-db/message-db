@@ -4,6 +4,7 @@ set -e
 
 echo
 echo "Installing Database"
+echo "Version: $(cat $base/VERSION.txt)"
 echo "= = ="
 
 if [ -z ${DATABASE_NAME+x} ]; then
@@ -87,4 +88,5 @@ source $base/install-privileges.sh
 
 echo "= = ="
 echo "Done Installing Database"
+echo "Version: $(cat $base/VERSION.txt)"
 echo

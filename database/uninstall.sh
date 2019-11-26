@@ -4,6 +4,7 @@ set -e
 
 echo
 echo "Uninstalling Database"
+echo "Version: $(cat $base/VERSION.txt)"
 echo "= = ="
 
 if [ -z ${DATABASE_NAME+x} ]; then
@@ -42,4 +43,5 @@ echo
 
 echo "= = ="
 echo "Done Uninstalling Database"
+echo "Version: $(cat $base/VERSION.txt)"
 echo

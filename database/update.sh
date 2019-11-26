@@ -61,4 +61,5 @@ echo
 
 echo "= = ="
 echo "Done Updating Database"
+echo "Version: $(cat $base/VERSION.txt)"
 echo
