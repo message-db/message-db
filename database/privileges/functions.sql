@@ -6,4 +6,4 @@ GRANT EXECUTE ON FUNCTION stream_version(varchar) TO message_store;
 GRANT EXECUTE ON FUNCTION write_message(varchar, varchar, varchar, jsonb, jsonb, bigint) TO message_store;
 GRANT EXECUTE ON FUNCTION get_stream_messages(varchar, bigint, bigint, varchar, varchar) TO message_store;
 GRANT EXECUTE ON FUNCTION get_category_messages(varchar, bigint, bigint, varchar, bigint, bigint, varchar) TO message_store;
-GRANT EXECUTE ON FUNCTION get_last_message(varchar) TO message_store;
+GRANT EXECUTE ON FUNCTION get_last_stream_message(varchar) TO message_store;

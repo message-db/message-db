@@ -58,8 +58,8 @@ function create-functions {
   echo "» get_category_messages function"
   psql $database -q -f $base/functions/get-category-messages.sql
 
-  echo "» get_last_message function"
-  psql $database -q -f $base/functions/get-last-message.sql
+  echo "» get_last_stream_message function"
+  psql $database -q -f $base/functions/get-last-stream-message.sql
 }
 
 echo "Creating Types"
