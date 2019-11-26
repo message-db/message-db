@@ -58,3 +58,7 @@ source $base/install-functions.sh
 # Install indexes
 source $base/install-indexes.sh
 echo
+
+echo "= = ="
+echo "Done Updating Database"
+echo

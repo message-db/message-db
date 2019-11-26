@@ -84,3 +84,7 @@ source $base/install-views.sh
 
 # Install privileges
 source $base/install-privileges.sh
+
+echo "= = ="
+echo "Done Installing Database"
+echo

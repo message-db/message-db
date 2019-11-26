@@ -39,3 +39,7 @@ echo "- - -"
 delete-user
 
 echo
+
+echo "= = ="
+echo "Done Uninstalling Database"
+echo
