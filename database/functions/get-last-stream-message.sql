@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION get_last_message(
+CREATE OR REPLACE FUNCTION get_last_stream_message(
   stream_name varchar
 )
 RETURNS SETOF message
@@ -27,11 +27,11 @@ BEGIN
 
   IF current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' THEN
     RAISE NOTICE '» get_last_message';
-    RAISE NOTICE 'stream_name ($1): %', get_last_message.stream_name;
+    RAISE NOTICE 'stream_name ($1): %', get_last_stream_message.stream_name;
     RAISE NOTICE 'Generated Command: %', _command;
   END IF;
 
-  RETURN QUERY EXECUTE _command USING get_last_message.stream_name;
+  RETURN QUERY EXECUTE _command USING get_last_stream_message.stream_name;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;
