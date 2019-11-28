@@ -84,7 +84,7 @@ BEGIN
     END IF;
 
     _command := _command || ' AND
-      @hash_64(cardinal_id(stream_name)) % $6 = $5';
+      MOD(@hash_64(cardinal_id(stream_name)), $6) = $5';
   END IF;
 
   IF get_category_messages.condition IS NOT NULL THEN
