@@ -19,7 +19,7 @@ echo
 
 STREAM_NAME=$stream_name INSTANCES=2 database/write-test-message.sh > /dev/null
 
-cmd="SELECT * FROM get_last_message('$stream_name');"
+cmd="SELECT * FROM get_last_stream_message('$stream_name');"
 
 echo "Command:"
 echo "$cmd"
