@@ -2,7 +2,6 @@ CREATE OR REPLACE FUNCTION get_stream_messages(
   stream_name varchar,
   "position" bigint DEFAULT 0,
   batch_size bigint DEFAULT 1000,
-  correlation varchar DEFAULT NULL,
   condition varchar DEFAULT NULL
 )
 RETURNS SETOF message
@@ -36,17 +35,6 @@ BEGIN
       stream_name = $1 AND
       position >= $2';
 
-  IF get_stream_messages.correlation IS NOT NULL THEN
-    IF position('-' IN get_stream_messages.correlation) > 0 THEN
-      RAISE EXCEPTION
-       'Correlation must be a category (Correlation: %)',
-        get_stream_messages.correlation;
-    END IF;
-
-    _command := _command || ' AND
-      category(metadata->>''correlationStreamName'') = $4';
-  END IF;
-
   IF get_stream_messages.condition IS NOT NULL THEN
     IF current_setting('message_store.sql_condition', true) IS NULL OR
         current_setting('message_store.sql_condition', true) = 'off' THEN
@@ -70,16 +58,14 @@ BEGIN
     RAISE NOTICE 'stream_name ($1): %', get_stream_messages.stream_name;
     RAISE NOTICE 'position ($2): %', get_stream_messages.position;
     RAISE NOTICE 'batch_size ($3): %', get_stream_messages.batch_size;
-    RAISE NOTICE 'correlation ($4): %', get_stream_messages.correlation;
-    RAISE NOTICE 'condition ($5): %', get_stream_messages.condition;
+    RAISE NOTICE 'condition ($4): %', get_stream_messages.condition;
     RAISE NOTICE 'Generated Command: %', _command;
   end if;
 
   RETURN QUERY EXECUTE _command USING
     get_stream_messages.stream_name,
     get_stream_messages.position,
-    get_stream_messages.batch_size,
-    get_stream_messages.correlation;
+    get_stream_messages.batch_size;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;
