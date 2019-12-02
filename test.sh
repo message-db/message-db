@@ -21,8 +21,6 @@ test/write-message/expected-version-error.sh
 
 test/get-stream-messages/get-stream-messages.sh
 test/get-stream-messages/error-not-stream-name.sh
-test/get-stream-messages/correlated.sh
-test/get-stream-messages/correlated-stream-name-error.sh
 
 test/get-stream-messages/condition/condition.sh
 test/get-stream-messages/condition/error-deactivated.sh
