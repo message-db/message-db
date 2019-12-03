@@ -1,8 +1,8 @@
 DO $$
 BEGIN
-  DROP TYPE IF EXISTS message CASCADE;
+  DROP TYPE IF EXISTS message_store.message CASCADE;
 
-  CREATE TYPE message AS (
+  CREATE TYPE message_store.message AS (
     id varchar,
     stream_name varchar,
     type varchar,

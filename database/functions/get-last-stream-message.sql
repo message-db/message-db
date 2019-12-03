@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION get_last_stream_message(
+CREATE OR REPLACE FUNCTION message_store.get_last_stream_message(
   stream_name varchar
 )
 RETURNS SETOF message

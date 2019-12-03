@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION id(
+CREATE OR REPLACE FUNCTION message_store.id(
   stream_name varchar
 )
 RETURNS varchar
