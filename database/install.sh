@@ -38,6 +38,11 @@ function create-database {
   createdb $database
 }
 
+function create-schema {
+  echo "» message_store schema"
+  psql $database -q -f $base/schema/message-store.sql
+}
+
 function create-extensions {
   base=$(script_dir)
 
@@ -62,6 +67,11 @@ echo
 echo "Creating Database"
 echo "- - -"
 create-database
+echo
+
+echo "Creating Schema"
+echo "- - -"
+create-schema
 echo
 
 echo "Creating Extensions"

@@ -1,8 +1,8 @@
 -- ----------------------------
 --  Table structure for messages
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS "public"."messages" (
-  "id" UUID NOT NULL DEFAULT gen_random_uuid(),
+CREATE TABLE IF NOT EXISTS "message_store"."messages" (
+  "id" UUID NOT NULL DEFAULT message_store.gen_random_uuid(),
   "stream_name" text NOT NULL COLLATE "default",
   "type" text NOT NULL COLLATE "default",
   "position" bigint NOT NULL,
@@ -16,4 +16,4 @@ WITH (OIDS=FALSE);
 -- ----------------------------
 --  Primary key structure for table messages
 -- ----------------------------
-ALTER TABLE "public"."messages" ADD PRIMARY KEY ("global_position") NOT DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE "message_store"."messages" ADD PRIMARY KEY ("global_position") NOT DEFERRABLE INITIALLY IMMEDIATE;
