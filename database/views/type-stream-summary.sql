@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW type_stream_summary AS
+CREATE OR REPLACE VIEW message_store.type_stream_summary AS
   WITH
     type_count AS (
       SELECT
@@ -6,7 +6,7 @@ CREATE OR REPLACE VIEW type_stream_summary AS
         stream_name,
         COUNT(id) AS message_count
       FROM
-        messages
+        message_store.messages
       GROUP BY
         type,
         stream_name
@@ -16,7 +16,7 @@ CREATE OR REPLACE VIEW type_stream_summary AS
       SELECT
         COUNT(id)::decimal AS total_count
       FROM
-        messages
+        message_store.messages
     )
 
   SELECT

@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION cardinal_id(
+CREATE OR REPLACE FUNCTION message_store.cardinal_id(
   stream_name varchar
 )
 RETURNS varchar

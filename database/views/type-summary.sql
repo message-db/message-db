@@ -1,11 +1,11 @@
-CREATE OR REPLACE VIEW type_summary AS
+CREATE OR REPLACE VIEW message_store.type_summary AS
   WITH
     type_count AS (
       SELECT
         type,
         COUNT(id) AS message_count
       FROM
-        messages
+        message_store.messages
       GROUP BY
         type
     ),
@@ -14,7 +14,7 @@ CREATE OR REPLACE VIEW type_summary AS
       SELECT
         COUNT(id)::decimal AS total_count
       FROM
-        messages
+        message_store.messages
     )
 
   SELECT

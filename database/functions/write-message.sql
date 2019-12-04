@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION write_message(
+CREATE OR REPLACE FUNCTION message_store.write_message(
   id varchar,
   stream_name varchar,
   "type" varchar,

@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION category(
+CREATE OR REPLACE FUNCTION message_store.category(
   stream_name varchar
 )
 RETURNS varchar

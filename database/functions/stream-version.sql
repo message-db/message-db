@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION stream_version(
+CREATE OR REPLACE FUNCTION message_store.stream_version(
   stream_name varchar
 )
 RETURNS bigint

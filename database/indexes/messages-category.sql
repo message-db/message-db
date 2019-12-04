@@ -1,7 +1,7 @@
-DROP INDEX IF EXISTS messages_category;
+DROP INDEX IF EXISTS message_store.messages_category;
 
-CREATE INDEX messages_category ON messages (
-  category(stream_name),
+CREATE INDEX messages_category ON message_store.messages (
+  message_store.category(stream_name),
   global_position,
-  category(metadata->>'correlationStreamName')
+  message_store.category(metadata->>'correlationStreamName')
 );

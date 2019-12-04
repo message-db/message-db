@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION hash_64(
+CREATE OR REPLACE FUNCTION message_store.hash_64(
   stream_name varchar
 )
 RETURNS bigint

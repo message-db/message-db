@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION get_category_messages(
+CREATE OR REPLACE FUNCTION message_store.get_category_messages(
   category varchar,
   "position" bigint DEFAULT 1,
   batch_size bigint DEFAULT 1000,
@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION get_category_messages(
   consumer_group_size bigint DEFAULT NULL,
   condition varchar DEFAULT NULL
 )
-RETURNS SETOF message
+RETURNS SETOF message_store.message
 AS $$
 DECLARE
   _command text;

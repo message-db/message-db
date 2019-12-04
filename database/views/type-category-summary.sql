@@ -1,12 +1,12 @@
-CREATE OR REPLACE VIEW type_category_summary AS
+CREATE OR REPLACE VIEW message_store.type_category_summary AS
   WITH
     type_count AS (
       SELECT
         type,
-        category(stream_name) AS category,
+        message_store.category(stream_name) AS category,
         COUNT(id) AS message_count
       FROM
-        messages
+        message_store.messages
       GROUP BY
         type,
         category
@@ -16,7 +16,7 @@ CREATE OR REPLACE VIEW type_category_summary AS
       SELECT
         COUNT(id)::decimal AS total_count
       FROM
-        messages
+        message_store.messages
     )
 
   SELECT

@@ -1,10 +1,10 @@
-CREATE OR REPLACE FUNCTION get_stream_messages(
+CREATE OR REPLACE FUNCTION message_store.get_stream_messages(
   stream_name varchar,
   "position" bigint DEFAULT 0,
   batch_size bigint DEFAULT 1000,
   condition varchar DEFAULT NULL
 )
-RETURNS SETOF message
+RETURNS SETOF message_store.message
 AS $$
 DECLARE
   _command text;
