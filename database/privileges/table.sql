@@ -1,1 +1,1 @@
-GRANT SELECT, INSERT ON messages TO message_store;
+GRANT SELECT, INSERT ON message_store.messages TO message_store;

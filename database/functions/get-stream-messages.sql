@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION message_store.get_stream_messages(
   batch_size bigint DEFAULT 1000,
   condition varchar DEFAULT NULL
 )
-RETURNS SETOF message
+RETURNS SETOF message_store.message
 AS $$
 DECLARE
   _command text;
