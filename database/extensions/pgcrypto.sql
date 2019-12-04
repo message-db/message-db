@@ -1,1 +1,1 @@
-CREATE EXTENSION IF NOT EXISTS "pgcrypto" SCHEMA message_store;
+CREATE EXTENSION IF NOT EXISTS pgcrypto SCHEMA message_store;
