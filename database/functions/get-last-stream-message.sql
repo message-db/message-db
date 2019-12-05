@@ -6,6 +6,12 @@ AS $$
 DECLARE
   _command text;
 BEGIN
+  IF is_category(get_last_stream_message.stream_name) THEN
+    RAISE EXCEPTION
+      'Must be a stream name: %',
+      get_last_stream_message.stream_name;
+  END IF;
+
   _command := '
     SELECT
       id::varchar,
