@@ -12,7 +12,7 @@ AS $$
 DECLARE
   _command text;
 BEGIN
-  IF position('-' IN get_category_messages.category) > 0 THEN
+  IF NOT is_category(get_category_messages.category) THEN
     RAISE EXCEPTION
       'Must be a category: %',
       get_category_messages.category;
