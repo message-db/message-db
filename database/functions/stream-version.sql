@@ -6,6 +6,12 @@ AS $$
 DECLARE
   _stream_version bigint;
 BEGIN
+  IF position('-' IN stream_version.stream_name) = 0 THEN
+    RAISE EXCEPTION
+      'Must be a stream name: %',
+      stream_version.stream_name;
+  END IF;
+
   SELECT
     max(position) into _stream_version
   FROM
