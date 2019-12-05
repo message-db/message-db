@@ -55,6 +55,8 @@ test/get-last-stream-message/get-last-stream-message.sh
 test/stream-version/stream-version.sh
 test/stream-version/error-not-stream-name.sh
 
+test/message-store-version.sh
+
 test/reports/messages.sh
 test/reports/stream-summary.sh
 test/reports/type-summary.sh
@@ -62,7 +64,6 @@ test/reports/stream-type-summary.sh
 test/reports/type-stream-summary.sh
 test/reports/category-type-summary.sh
 test/reports/type-category-summary.sh
-test/reports/message-store-version.sh
 
 echo "Done"
 echo
