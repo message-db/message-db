@@ -7,6 +7,9 @@ test/hash-64.sh
 test/category/stream-name.sh
 test/category/category.sh
 
+test/is_category/category.sh
+test/is_category/stream-name.sh
+
 test/id/stream-name.sh
 test/id/category.sh
 test/id/compound-id/stream-name.sh
@@ -48,6 +51,9 @@ test/get-category-messages/condition/error-not-activated.sh
 test/get-category-messages/condition/condition-correlated.sh
 
 test/get-last-stream-message/get-last-stream-message.sh
+
+test/stream-version/stream-version.sh
+test/stream-version/error-not-stream-name.sh
 
 test/reports/messages.sh
 test/reports/stream-summary.sh

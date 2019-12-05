@@ -20,7 +20,7 @@ function grant-privileges {
   echo "» messages table privileges"
   psql $database -q -f $base/privileges/table.sql
 
-  echo "» messages_global_position_seq sequence privileges"
+  echo "» sequence privileges"
   psql $database -q -f $base/privileges/sequence.sql
 
   echo "» functions privileges"

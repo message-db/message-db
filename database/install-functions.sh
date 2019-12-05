@@ -40,6 +40,9 @@ function create-functions {
   echo "» category function"
   psql $database -q -f $base/functions/category.sql
 
+  echo "» is_category function"
+  psql $database -q -f $base/functions/is-category.sql
+
   echo "» id function"
   psql $database -q -f $base/functions/id.sql
 
