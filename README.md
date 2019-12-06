@@ -30,13 +30,13 @@ gem install evt-message_store-postgres-database
 ### As an NPM Module
 
 ``` bash
-npm install @eventide/postgres-message-store
+npm install @eventide/message-db
 ```
 
 ### Git Clone
 
 ``` bash
-git clone git@github.com:eventide-project/postgres-message-store.git
+git clone git@github.com:message-db/message-db.git
 ```
 
 # Server Functions
@@ -45,7 +45,7 @@ The message store provides an interface of Postgres server functions that can be
 
 There are working examples of uses of the server functions included with the source code:
 
-Example: [https://github.com/eventide-project/postgres-message-store/blob/master/database](https://github.com/eventide-project/postgres-message-store/blob/master/database)
+Example: [https://github.com/message-db/message-db/blob/master/database](https://github.com/message-db/message-db/blob/master/database)
 
 ## Write a Message
 
@@ -79,7 +79,7 @@ write_message(
 SELECT write_message('a11e9022-e741-4450-bf9c-c4cc5ddb6ea3', 'someStream-123', 'SomeMessageType', '{"someAttribute": "some value"}', '{"metadataAttribute": "some meta data value"}');
 ```
 
-Example: [https://github.com/eventide-project/postgres-message-store/blob/master/database/write-test-message.sh](https://github.com/eventide-project/postgres-message-store/blob/master/database/write-test-message.sh)
+Example: [https://github.com/message-db/message-db/blob/master/database/write-test-message.sh](https://github.com/message-db/message-db/blob/master/database/write-test-message.sh)
 
 ### Specifying the Expected Version of the Stream
 
@@ -93,9 +93,9 @@ NOTE: If the expected version does not match the stream version at the time of t
 'Wrong expected version: {specified_stream_version} (Stream: {stream_name}, Stream Version: {current_stream_version})'
 ```
 
-Example (_no expected version error_): [https://github.com/eventide-project/postgres-message-store/blob/master/test/write-message-expected-version.sh](https://github.com/eventide-project/postgres-message-store/blob/master/test/write-message-expected-version.sh)
+Example (_no expected version error_): [https://github.com/message-db/message-db/blob/master/test/write-message-expected-version.sh](https://github.com/message-db/message-db/blob/master/test/write-message-expected-version.sh)
 
-Example (_with expected version error_): [https://github.com/eventide-project/postgres-message-store/blob/master/test/write-message-expected-version-error.sh](https://github.com/eventide-project/postgres-message-store/blob/master/test/write-message-expected-version-error.sh)
+Example (_with expected version error_): [https://github.com/message-db/message-db/blob/master/test/write-message-expected-version-error.sh](https://github.com/message-db/message-db/blob/master/test/write-message-expected-version-error.sh)
 
 ## Get Messages from a Stream
 
@@ -127,7 +127,7 @@ get_stream_messages(
 SELECT * FROM get_stream_messages('someStream-123', 0, 1000, correlation => 'someCorrelationCateogry', condition => 'messages.time >= current_time');
 ```
 
-Example: [https://github.com/eventide-project/postgres-message-store/blob/master/test/get-stream-messages.sh](https://github.com/eventide-project/postgres-message-store/blob/master/test/get-stream-messages.sh)
+Example: [https://github.com/message-db/message-db/blob/master/test/get-stream-messages.sh](https://github.com/message-db/message-db/blob/master/test/get-stream-messages.sh)
 
 ## Get Messages from a Category
 
@@ -167,7 +167,7 @@ SELECT * FROM get_category_messages('someCategory', 1, 1000, correlation => 'som
 Where `someStream-123` is a _stream name_, `someStream` is a _category_. Reading the `someStream` category retrieves messages from all streams whose names start with `someStream-`.
 :::
 
-Example: [https://github.com/eventide-project/postgres-message-store/blob/master/test/get-category-messages.sh](https://github.com/eventide-project/postgres-message-store/blob/master/test/get-category-messages.sh)
+Example: [https://github.com/message-db/message-db/blob/master/test/get-category-messages.sh](https://github.com/message-db/message-db/blob/master/test/get-category-messages.sh)
 
 ### Pub/Sub and Retrieving Correlated Messages
 
@@ -253,7 +253,7 @@ SELECT * FROM get_last_message('someStream');
 
 Note: This is only for entity streams, and does not work for categories.
 
-Example: [https://github.com/eventide-project/postgres-message-store/blob/master/test/get-last-message.sh](https://github.com/eventide-project/postgres-message-store/blob/master/test/get-last-message.sh)
+Example: [https://github.com/message-db/message-db/blob/master/test/get-last-message.sh](https://github.com/message-db/message-db/blob/master/test/get-last-message.sh)
 
 ## Get Message Store Database Schema Version
 
@@ -334,8 +334,8 @@ See the message store documentation on the Eventide docs site:
 
 The database is defined by raw SQL scripts. You can examine them, or execute them directly with the `psql` command line tool.
 
-[https://github.com/eventide-project/postgres-message-store/tree/master/database/](https://github.com/eventide-project/postgres-message-store/tree/master/database/)
+[https://github.com/message-db/message-db/tree/master/database/](https://github.com/message-db/message-db/tree/master/database/)
 
 ## License
 
-The Postgres Message Store is released under the [MIT License](https://github.com/eventide-project/postgres-message-store/blob/master/MIT-License.txt).
+The Postgres Message Store is released under the [MIT License](https://github.com/message-db/message-db/blob/master/MIT-License.txt).
