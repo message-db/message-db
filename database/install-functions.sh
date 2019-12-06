@@ -37,6 +37,9 @@ function create-functions {
   echo "» hash_64 function"
   psql $database -q -f $base/functions/hash-64.sql
 
+  echo "» acquire_lock function"
+  psql $database -q -f $base/functions/acquire-lock.sql
+
   echo "» category function"
   psql $database -q -f $base/functions/category.sql
 
