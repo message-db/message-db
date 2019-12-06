@@ -15,11 +15,7 @@ DECLARE
   _category varchar;
   _category_name_hash bigint;
 BEGIN
-  _message_id = uuid(write_message.id);
-
-  _category := category(write_message.stream_name);
-  _category_name_hash := hash_64(_category);
-  PERFORM pg_advisory_xact_lock(_category_name_hash);
+  PERFORM acquire_lock(write_message.stream_name);
 
   _stream_version := stream_version(write_message.stream_name);
 
@@ -38,6 +34,8 @@ BEGIN
   END IF;
 
   _next_position := _stream_version + 1;
+
+  _message_id = uuid(write_message.id);
 
   INSERT INTO messages
     (
