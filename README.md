@@ -1,6 +1,8 @@
-# Postgres Message Store
+# Message DB
 
-A fully-featured event store and message store implemented entirely in PostgreSQL server functions and indexes supporting event sourcing and messaging applications and services.
+**Microservice Native Message and Event Store for Postgres**
+
+A fully-featured event store and message store implemented entirely in PostgreSQL, supporting event sourcing and messaging applications and services.
 
 ## Features
 
