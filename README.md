@@ -50,6 +50,26 @@ A complete user guide is available on the Eventide Project docs site:
 
 [http://docs.eventide-project.org/user-guide/message-db/](http://docs.eventide-project.org/user-guide/message-db/)
 
+## Create the Postgres Database
+
+Running the database creation script create the database, it's functions, a user role, and limit the user's privileges to the message store's public interface.
+
+``` bash
+database/install.sh
+```
+
+If you need to drop the database (for example, on a local dev machine):
+
+``` bash
+database/uninstall.sh
+```
+
+If you're upgrading a previous version of the database:
+
+``` bash
+database/upgrade.sh
+```
+
 ## Interface
 
 The message store provides an interface of Postgres server functions that can be used with any programming language or through the `psql` command line tool.
@@ -265,7 +285,8 @@ By default, a role named `message_store` is created. The `message_store` role is
 
 ## Source Code
 
-View complete source code at: <br />
+View complete source code at:
+
 [https://github.com/message-db/message-db/tree/master/database](https://github.com/message-db/message-db/tree/master/database)
 
 ## License
