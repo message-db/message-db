@@ -273,8 +273,6 @@ The message store is a single table named `messages`.
 
 By default, the message store database is named `message_store`.
 
-See the [installation guide](./install.md#database-name) for more info on varying the database name.
-
 ## Schema
 
 All message store database objects are contained within a schema named `message_store`.
