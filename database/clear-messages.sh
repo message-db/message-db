@@ -3,7 +3,7 @@
 set -e
 
 echo
-echo "Clearing Events Table"
+echo "Clearing Messages Table"
 echo "= = ="
 echo
 
@@ -19,4 +19,8 @@ echo "Database name is: $database"
 
 echo
 
-psql $database -c "TRUNCATE messages RESTART IDENTITY;"
+psql $database -q -c "TRUNCATE message_store.messages RESTART IDENTITY;"
+
+echo "= = ="
+echo "Done Clearing Messages Table"
+echo
