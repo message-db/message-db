@@ -10,7 +10,10 @@ BEGIN
   RAISE NOTICE 'cycles: %', benchmark_write.cycles;
 
   FOR i IN 1..cycles LOOP
-    -- RAISE NOTICE '%', i;
+    IF current_setting('message_store.debug_benchmark', true) = 'on' OR current_setting('message_store.debug', true) = 'on' THEN
+      RAISE NOTICE '%', i;
+    END IF;
+
     PERFORM write_message(gen_random_uuid()::varchar, stream_name::varchar, 'SomeType'::varchar, '{"attribute": "some value"}'::jsonb, '{"metaAttribute": "some meta value", "correlationStreamName": "someCorrelation-123"}'::jsonb);
   END LOOP;
 END;

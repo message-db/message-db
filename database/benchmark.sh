@@ -46,7 +46,7 @@ echo "Benchmarking write"
 echo "- - -"
 echo
 
-psql $database -c "EXPLAIN ANALYZE SELECT benchmark_write('$stream_name'::varchar, $cycles::int);"
+psql $database -U message_store -c "EXPLAIN ANALYZE SELECT benchmark_write('$stream_name'::varchar, $cycles::int);"
 
 echo
 
@@ -55,6 +55,8 @@ echo "Benchmarking get"
 echo "- - -"
 echo
 
-psql $database -c "EXPLAIN ANALYZE SELECT benchmark_get('$stream_name'::varchar, $cycles::int);"
+psql $database -U message_store -c "EXPLAIN ANALYZE SELECT benchmark_get('$stream_name'::varchar, $cycles::int);"
 
+echo "= = ="
+echo "Done"
 echo

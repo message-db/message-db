@@ -10,7 +10,10 @@ BEGIN
   RAISE NOTICE 'cycles: %', benchmark_get.cycles;
 
   FOR i IN 1..cycles LOOP
-    -- RAISE NOTICE '%', i;
+    IF current_setting('message_store.debug_benchmark', true) = 'on' OR current_setting('message_store.debug', true) = 'on' THEN
+      RAISE NOTICE '%', i;
+    END IF;
+
     PERFORM get_stream_messages(stream_name, "position" => i - 1, batch_size => 1);
   END LOOP;
 END;
