@@ -2,29 +2,34 @@
 
 **Microservice Native Message and Event Store for Postgres**
 
-A fully-featured event store and message store implemented entirely in PostgreSQL, supporting event sourcing and messaging applications and services.
+A fully-featured event store and message store implemented entirely in PostgreSQL. Pub/Sub, Event Sourcing, Evented Microservices.
 
 ## Features
 
-- Event streams
 - Pub/Sub
-- Message storage
 - JSON message data
+- Event streams
 - Metadata
-- Stream categories
+- Message storage
 - Consumer groups
-- Optimistic concurrency
+- Service host
 - Administration tools
 - Reports
 
+## Rationale
+
+An event sourcing and Pub/Sub message store built on Postgres for simple cloud or local hosting. An implementation of the essential features of tools like [Event Store](https://eventstore.org), with built-in support for messaging patterns like Pub/Sub, and consumer patterns like consumer groups.
+
+Message DB was extracted from the [Eventide Project](http://docs.eventide-project.org) to make it easier for users to write clients in the language of their choosing.
+
 ## Installation
 
-The Postgres Message Store can be installed either as a Ruby Gem, an NPM package or can simply be cloned from this repository.
+The Postgres Message Store can be installed either as a Ruby Gem, an NPM package, or can simply be cloned from this repository.
 
 ### As a Ruby Gem
 
 ``` bash
-gem install evt-message_store-postgres-database
+gem install message-db
 ```
 
 ### As an NPM Module
@@ -38,6 +43,35 @@ npm install @eventide/message-db
 ``` bash
 git clone git@github.com:message-db/message-db.git
 ```
+
+## User Guide
+
+A complete user guide is available on the Eventide Project docs site:
+
+[http://docs.eventide-project.org/user-guide/message-db/](http://docs.eventide-project.org/user-guide/message-db/)
+
+## Interface
+
+The message store provides an interface of Postgres server functions that can be used with any programming language or through the `psql` command line tool.
+
+- [write_message](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#write-a-message)
+- [get_stream_messages](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-messages-from-a-stream)
+- [get_category_messages](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-messages-from-a-category)
+- [get_last_message](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-last-message-from-a-stream)
+- [stream_version](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-stream-version-from-a-stream)
+- [id](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-the-id-from-a-stream-name)
+- [cardinal_id](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-the-cardinal-id-from-a-stream-name)
+- [category](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-the-category-from-a-stream-name)
+- [is_category](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#determine-whether-a-stream-name-is-a-category)
+- [acquire_lock](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#acquire-a-lock-for-a-stream-name)
+- [hash_64](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#calculate-a-64-bit-hash-for-a-stream-name)
+- [message_store_version](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-message-store-database-schema-version)
+
+
+
+
+
+<!--
 
 # Server Functions
 
@@ -339,3 +373,5 @@ The database is defined by raw SQL scripts. You can examine them, or execute the
 ## License
 
 The Postgres Message Store is released under the [MIT License](https://github.com/message-db/message-db/blob/master/MIT-License.txt).
+
+-->
