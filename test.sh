@@ -50,7 +50,8 @@ test/get-category-messages/condition/error-deactivated.sh
 test/get-category-messages/condition/error-not-activated.sh
 test/get-category-messages/condition/condition-correlated.sh
 
-test/get-last-stream-message/get-last-stream-message.sh
+test/get-last-stream-message/stream-name.sh
+test/get-last-stream-message/category.sh
 
 test/stream-version/stream-version.sh
 
