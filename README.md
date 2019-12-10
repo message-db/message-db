@@ -26,7 +26,13 @@ Message DB was extracted from the [Eventide Project](http://docs.eventide-projec
 
 ## Installation
 
-The Postgres Message Store can be installed either as a Ruby Gem, an NPM package, or can simply be cloned from this repository.
+Message DB can be installed either as a Ruby Gem, an NPM package, or can simply be cloned from this repository.
+
+### Git Clone
+
+``` bash
+git clone git@github.com:message-db/message-db.git
+```
 
 ### As a Ruby Gem
 
@@ -40,12 +46,6 @@ gem install message-db
 npm install @eventide/message-db
 ```
 
-### Git Clone
-
-``` bash
-git clone git@github.com:message-db/message-db.git
-```
-
 ## User Guide
 
 A complete user guide is available on the Eventide Project docs site:
@@ -54,11 +54,55 @@ A complete user guide is available on the Eventide Project docs site:
 
 ## Create the Postgres Database
 
-Running the database creation script create the database, it's functions, a user role, and limit the user's privileges to the message store's public interface.
+Running the database installation script creates the database, schema, table, indexes, functions, views, types, a user role, and limit the user's privileges to the message store's public interface.
+
+### Requirements
+
+Make sure that your default Postgres user has administrative privileges.
+
+### From the Git Clone
+
+The installation script is in the `database` directory of the cloned repo. Change directory to the `message-db` directory where you cloned the repo, and run the script:
 
 ``` bash
 database/install.sh
 ```
+
+### From the Ruby Executable
+
+If you installed Message DB via RubyGems, a database update Ruby executable will be installed with the `message-db` gem.
+
+The executable will be in the gem executable search path and may also be executed through bundler:
+
+``` bash
+bundle exec mdb-create-db
+```
+
+For more information about Ruby executables installed with the `message-db` Ruby Gem, see the Eventide docs on the administration tools that are bundled with the gem:
+
+[http://docs.eventide-project.org/user-guide/message-db/tools.html](http://docs.eventide-project.org/user-guide/message-db/tools.html)
+
+### From the NPM Module
+
+The `message-db` NPM module doesn't ship with any special tooling other than the bundled scripts.
+
+To execute the update script, navigate to the directory where the `message-db` module is installed and run the script:
+
+``` bash
+install.sh
+```
+
+### Database Name
+
+By default, the database creation tool will create a database named `message_store`.
+
+If you prefer either a different database name, you can override the name using the `DATABASE_NAME` environment variable.
+
+``` bash
+DATABASE_NAME=some_other_database database/install.sh
+```
+
+### Uninstalling the Database
 
 If you need to drop the database (for example, on a local dev machine):
 
@@ -69,10 +113,10 @@ database/uninstall.sh
 If you're upgrading a previous version of the database:
 
 ``` bash
-database/upgrade.sh
+database/update.sh
 ```
 
-## Interface
+## API Overview
 
 The message store provides an interface of Postgres server functions that can be used with any programming language or through the `psql` command line tool.
 
@@ -231,7 +275,7 @@ Note: Where `someStream-123` is a _stream name_, `someStream` is a _category_. R
 
 Example: [https://github.com/message-db/message-db/blob/master/test/get-category-messages/get-category-messages.sh](https://github.com/message-db/message-db/blob/master/test/get-category-messages/get-category-messages.sh)
 
-### Full Function Reference
+### Full API Reference
 
 - [write_message](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#write-a-message)
 - [get_stream_messages](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-messages-from-a-stream)
