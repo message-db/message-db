@@ -24,6 +24,12 @@ An event sourcing and Pub/Sub message store built on Postgres for simple cloud o
 
 Message DB was extracted from the [Eventide Project](http://docs.eventide-project.org) to make it easier for users to write clients in the language of their choosing.
 
+## User Guide
+
+A complete user guide is available on the Eventide Project docs site:
+
+[http://docs.eventide-project.org/user-guide/message-db/](http://docs.eventide-project.org/user-guide/message-db/)
+
 ## Installation
 
 Message DB can be installed either as a Ruby Gem, an NPM package, or can simply be cloned from this repository.
@@ -46,12 +52,6 @@ gem install message-db
 npm install @eventide/message-db
 ```
 
-## User Guide
-
-A complete user guide is available on the Eventide Project docs site:
-
-[http://docs.eventide-project.org/user-guide/message-db/](http://docs.eventide-project.org/user-guide/message-db/)
-
 ## Create the Postgres Database
 
 Running the database installation script creates the database, schema, table, indexes, functions, views, types, a user role, and limit the user's privileges to the message store's public interface.
@@ -70,7 +70,7 @@ database/install.sh
 
 ### From the Ruby Executable
 
-If you installed Message DB via RubyGems, a database update Ruby executable will be installed with the `message-db` gem.
+If you installed Message DB via RubyGems, a database installation Ruby executable will be installed with the `message-db` gem.
 
 The executable will be in the gem executable search path and may also be executed through bundler:
 
@@ -86,7 +86,7 @@ For more information about Ruby executables installed with the `message-db` Ruby
 
 The `message-db` NPM module doesn't ship with any special tooling other than the bundled scripts.
 
-To execute the update script, navigate to the directory where the `message-db` module is installed and run the script:
+To execute the installation script, navigate to the directory where the `message-db` module is installed and run the script:
 
 ``` bash
 install.sh
