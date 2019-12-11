@@ -2,16 +2,18 @@
 
 # Message DB
 
-**Microservice Native Message and Event Store for Postgres**
+**Microservice Native Event Store and Message Store for Postgres**
 
-A fully-featured event store and message store implemented entirely in PostgreSQL. Pub/Sub, Event Sourcing, Evented Microservices.
+A fully-featured event store and message store implemented in PostgreSQL for Pub/Sub, Event Sourcing, Messaging, and Evented Microservices applications.
 
 ## Features
 
 - Pub/Sub
 - JSON message data
 - Event streams
+- Stream categories
 - Metadata
+- Message queues
 - Message storage
 - Consumer groups
 - Service host
@@ -20,7 +22,7 @@ A fully-featured event store and message store implemented entirely in PostgreSQ
 
 ## Rationale
 
-An event sourcing and Pub/Sub message store built on Postgres for simple cloud or local hosting. An implementation of the essential features of tools like [Event Store](https://eventstore.org), with built-in support for messaging patterns like Pub/Sub, and consumer patterns like consumer groups.
+An event sourcing and Pub/Sub message store built on Postgres for simple cloud or local hosting. A minimalist implementation of the essential features of tools like [Event Store](https://eventstore.org) or [Kafka](https://kafka.apache.org), with built-in support for messaging patterns like Pub/Sub, and consumer patterns like consumer groups.
 
 Message DB was extracted from the [Eventide Project](http://docs.eventide-project.org) to make it easier for users to write clients in the language of their choosing.
 
