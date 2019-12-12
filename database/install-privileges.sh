@@ -17,6 +17,9 @@ function grant-privileges {
 
   base=$(script_dir)
 
+  echo "» schema privileges"
+  psql $database -q -f $base/privileges/schema.sql
+
   echo "» messages table privileges"
   psql $database -q -f $base/privileges/table.sql
 
