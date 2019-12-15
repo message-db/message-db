@@ -327,7 +327,7 @@ All message store database objects are contained within a schema named `message_
 
 ## User/Role
 
-By default, a role named `message_store` is created. The `message_store` role is the owner of the `message_store` schema. The role is granted all necessary privileges to the database objects.
+By default, a role named `message_store` is created. The role is granted all necessary privileges to the database objects.
 
 ## Source Code
 
