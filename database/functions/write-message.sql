@@ -12,8 +12,6 @@ DECLARE
   _message_id uuid;
   _stream_version bigint;
   _next_position bigint;
-  _category varchar;
-  _category_name_hash bigint;
 BEGIN
   PERFORM acquire_lock(write_message.stream_name);
 
@@ -65,8 +63,6 @@ BEGIN
     RAISE NOTICE 'data ($4): %', write_message.data;
     RAISE NOTICE 'metadata ($5): %', write_message.metadata;
     RAISE NOTICE 'expected_version ($6): %', write_message.expected_version;
-    RAISE NOTICE '_category: %', _category;
-    RAISE NOTICE '_category_name_hash: %', _category_name_hash;
     RAISE NOTICE '_stream_version: %', _stream_version;
     RAISE NOTICE '_next_position: %', _next_position;
   END IF;
