@@ -1,5 +1,11 @@
 # Changes
 
+## 1.1.3
+
+Fri Dec 20 2019
+
+- The update script is corrected for its referencing of the gen_random_uuid from the message_store schema
+
 ## 1.1.2
 
 Thu Dec 19 2019
