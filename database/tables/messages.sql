@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS message_store.messages (
-  id UUID NOT NULL DEFAULT message_store.gen_random_uuid(),
+  id UUID NOT NULL DEFAULT gen_random_uuid(),
   stream_name text NOT NULL,
   type text NOT NULL,
   position bigint NOT NULL,
