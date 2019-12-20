@@ -1,5 +1,13 @@
 # Changes
 
+## 1.1.4
+
+Fri Dec 20 2019
+
+- The update script is deprecated in preparation of versioned update scripts
+- Update scripts are located in database/updates
+- The update code for the v1.0.0 database is moved to database/updates/1.0.0.sh
+
 ## 1.1.3
 
 Fri Dec 20 2019
