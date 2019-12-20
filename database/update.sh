@@ -110,7 +110,7 @@ function create-extensions {
 
 function set-default-value {
   echo "» id column"
-  psql $database -q -c "ALTER TABLE message_store.messages ALTER COLUMN id SET DEFAULT message_store.gen_random_uuid()";
+  psql $database -q -c "ALTER TABLE message_store.messages ALTER COLUMN id SET DEFAULT gen_random_uuid()";
 }
 
 echo "Deleting Views"
