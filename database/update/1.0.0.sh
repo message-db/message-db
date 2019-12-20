@@ -2,6 +2,20 @@
 
 set -e
 
+echo
+echo "Message DB"
+echo
+echo "Update the message_store database"
+echo
+echo "WARNING:"
+echo "This script updates a pre-v1 message_store database to Message DB v1.x"
+echo "Do not run this script on a Message DB v1 database"
+echo
+echo "- Press CTRL+C to stop this script from running"
+echo "- Press RETURN to allow the script to proceed"
+echo
+read
+
 function script_dir {
   val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   echo "$val"
