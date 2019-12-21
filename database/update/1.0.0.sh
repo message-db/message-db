@@ -11,6 +11,9 @@ echo "WARNING:"
 echo "This script updates a pre-v1 message_store database to Message DB v1.x"
 echo "Do not run this script on a Message DB v1 database"
 echo
+echo "Fore more information about the changes made to the message store by"
+echo "this update, see: https://github.com/message-db/message-db/blob/master/database/update/1.0.0.md"
+echo
 echo "- Press CTRL+C to stop this script from running"
 echo "- Press RETURN to allow the script to proceed"
 echo
