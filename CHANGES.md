@@ -1,5 +1,12 @@
 # Changes
 
+## 1.1.5
+
+Fri Dec 20 2019
+
+- Changes applied to a pre-v1 message store are documented in database/update/1.0.0.md
+- The v1 update script prints out a link to the changes doc
+
 ## 1.1.4
 
 Fri Dec 20 2019
