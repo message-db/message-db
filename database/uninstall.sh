@@ -28,13 +28,13 @@ fi
 
 function delete-user {
   echo "» message_store user"
-  psql -P pager=off -q -c "DROP OWNED BY message_store;"
-  psql -P pager=off -q -c "DROP ROLE IF EXISTS message_store;"
+  psql postgres -P pager=off -q -c "DROP OWNED BY message_store;"
+  psql postgres -P pager=off -q -c "DROP ROLE IF EXISTS message_store;"
 }
 
 function delete-database {
   echo "» $database database"
-  psql -P pager=off -q -c "DROP DATABASE IF EXISTS $database;"
+  psql postgres -P pager=off -q -c "DROP DATABASE IF EXISTS $database;"
 }
 
 echo "Deleting database"
