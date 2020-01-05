@@ -16,7 +16,13 @@ echo "Stream Name:"
 echo $stream_name
 echo
 
-STREAM_NAME=$stream_name database/write-test-message.sh > /dev/null
+cmd="SELECT write_message(gen_random_uuid()::varchar, '$stream_name'::varchar, 'SomeType'::varchar, '{\"attribute\": \"some value\"}'::jsonb, '{\"metaAttribute\": \"some meta value\"}'::jsonb);"
+
+echo "Command:"
+echo "$cmd"
+echo
+
+psql message_store -U message_store -x -c "$cmd"
 
 psql message_store -U message_store -P pager=off -x -c "SELECT * FROM messages WHERE stream_name = '$stream_name';"
 
