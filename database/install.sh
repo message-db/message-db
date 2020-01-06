@@ -30,7 +30,7 @@ function create-user {
   base=$(script_dir)
 
   echo "» message_store role"
-  psql -q -f $base/roles/message-store.sql
+  psql postgres -q -f $base/roles/message-store.sql
 }
 
 function create-database {
