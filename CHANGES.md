@@ -1,5 +1,11 @@
 # Changes
 
+## 1.1.6
+
+Mon Jan 6 2020
+
+- Install and uninstall scripts explicitly connect to the postgres database when running the psql utility, and do not depend on the existence of a user database
+
 ## 1.1.5
 
 Fri Dec 20 2019
