@@ -327,7 +327,7 @@ All message store database objects are contained within a schema named `message_
 
 ## User/Role
 
-By default, a role named `message_store` is created. The role is granted all necessary privileges to the database objects.
+A role named `message_store` is created. The `message_store` role is given the `LOGIN` attribute, but no password is assigned. A password [can be assigned to the role](https://www.postgresql.org/docs/current/sql-alterrole.html), or the `message_store` role can be [granted to another Postgres user](https://www.postgresql.org/docs/current/role-membership.html).
 
 ## Source Code
 
