@@ -22,6 +22,17 @@ else
   database=$DATABASE_NAME
 fi
 
+
+if [ -z ${CREATE_DATABASE+x} ]; then
+  CREATE_DATABASE="on"
+fi
+
+create_database=true
+if [ "$CREATE_DATABASE" = "off" ] ; then
+  create_database=false
+fi
+
+
 if [ -z ${PGOPTIONS+x} ]; then
   export PGOPTIONS='-c client_min_messages=warning'
 fi
@@ -66,7 +77,11 @@ echo
 
 echo "Creating Database"
 echo "- - -"
-create-database
+if [ "$create_database" = true ] ; then
+  create-database
+else
+  echo "Database creation is deactivated. Not creating the database."
+fi
 echo
 
 echo "Creating Schema"
