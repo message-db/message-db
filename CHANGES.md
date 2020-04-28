@@ -1,5 +1,11 @@
 # Changes
 
+## 1.2.0
+
+Mon Apr 27 2020
+
+- Install script will not create the database when the CREATE_DATABASE environment variable is set to "off"
+
 ## 1.1.6
 
 Mon Jan 6 2020
