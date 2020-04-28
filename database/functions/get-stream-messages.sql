@@ -60,7 +60,7 @@ BEGIN
     RAISE NOTICE 'batch_size ($3): %', get_stream_messages.batch_size;
     RAISE NOTICE 'condition ($4): %', get_stream_messages.condition;
     RAISE NOTICE 'Generated Command: %', _command;
-  end if;
+  END IF;
 
   RETURN QUERY EXECUTE _command USING
     get_stream_messages.stream_name,
