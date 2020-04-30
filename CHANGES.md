@@ -1,5 +1,11 @@
 # Changes
 
+## 1.2.1
+
+Thu Apr 30 2020
+
+- The `DROP OWNED BY message_store` statement is removed from the uninstall script. The use of `DROP OWNED BY` is prohibited on AWS RDS. And ultimately, it's superfluous because no database objects are owned by the message_store role.
+
 ## 1.2.0
 
 Mon Apr 27 2020
