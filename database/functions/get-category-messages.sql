@@ -101,9 +101,13 @@ BEGIN
 
   _command := _command || '
     ORDER BY
-      global_position ASC
-    LIMIT
-      $3';
+      global_position ASC';
+
+  IF get_category_messages.batch_size != -1 THEN
+    _command := _command || '
+      LIMIT
+        $3';
+  END IF;
 
   IF current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' THEN
     RAISE NOTICE '» get_category_messages';

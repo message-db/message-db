@@ -49,9 +49,13 @@ BEGIN
 
   _command := _command || '
     ORDER BY
-      position ASC
-    LIMIT
-      $3';
+      position ASC';
+
+  IF get_stream_messages.batch_size != -1 THEN
+    _command := _command || '
+      LIMIT
+        $3';
+  END IF;
 
   IF current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' THEN
     RAISE NOTICE '» get_stream_messages';

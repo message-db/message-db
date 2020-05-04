@@ -25,12 +25,18 @@ test/write-message/expected-version-error.sh
 test/get-stream-messages/get-stream-messages.sh
 test/get-stream-messages/error-not-stream-name.sh
 
+test/get-stream-messages/batch_size/limited.sh
+test/get-stream-messages/batch_size/unlimited.sh
+
 test/get-stream-messages/condition/condition.sh
 test/get-stream-messages/condition/error-deactivated.sh
 test/get-stream-messages/condition/error-not-activated.sh
 
 test/get-category-messages/get-category-messages.sh
 test/get-category-messages/error-not-category.sh
+
+test/get-category-messages/batch_size/limited.sh
+test/get-category-messages/batch_size/unlimited.sh
 
 test/get-category-messages/correlated/correlated.sh
 test/get-category-messages/correlated/error-stream-name.sh
