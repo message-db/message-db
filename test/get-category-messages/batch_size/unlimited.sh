@@ -4,7 +4,7 @@ set -e
 
 echo
 echo "GET CATEGORY MESSAGES - BATCH SIZE - UNLIMTED"
-echo "==========================================="
+echo "============================================="
 echo "- Write 2 messages each to 3 entity streams in the same category"
 echo "- Retrieve an unlimited batch of messages from the category"
 echo
