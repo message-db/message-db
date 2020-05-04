@@ -1,5 +1,16 @@
 # Changes
 
+## 1.2.2
+
+Mon May 4 2020
+
+This version requires the use of an update script for existing installations. For instructions, see:
+
+[https://github.com/message-db/message-db/blob/master/database/update/1.2.2.md](https://github.com/message-db/message-db/blob/master/database/update/1.2.2.md)
+
+- The `get_category_messages` server function will return the entire, unlimited extent of messages in a category if -1 is sent as the `batch_size` argument
+- The `get_stream_messages` server function will return the entire, unlimited extent of messages in a stream if -1 is sent as the `batch_size` argument
+
 ## 1.2.1
 
 Thu Apr 30 2020
