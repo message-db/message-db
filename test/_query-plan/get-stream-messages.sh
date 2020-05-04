@@ -6,7 +6,7 @@ echo
 echo "QUERY PLAN - GET STREAM MESSAGES"
 echo "================================"
 echo "- Write 3 messages to an entity stream"
-echo "- Retrieve a batch of 2 messages from the stream"
+echo "- Retrieve a batch of messages from the stream"
 echo
 
 source test/_controls.sh

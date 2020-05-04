@@ -6,7 +6,7 @@ echo
 echo "QUERY PLAN - GET CATEGORY MESSAGES - CONSUMER GROUP - CORRELATED"
 echo "================================================================"
 echo "- Write 2 messages each to 5 entity streams in the same category"
-echo "- Retrieve a batch of 2 messages from the category, starting at global position 0 and matching the correlation category"
+echo "- Retrieve a batch of messages from the category, starting at global position 0 and matching the correlation category"
 echo
 
 source test/_controls.sh

@@ -6,7 +6,7 @@ echo
 echo "ANALYZE QUERY PLAN - GET STREAM MESSAGES CORRELATED"
 echo "==================================================="
 echo "- Write 3 messages to an entity stream"
-echo "- Retrieve a batch of 2 messages from the stream matching the correlation category"
+echo "- Retrieve a batch of messages from the stream matching the correlation category"
 echo
 
 source test/_controls.sh
