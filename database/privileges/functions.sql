@@ -1,5 +1,4 @@
 GRANT EXECUTE ON FUNCTION gen_random_uuid() TO message_store;
-GRANT EXECUTE ON FUNCTION md5(text) TO message_store;
 
 GRANT EXECUTE ON FUNCTION message_store.acquire_lock(varchar) TO message_store;
 GRANT EXECUTE ON FUNCTION message_store.cardinal_id(varchar) TO message_store;
