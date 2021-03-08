@@ -1,5 +1,13 @@
 # Changes
 
+## 1.2.4
+
+Sun Mar 7 2020
+
+- The `messages` tables columns are ordered for more efficient physical storage allocation.
+
+This version should not be considered an update to an existing database. It requires a new installation of the database, and therefore its advantages will only apply to new databases.
+
 ## 1.2.3
 
 Fri May 15 2020
