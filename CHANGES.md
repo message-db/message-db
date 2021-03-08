@@ -2,7 +2,7 @@
 
 ## 1.2.4
 
-Sun Mar 7 2020
+Sun Mar 7 2021
 
 - The `messages` tables columns are ordered for more efficient physical storage allocation.
 
