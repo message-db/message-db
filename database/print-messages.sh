@@ -38,7 +38,7 @@ fi
 echo
 
 if [ -z $stream_name ]; then
-  psql $database -U $user -x -P pager=off -c "SELECT * FROM messages"
+  psql $database -U $user -x -P pager=off -c "SELECT * FROM messages ORDER BY global_position ASC"
 else
-  psql $database -U $user -x -P pager=off -c "SELECT * FROM messages WHERE stream_name = '$stream_name'"
+  psql $database -U $user -x -P pager=off -c "SELECT * FROM messages WHERE stream_name = '$stream_name' ORDER BY global_position ASC"
 fi
