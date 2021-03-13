@@ -1,5 +1,11 @@
 # Changes
 
+## 1.2.5
+
+Fri Mar 12 2021
+
+- The `print-messages.sh` script sorts messages explicitly by `global_position`
+
 ## 1.2.4
 
 Sun Mar 7 2021
