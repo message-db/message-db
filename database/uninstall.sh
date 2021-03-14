@@ -33,7 +33,7 @@ function delete-user {
 
 function delete-database {
   echo "» $database database"
-  psql postgres -P pager=off -q -c "DROP DATABASE IF EXISTS $database;"
+  psql postgres -P pager=off -q -c "DROP DATABASE IF EXISTS \"$database\";"
 }
 
 echo "Deleting database"
