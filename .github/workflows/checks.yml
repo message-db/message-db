@@ -1,0 +1,22 @@
+name: Checks
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build and run Message DB
+      run: |
+        docker build -t message-db . && \
+        docker run -d --rm --name message-db -e POSTGRES_HOST_AUTH_METHOD=trust message-db && \
+        sleep 5
+
+    - name: Run tests
+      run: docker exec -w /opt/message-db message-db ./test.sh
