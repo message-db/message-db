@@ -61,6 +61,9 @@ function create-functions {
   echo "» get_stream_messages function"
   psql $database -q -f $base/functions/get-stream-messages.sql
 
+  echo "» get_all_messages function"
+  psql $database -q -f $base/functions/get-all-messages.sql
+
   echo "» get_category_messages function"
   psql $database -q -f $base/functions/get-category-messages.sql
 

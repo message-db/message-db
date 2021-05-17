@@ -277,11 +277,67 @@ Note: Where `someStream-123` is a _stream name_, `someStream` is a _category_. R
 
 Example: [https://github.com/message-db/message-db/blob/master/test/get-category-messages/get-category-messages.sh](https://github.com/message-db/message-db/blob/master/test/get-category-messages/get-category-messages.sh)
 
+### Get all messages
+
+Retrieve all messages from the store, optionally specifying the starting position, the number of messages to retrieve, the correlation category for Pub/Sub, consumer group parameters, and an additional condition that will be appended to the SQL command's WHERE clause.
+
+``` sql
+CREATE OR REPLACE FUNCTION get_all_messages(
+  position bigint DEFAULT 0,
+  batch_size bigint DEFAULT 1000,
+  correlation varchar DEFAULT NULL,
+  consumer_group_member varchar DEFAULT NULL,
+  consumer_group_size varchar DEFAULT NULL,
+  condition varchar DEFAULT NULL
+)
+```
+
+#### Arguments
+
+| Name | Description | Type | Default | Example |
+| --- | --- | --- | --- | --- |
+| position (optional) | Global position to start retrieving messages from | bigint | 1 | 11 |
+| batch_size (optional) | Number of messages to retrieve | bigint | 1000 | 111 |
+| correlation (optional) | Category or stream name recorded in message metadata's `correlationStreamName` attribute to filter the batch by | varchar | NULL | someCorrelationCategory |
+| consumer_group_member (optional) | The zero-based member number of an individual consumer that is participating in a consumer group | bigint | NULL | 1 |
+| consumer_group_size (optional) | The size of a group of consumers that are cooperatively processing a single category | bigint | NULL | 2 |
+| condition (optional) | SQL condition to filter the batch by | varchar | NULL | messages.time >= current_time |
+
+#### Usage
+
+``` sql
+SELECT * FROM get_all_messages(1, 1000, correlation => 'someCorrelationCateogry', consumer_group_member => 1, consumer_group_size => 2, condition => 'messages.time >= current_time');
+```
+
+```
+-[ RECORD 1 ]---+---------------------------------------------------------
+id              | 28d8347f-677e-4738-b6b9-954f1b15463b
+stream_name     | someCategory-123
+type            | SomeType
+position        | 0
+global_position | 1
+data            | {"attribute": "some value"}
+metadata        | {"correlationStreamName": "someCorrelationCateogry-123"}
+time            | 2019-11-24 17:51:49.836341
+-[ RECORD 2 ]---+---------------------------------------------------------
+id              | 57894da7-680b-4483-825c-732dcf873e93
+stream_name     | otherCategory-456
+type            | SomeType
+position        | 0
+global_position | 2
+data            | {"attribute": "some value"}
+metadata        | {"correlationStreamName": "someCorrelationCateogry-123"}
+time            | 2019-11-24 17:51:49.879011
+```
+
+Example: [https://github.com/message-db/message-db/blob/master/test/get-all-messages/get-all-messages.sh](https://github.com/message-db/message-db/blob/master/test/get-all-messages/get-all-messages.sh)
+
 ### Full API Reference
 
 - [write_message](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#write-a-message)
 - [get_stream_messages](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-messages-from-a-stream)
 - [get_category_messages](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-messages-from-a-category)
+- get_all_messages
 - [get_last_message](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-last-message-from-a-stream)
 - [stream_version](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-stream-version-from-a-stream)
 - [id](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-the-id-from-a-stream-name)

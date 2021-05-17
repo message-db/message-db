@@ -3,6 +3,7 @@ GRANT EXECUTE ON FUNCTION gen_random_uuid() TO message_store;
 GRANT EXECUTE ON FUNCTION message_store.acquire_lock(varchar) TO message_store;
 GRANT EXECUTE ON FUNCTION message_store.cardinal_id(varchar) TO message_store;
 GRANT EXECUTE ON FUNCTION message_store.category(varchar) TO message_store;
+GRANT EXECUTE ON FUNCTION message_store.get_all_messages(bigint, bigint, varchar, bigint, bigint, varchar) TO message_store;
 GRANT EXECUTE ON FUNCTION message_store.get_category_messages(varchar, bigint, bigint, varchar, bigint, bigint, varchar) TO message_store;
 GRANT EXECUTE ON FUNCTION message_store.get_last_stream_message(varchar) TO message_store;
 GRANT EXECUTE ON FUNCTION message_store.get_stream_messages(varchar, bigint, bigint, varchar) TO message_store;

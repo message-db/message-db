@@ -32,6 +32,21 @@ test/get-stream-messages/condition/condition.sh
 test/get-stream-messages/condition/error-deactivated.sh
 test/get-stream-messages/condition/error-not-activated.sh
 
+test/get-all-messages/get-all-messages.sh
+
+test/get-all-messages/condition/error-deactivated.sh
+test/get-all-messages/condition/error-not-activated.sh
+test/get-all-messages/condition/condition-correlated.sh
+
+test/get-all-messages/consumer-group/correlated.sh
+
+test/get-all-messages/consumer-group/error/missing-group-member.sh
+test/get-all-messages/consumer-group/error/missing-group-size.sh
+test/get-all-messages/consumer-group/error/group-member-equal-to-group-size.sh
+test/get-all-messages/consumer-group/error/group-member-greater-than-group-size.sh
+test/get-all-messages/consumer-group/error/group-member-too-small.sh
+test/get-all-messages/consumer-group/error/group-size-too-small.sh
+
 test/get-category-messages/get-category-messages.sh
 test/get-category-messages/error-not-category.sh
 
@@ -71,5 +86,5 @@ test/reports/type-stream-summary.sh
 test/reports/category-type-summary.sh
 test/reports/type-category-summary.sh
 
-echo "Done"
+echo "All tests complete"
 echo
