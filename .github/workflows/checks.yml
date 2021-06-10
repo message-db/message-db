@@ -1,22 +1,43 @@
 name: Checks
 on:
   push:
+    branches:
+      - master
   pull_request:
 
 jobs:
   tests:
-    name: Tests
+    name: Integration Tests (PostgreSQL v${{ matrix.postgres-ver }})
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        postgres-ver: [9.6, 10, 11, 12, 13]
+    env:
+      PGHOST: localhost
+      PGUSER: postgres
+
+    services:
+      postgres:
+        image: postgres:${{ matrix.postgres-ver }}
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build and run Message DB
-      run: |
-        docker build -t message-db . && \
-        docker run -d --rm --name message-db -e POSTGRES_HOST_AUTH_METHOD=trust message-db && \
-        sleep 5
+    - name: Install Message DB
+      run: ./database/install.sh
 
     - name: Run tests
-      run: docker exec -w /opt/message-db message-db ./test.sh
+      run: ./test.sh
+
+    - name: Uninstall Message DB
+      run: ./database/uninstall.sh
