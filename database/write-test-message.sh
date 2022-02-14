@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-set -u
+set -ue
+
+function run_psql {
+  psql -v ON_ERROR_STOP=1 "$@"
+}
 
 instances=1
 if [ ! -z ${INSTANCES+x} ]; then
@@ -58,11 +62,11 @@ for (( i=1; i<=instances; i++ )); do
 
   echo "Instance: $i, Message ID: $uuid"
 
-  psql $database -U $user -c "SELECT write_message('$uuid'::varchar, '$stream_name'::varchar, '$type'::varchar, '{\"attribute\": \"some value\"}'::jsonb, $metadata);" > /dev/null
+  run_psql $database -U $user -c "SELECT write_message('$uuid'::varchar, '$stream_name'::varchar, '$type'::varchar, '{\"attribute\": \"some value\"}'::jsonb, $metadata);" > /dev/null
 done
 
 
 echo
-psql $database -U $user -P pager=off -x -c "SELECT * FROM messages WHERE stream_name = '$stream_name';"
+run_psql $database -U $user -P pager=off -x -c "SELECT * FROM messages WHERE stream_name = '$stream_name';"
 
 echo

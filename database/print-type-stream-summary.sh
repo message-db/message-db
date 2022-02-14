@@ -30,15 +30,19 @@ else
   echo "Type is: $TYPE"
 fi
 
+function run_psql_command {
+  psql -v ON_ERROR_STOP=1 $database -U $user -P pager=off -c "$1"
+}
+
 echo
 echo "Type Stream Summary"
 echo "= = ="
 echo
 
 if [ -z $type ]; then
-  psql $database -U $user -P pager=off -c "SELECT * FROM type_stream_summary ORDER BY type, message_count DESC, stream_name;"
-  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages;"
+  run_psql_command "SELECT * FROM type_stream_summary ORDER BY type, message_count DESC, stream_name;"
+  run_psql_command "SELECT COUNT(*) AS total_count FROM messages;"
 else
-  psql $database -U $user -P pager=off -c "SELECT * FROM type_stream_summary WHERE type LIKE '%$type%' ORDER BY type, message_count DESC, stream_name;"
-  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages WHERE type LIKE '%$type%';"
+  run_psql_command "SELECT * FROM type_stream_summary WHERE type LIKE '%$type%' ORDER BY type, message_count DESC, stream_name;"
+  run_psql_command "SELECT COUNT(*) AS total_count FROM messages WHERE type LIKE '%$type%';"
 fi

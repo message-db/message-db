@@ -19,7 +19,7 @@ echo "Database name is: $database"
 
 echo
 
-psql $database -q -c "TRUNCATE message_store.messages RESTART IDENTITY;"
+psql $database -v ON_ERROR_STOP=1 -q -c "TRUNCATE message_store.messages RESTART IDENTITY;"
 
 echo "= = ="
 echo "Done Clearing Messages Table"

@@ -2,6 +2,10 @@
 
 set -e
 
+function run_psql {
+  psql -q -v ON_ERROR_STOP=1 "$@"
+}
+
 function script_dir {
   val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   echo "$val"
@@ -41,7 +45,7 @@ function create-user {
   base=$(script_dir)
 
   echo "» message_store role"
-  psql postgres -q -f $base/roles/message-store.sql
+  run_psql postgres -f $base/roles/message-store.sql
 }
 
 function create-database {
@@ -51,21 +55,21 @@ function create-database {
 
 function create-schema {
   echo "» message_store schema"
-  psql $database -q -f $base/schema/message-store.sql
+  run_psql $database -f $base/schema/message-store.sql
 }
 
 function create-extensions {
   base=$(script_dir)
 
   echo "» pgcrypto extension"
-  psql $database -q -f $base/extensions/pgcrypto.sql
+  run_psql $database -f $base/extensions/pgcrypto.sql
 }
 
 function create-table {
   base=$(script_dir)
 
   echo "» messages table"
-  psql $database -q -f $base/tables/messages.sql
+  run_psql $database -f $base/tables/messages.sql
 }
 
 echo

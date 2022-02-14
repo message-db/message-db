@@ -30,15 +30,19 @@ else
   echo "Stream name is: $STREAM_NAME"
 fi
 
+function run_psql_command {
+  psql -v ON_ERROR_STOP=1 $database -U $user -P pager=off -c "$1"
+}
+
 echo
 echo "Stream Type Summary"
 echo "= = ="
 echo
 
 if [ -z $stream_name ]; then
-  psql $database -U $user -P pager=off -c "SELECT * FROM stream_type_summary ORDER BY stream_name, message_count DESC, type;"
-  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages;"
+  run_psql_command "SELECT * FROM stream_type_summary ORDER BY stream_name, message_count DESC, type;"
+  run_psql_command "SELECT COUNT(*) AS total_count FROM messages;"
 else
-  psql $database -U $user -P pager=off -c "SELECT * FROM stream_type_summary WHERE stream_name LIKE '%$stream_name%' ORDER BY stream_name, message_count DESC;"
-  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages WHERE stream_name LIKE '%$stream_name%';"
+  run_psql_command "SELECT * FROM stream_type_summary WHERE stream_name LIKE '%$stream_name%' ORDER BY stream_name, message_count DESC;"
+  run_psql_command "SELECT COUNT(*) AS total_count FROM messages WHERE stream_name LIKE '%$stream_name%';"
 fi

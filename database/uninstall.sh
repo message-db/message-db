@@ -2,6 +2,10 @@
 
 set -e
 
+function run_psql_command {
+  psql -q -v ON_ERROR_STOP=1 -P pager=off postgres -c "$1"
+}
+
 function script_dir {
   val="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
   echo "$val"
@@ -28,12 +32,12 @@ fi
 
 function delete-user {
   echo "» message_store user"
-  psql postgres -P pager=off -q -c "DROP ROLE IF EXISTS message_store;"
+  run_psql_command "DROP ROLE IF EXISTS message_store;"
 }
 
 function delete-database {
   echo "» $database database"
-  psql postgres -P pager=off -q -c "DROP DATABASE IF EXISTS \"$database\";"
+  run_psql_command "DROP DATABASE IF EXISTS \"$database\";"
 }
 
 echo "Deleting database"

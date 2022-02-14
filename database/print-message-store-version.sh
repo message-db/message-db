@@ -29,4 +29,4 @@ default_table_name=messages
 
 echo
 
-psql $database -U $user -P pager=off -c "SELECT message_store_version();"
+psql $database -v ON_ERROR_STOP=1 -U $user -P pager=off -c "SELECT message_store_version();"
