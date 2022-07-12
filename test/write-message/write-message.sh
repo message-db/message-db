@@ -16,7 +16,9 @@ echo "Stream Name:"
 echo $stream_name
 echo
 
-cmd="SELECT write_message(gen_random_uuid()::varchar, '$stream_name'::varchar, 'SomeType'::varchar, '{\"attribute\": \"some value\"}'::jsonb, '{\"metaAttribute\": \"some meta value\"}'::jsonb);"
+type=$(type)
+
+cmd="SELECT write_message(gen_random_uuid()::varchar, '$stream_name'::varchar, '$type'::varchar, '{\"attribute\": \"some value\"}'::jsonb, '{\"metaAttribute\": \"some meta value\"}'::jsonb);"
 
 echo "Command:"
 echo "$cmd"
