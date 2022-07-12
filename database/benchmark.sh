@@ -35,18 +35,22 @@ fi
 echo "Database name is: $database"
 echo
 
+function run_psql {
+  psql -v ON_ERROR_STOP=1 $database "$@"
+}
+
 echo "Installing benchmark scripts"
 echo
 
-psql $database -q -f $base/benchmark_write.sql
-psql $database -q -f $base/benchmark_get.sql
+run_psql -q -f $base/benchmark_write.sql
+run_psql -q -f $base/benchmark_get.sql
 
 echo
 echo "Benchmarking write"
 echo "- - -"
 echo
 
-psql $database -U message_store -c "EXPLAIN ANALYZE SELECT benchmark_write('$stream_name'::varchar, $cycles::int);"
+run_psql -U message_store -c "EXPLAIN ANALYZE SELECT benchmark_write('$stream_name'::varchar, $cycles::int);"
 
 echo
 
@@ -55,7 +59,7 @@ echo "Benchmarking get"
 echo "- - -"
 echo
 
-psql $database -U message_store -c "EXPLAIN ANALYZE SELECT benchmark_get('$stream_name'::varchar, $cycles::int);"
+run_psql -U message_store -c "EXPLAIN ANALYZE SELECT benchmark_get('$stream_name'::varchar, $cycles::int);"
 
 echo "= = ="
 echo "Done"

@@ -35,10 +35,14 @@ else
   echo "Stream name is: $STREAM_NAME"
 fi
 
+function run_psql_command {
+  psql -v ON_ERROR_STOP=1 $database -U $user -P pager=off -x -c "$1"
+}
+
 echo
 
 if [ -z $stream_name ]; then
-  psql $database -U $user -x -P pager=off -c "SELECT * FROM messages ORDER BY global_position ASC"
+  run_psql_command "SELECT * FROM messages ORDER BY global_position ASC"
 else
-  psql $database -U $user -x -P pager=off -c "SELECT * FROM messages WHERE stream_name = '$stream_name' ORDER BY global_position ASC"
+  run_psql_command "SELECT * FROM messages WHERE stream_name = '$stream_name' ORDER BY global_position ASC"
 fi

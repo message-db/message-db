@@ -30,15 +30,19 @@ else
   echo "Category is: $CATEGORY"
 fi
 
+function run_psql_command {
+  psql -v ON_ERROR_STOP=1 $database -U $user -P pager=off -c "$1"
+}
+
 echo
 echo "Category Type Summary"
 echo "= = ="
 echo
 
 if [ -z $category ]; then
-  psql $database -U $user -P pager=off -c "SELECT * FROM category_type_summary;"
-  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages;"
+  run_psql_command "SELECT * FROM category_type_summary;"
+  run_psql_command "SELECT COUNT(*) AS total_count FROM messages;"
 else
-  psql $database -U $user -P pager=off -c "SELECT * FROM category_type_summary WHERE category LIKE '%$category%';"
-  psql $database -U $user -P pager=off -c "SELECT COUNT(*) AS total_count FROM messages WHERE category(stream_name) LIKE '%$category%';"
+  run_psql_command "SELECT * FROM category_type_summary WHERE category LIKE '%$category%';"
+  run_psql_command "SELECT COUNT(*) AS total_count FROM messages WHERE category(stream_name) LIKE '%$category%';"
 fi
