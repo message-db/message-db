@@ -36,7 +36,7 @@ echo "Database name is: $database"
 echo
 
 function run_psql {
-  psql -v ON_ERROR_STOP=1 $database "$@"
+  psql $database -v ON_ERROR_STOP=1 "$@"
 }
 
 echo "Installing benchmark scripts"

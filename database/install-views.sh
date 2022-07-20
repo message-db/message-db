@@ -10,7 +10,7 @@ else
 fi
 
 function run_psql_file {
-  psql -q -v ON_ERROR_STOP=1 $database -f "$1"
+  psql $database -q -v ON_ERROR_STOP=1 -f "$1"
 }
 
 function script_dir {

@@ -36,7 +36,7 @@ else
 fi
 
 function run_psql_command {
-  psql -v ON_ERROR_STOP=1 $database -U $user -P pager=off -x -c "$1"
+  psql $database -v ON_ERROR_STOP=1 -U $user -P pager=off -x -c "$1"
 }
 
 echo
