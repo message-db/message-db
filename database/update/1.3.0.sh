@@ -50,34 +50,43 @@ if [ -z ${PGOPTIONS+x} ]; then
   export PGOPTIONS='-c client_min_messages=warning'
 fi
 
-function delete-function {
+function delete-functions {
   echo "» get_last_message function"
   run_psql "DROP FUNCTION IF EXISTS message_store.get_last_stream_message(varchar) CASCADE";
+
+  echo "» message_store_version function"
+  run_psql "DROP FUNCTION IF EXISTS message_store.message_store_version CASCADE";
 }
 
-function install-function {
+function install-functions {
   echo "» get_last_stream_message function"
   run_psql_file $base/functions/get-last-stream-message.sql
+
+  echo "» message_store_version function"
+  run_psql_file $base/functions/message-store-version.sql
 }
 
-function grant-privilege {
+function grant-privileges {
   echo "» get_last_stream_message function privilege"
   run_psql "GRANT EXECUTE ON FUNCTION message_store.get_last_stream_message(varchar, varchar) TO message_store;"
+
+  echo "» message_store_version function"
+  run_psql "GRANT EXECUTE ON FUNCTION message_store.message_store_version TO message_store;"
 }
 
-echo "Deleting Function"
+echo "Deleting Functions"
 echo "- - -"
-delete-function
+delete-functions
 echo
 
-echo "Installing Function"
+echo "Installing Functions"
 echo "- - -"
-install-function
+install-functions
 echo
 
 echo "Granting Privileges to the Function"
 echo "- - -"
-grant-privilege
+grant-privileges
 echo
 
 echo "= = ="
