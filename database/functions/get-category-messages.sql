@@ -12,7 +12,7 @@ AS $$
 DECLARE
   _command text;
 BEGIN
-  IF NOT is_category(get_category_messages.category) THEN
+  IF NOT message_store.is_category(get_category_messages.category) THEN
     RAISE EXCEPTION
       'Must be a category: %',
       get_category_messages.category;
@@ -32,9 +32,9 @@ BEGIN
       metadata::varchar,
       time::timestamp
     FROM
-      messages
+      message_store.messages
     WHERE
-      category(stream_name) = $1 AND
+      message_store.category(stream_name) = $1 AND
       global_position >= $2';
 
   IF get_category_messages.correlation IS NOT NULL THEN
@@ -45,7 +45,7 @@ BEGIN
     END IF;
 
     _command := _command || ' AND
-      category(metadata->>''correlationStreamName'') = $4';
+      message_store.category(metadata->>''correlationStreamName'') = $4';
   END IF;
 
   IF (get_category_messages.consumer_group_member IS NOT NULL AND

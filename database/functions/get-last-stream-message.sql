@@ -18,7 +18,7 @@ BEGIN
       metadata::varchar,
       time::timestamp
     FROM
-      messages
+      message_store.messages
     WHERE
       stream_name = $1';
 

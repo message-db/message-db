@@ -7,8 +7,8 @@ DECLARE
   _category varchar;
   _category_name_hash bigint;
 BEGIN
-  _category := category(acquire_lock.stream_name);
-  _category_name_hash := hash_64(_category);
+  _category := message_store.category(acquire_lock.stream_name);
+  _category_name_hash := message_store.hash_64(_category);
   PERFORM pg_advisory_xact_lock(_category_name_hash);
 
   IF current_setting('message_store.debug_write', true) = 'on' OR current_setting('message_store.debug', true) = 'on' THEN

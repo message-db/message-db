@@ -9,7 +9,7 @@ BEGIN
   SELECT
     max(position) into _stream_version
   FROM
-    messages
+    message_store.messages
   WHERE
     messages.stream_name = stream_version.stream_name;
 

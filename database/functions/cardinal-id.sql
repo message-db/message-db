@@ -6,7 +6,7 @@ AS $$
 DECLARE
   _id varchar;
 BEGIN
-  _id := id(cardinal_id.stream_name);
+  _id := message_store.id(cardinal_id.stream_name);
 
   IF _id IS NULL THEN
     RETURN NULL;

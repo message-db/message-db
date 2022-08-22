@@ -13,9 +13,9 @@ DECLARE
   _stream_version bigint;
   _next_position bigint;
 BEGIN
-  PERFORM acquire_lock(write_message.stream_name);
+  PERFORM message_store.acquire_lock(write_message.stream_name);
 
-  _stream_version := stream_version(write_message.stream_name);
+  _stream_version := message_store.stream_version(write_message.stream_name);
 
   IF _stream_version IS NULL THEN
     _stream_version := -1;
@@ -35,7 +35,7 @@ BEGIN
 
   _message_id = uuid(write_message.id);
 
-  INSERT INTO messages
+  INSERT INTO message_store.messages
     (
       id,
       stream_name,
