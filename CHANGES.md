@@ -2,7 +2,7 @@
 
 ## 1.3.0
 
-XXX XXX XX XXXX
+Wed Oct 12 2022
 
 This version requires the use of an update script for existing installations. For instructions, see:
 
