@@ -11,7 +11,7 @@ echo "Fore more information about the changes made to the message store by"
 echo "this update, see: https://github.com/message-db/message-db/blob/master/database/update/1.3.0.md"
 echo
 echo "- Press CTRL+C to cancel"
-echo "- Press RETURN to proceed"
+echo "- Press RETURN to proceed with the update"
 echo
 
 read
