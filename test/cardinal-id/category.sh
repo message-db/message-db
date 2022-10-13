@@ -3,7 +3,7 @@
 set -e
 
 echo
-echo "CARDINAL ID - FROM CATEOGRY"
+echo "CARDINAL ID - FROM CATEGORY"
 echo "==========================="
 echo
 
