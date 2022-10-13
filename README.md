@@ -282,7 +282,7 @@ Example: [https://github.com/message-db/message-db/blob/master/test/get-category
 - [write_message](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#write-a-message)
 - [get_stream_messages](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-messages-from-a-stream)
 - [get_category_messages](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-messages-from-a-category)
-- [get_last_message](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-last-message-from-a-stream)
+- [get_last_stream_message](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-last-message-from-a-stream)
 - [stream_version](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-stream-version-from-a-stream)
 - [id](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-the-id-from-a-stream-name)
 - [cardinal_id](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-the-cardinal-id-from-a-stream-name)

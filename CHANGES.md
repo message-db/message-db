@@ -1,5 +1,16 @@
 # Changes
 
+## 1.3.0
+
+Wed Oct 12 2022
+
+This version requires the use of an update script for existing installations. For instructions, see:
+
+[https://github.com/message-db/message-db/blob/master/database/update/1.3.0.md](https://github.com/message-db/message-db/blob/master/database/update/1.3.0.md)
+
+- The `get_last_stream_message` function can receive an optional `type` argument that constrains the result to the last message of a stream of a specified message type (see: [http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-last-message-from-a-stream](http://docs.eventide-project.org/user-guide/message-db/server-functions.html#get-last-message-from-a-stream))
+- The database installation scripts terminate on error, rather than proceeding with the rest of the installation when a script error occurs
+
 ## 1.2.6
 
 Sat Mar 13 2021
