@@ -228,8 +228,8 @@ CREATE OR REPLACE FUNCTION get_category_messages(
   position bigint DEFAULT 0,
   batch_size bigint DEFAULT 1000,
   correlation varchar DEFAULT NULL,
-  consumer_group_member varchar DEFAULT NULL,
-  consumer_group_size varchar DEFAULT NULL,
+  consumer_group_member bigint DEFAULT NULL,
+  consumer_group_size bigint DEFAULT NULL,
   condition varchar DEFAULT NULL
 )
 ```
