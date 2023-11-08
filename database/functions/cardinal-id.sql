@@ -15,4 +15,6 @@ BEGIN
   RETURN SPLIT_PART(_id, '+', 1);
 END;
 $$ LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path=message_store,public,pg_temp
 IMMUTABLE;

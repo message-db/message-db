@@ -45,4 +45,6 @@ BEGIN
     get_last_stream_message.type;
 END;
 $$ LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path=message_store,public,pg_temp
 VOLATILE;

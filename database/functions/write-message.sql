@@ -70,4 +70,6 @@ BEGIN
   RETURN _next_position;
 END;
 $$ LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path=message_store,public,pg_temp
 VOLATILE;

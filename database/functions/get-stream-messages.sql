@@ -72,4 +72,6 @@ BEGIN
     get_stream_messages.batch_size;
 END;
 $$ LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path=message_store,public,pg_temp
 VOLATILE;
