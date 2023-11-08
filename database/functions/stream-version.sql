@@ -16,4 +16,6 @@ BEGIN
   RETURN _stream_version;
 END;
 $$ LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path=message_store,public,pg_temp
 VOLATILE;

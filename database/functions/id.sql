@@ -15,4 +15,6 @@ BEGIN
   RETURN SUBSTRING(id.stream_name, _id_separator_position + 1);
 END;
 $$ LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path=message_store,public,pg_temp
 IMMUTABLE;

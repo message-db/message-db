@@ -10,4 +10,6 @@ BEGIN
   return _hash;
 END;
 $$ LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path=message_store,public,pg_temp
 IMMUTABLE;

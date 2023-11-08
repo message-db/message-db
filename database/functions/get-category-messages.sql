@@ -130,4 +130,6 @@ BEGIN
     get_category_messages.consumer_group_size::smallint;
 END;
 $$ LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path=message_store,public,pg_temp
 VOLATILE;
