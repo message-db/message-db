@@ -245,6 +245,7 @@ CREATE OR REPLACE FUNCTION get_category_messages(
 | consumer_group_member (optional) | The zero-based member number of an individual consumer that is participating in a consumer group | bigint | NULL | 1 |
 | consumer_group_size (optional) | The size of a group of consumers that are cooperatively processing a single category | bigint | NULL | 2 |
 | condition (optional) | SQL condition to filter the batch by | varchar | NULL | messages.time >= current_time |
+| data_condition (optional) | JSON path condition to filter the batch by | varchar | NULL | $.value == "some value" |
 
 #### Usage
 
