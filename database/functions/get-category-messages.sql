@@ -5,7 +5,8 @@ CREATE OR REPLACE FUNCTION message_store.get_category_messages(
   correlation varchar DEFAULT NULL,
   consumer_group_member bigint DEFAULT NULL,
   consumer_group_size bigint DEFAULT NULL,
-  condition varchar DEFAULT NULL
+  condition varchar DEFAULT NULL,
+  data_condition varchar DEFAULT NULL
 )
 RETURNS SETOF message_store.message
 AS $$
@@ -99,6 +100,11 @@ BEGIN
     _command := format(_command, get_category_messages.condition);
   END IF;
 
+  IF data_condition IS NOT NULL THEN
+    _command := _command || ' AND
+      data::jsonb @@ $7::jsonpath';
+  END IF;
+
   _command := _command || '
     ORDER BY
       global_position ASC';
@@ -127,7 +133,8 @@ BEGIN
     get_category_messages.batch_size,
     get_category_messages.correlation,
     get_category_messages.consumer_group_member,
-    get_category_messages.consumer_group_size::smallint;
+    get_category_messages.consumer_group_size::smallint,
+    data_condition;
 END;
 $$ LANGUAGE plpgsql
 VOLATILE;

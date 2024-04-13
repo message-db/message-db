@@ -32,6 +32,15 @@ fi
 
 metadata="$metadata::jsonb"
 
+if [ -z ${DATA+x} ]; then
+  data="'{\"attribute\": \"some value\"}'"
+else
+  data="$DATA"
+  ## Should we output data and metadata always rather than modifying the title?
+fi
+
+data="$data::jsonb"
+
 echo
 echo $title
 echo "= = ="
@@ -62,7 +71,7 @@ for (( i=1; i<=instances; i++ )); do
 
   echo "Instance: $i, Message ID: $uuid"
 
-  run_psql $database -U $user -c "SELECT write_message('$uuid'::varchar, '$stream_name'::varchar, '$type'::varchar, '{\"attribute\": \"some value\"}'::jsonb, $metadata);" > /dev/null
+  run_psql $database -U $user -c "SELECT write_message('$uuid'::varchar, '$stream_name'::varchar, '$type'::varchar, $data, $metadata);" > /dev/null
 done
 
 
