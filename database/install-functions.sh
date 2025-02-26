@@ -61,6 +61,9 @@ function create-functions {
   echo "» get_category_messages function"
   run_psql_file $base/functions/get-category-messages.sql
 
+  echo "» get_category_messages_dynamic function"
+  run_psql_file $base/functions/get-category-messages-dynamic.sql
+
   echo "» get_last_stream_message function"
   run_psql_file $base/functions/get-last-stream-message.sql
 }

@@ -29,6 +29,15 @@ function create-indexes {
 
   echo "» messages_category index"
   run_psql_file $base/indexes/messages-category.sql
+
+  echo "» messages_category_position"
+  run_psql_file $base/indexes/messages-category-position.sql
+
+  echo "» messages_consumer_group index"
+  run_psql_file $base/indexes/messages-consumer-group.sql
+
+  echo "» messages_correlation index"
+  run_psql_file $base/indexes/messages-correlation.sql
 }
 
 echo "Creating Indexes"
