@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS message_store.messages (
   global_position bigserial NOT NULL,
+  transaction_id xid8 NOT NULL,
   position bigint NOT NULL,
   time TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc') NOT NULL,
   stream_name text NOT NULL,

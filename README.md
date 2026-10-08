@@ -201,6 +201,7 @@ id              | 4b96f09e-104a-4b1f-b198-5b3b46cf1d06
 stream_name     | someStream-123
 type            | SomeType
 position        | 0
+transaction_id  | 1234
 global_position | 1
 data            | {"attribute": "some value"}
 metadata        | {"metaAttribute": "some meta value"}
@@ -210,6 +211,7 @@ id              | d94e79e3-cdda-49a3-9aad-ce5d70a5edd7
 stream_name     | someStream-123
 type            | SomeType
 position        | 1
+transaction_id  | 1235
 global_position | 2
 data            | {"attribute": "some value"}
 metadata        | {"metaAttribute": "some meta value"}
@@ -225,7 +227,8 @@ Retrieve messages from a category of streams, optionally specifying the starting
 ``` sql
 CREATE OR REPLACE FUNCTION get_category_messages(
   category_name varchar,
-  position bigint DEFAULT 0,
+  transaction_position bigint DEFAULT 0,
+  global_position bigint DEFAULT 0,
   batch_size bigint DEFAULT 1000,
   correlation varchar DEFAULT NULL,
   consumer_group_member bigint DEFAULT NULL,
@@ -239,7 +242,8 @@ CREATE OR REPLACE FUNCTION get_category_messages(
 | Name | Description | Type | Default | Example |
 | --- | --- | --- | --- | --- |
 | category_name | Name of the category to retrieve messages from | varchar | | someCategory |
-| position (optional) | Global position to start retrieving messages from | bigint | 1 | 11 |
+| transaction_position (optional) | Transaction ID of the inclusive starting cursor | bigint | 0 | 1234 |
+| global_position (optional) | Global position within the starting transaction | bigint | 0 | 11 |
 | batch_size (optional) | Number of messages to retrieve | bigint | 1000 | 111 |
 | correlation (optional) | Category or stream name recorded in message metadata's `correlationStreamName` attribute to filter the batch by | varchar | NULL | someCorrelationCategory |
 | consumer_group_member (optional) | The zero-based member number of an individual consumer that is participating in a consumer group | bigint | NULL | 1 |
@@ -249,7 +253,7 @@ CREATE OR REPLACE FUNCTION get_category_messages(
 #### Usage
 
 ``` sql
-SELECT * FROM get_category_messages('someCategory', 1, 1000, correlation => 'someCorrelationCategory', consumer_group_member => 1, consumer_group_size => 2, condition => 'messages.time >= current_time');
+SELECT * FROM get_category_messages('someCategory', 0, 0, 1000, correlation => 'someCorrelationCategory', consumer_group_member => 1, consumer_group_size => 2, condition => 'messages.time >= current_time');
 ```
 
 ```
@@ -258,6 +262,7 @@ id              | 28d8347f-677e-4738-b6b9-954f1b15463b
 stream_name     | someCategory-123
 type            | SomeType
 position        | 0
+transaction_id  | 1234
 global_position | 111
 data            | {"attribute": "some value"}
 metadata        | {"correlationStreamName": "someCorrelationCategory-123"}
@@ -267,6 +272,7 @@ id              | 57894da7-680b-4483-825c-732dcf873e93
 stream_name     | someCategory-456
 type            | SomeType
 position        | 1
+transaction_id  | 1235
 global_position | 1111
 data            | {"attribute": "some value"}
 metadata        | {"correlationStreamName": "someCorrelationCategory-123"}
@@ -304,6 +310,7 @@ The message store is a single table named `messages`.
 | stream_name | Name of stream to which the message belongs | varchar | | No |
 | type | The type of the message | varchar | | No |
 | position | The ordinal position of the message in its stream. Position is gapless. | bigint | | No |
+| transaction_id | Writing transaction ID, used with global position for category ordering | xid8 | | No |
 | global_position | Primary key. The ordinal position of the message in the entire message store. Global position may have gaps. | bigint | | No |
 | data | Message payload | jsonb | NULL | Yes |
 | metadata | Message metadata | jsonb | NULL | Yes |
@@ -315,7 +322,7 @@ The message store is a single table named `messages`.
 | --- | --- | --- | --- |
 | messages_id | id | Yes | Enforce uniqueness as secondary key |
 | messages_stream | stream_name, position | Yes | Ensures uniqueness of position number in a stream |
-| messages_category | category(stream_name), global_position, category(metadata->>'correlationStreamName') | No | Used when retrieving by category name |
+| messages_category | category(stream_name), transaction_id, global_position, category(metadata->>'correlationStreamName') | No | Used when retrieving by category name |
 
 ## Database
 

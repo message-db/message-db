@@ -7,6 +7,7 @@ BEGIN
     stream_name varchar,
     type varchar,
     position bigint,
+    transaction_id xid8,
     global_position bigint,
     data varchar,
     metadata varchar,

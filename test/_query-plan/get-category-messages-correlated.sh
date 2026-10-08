@@ -36,7 +36,7 @@ cmd="
   LOAD 'auto_explain';
   SET auto_explain.log_min_duration = 0;
   SET auto_explain.log_nested_statements=on;
-  EXPLAIN ANALYZE SELECT * FROM get_category_messages('$category', 0, 2, correlation => '$correlation');
+  EXPLAIN ANALYZE SELECT * FROM get_category_messages('$category', 0, 0, 2, correlation => '$correlation');
 "
 
 echo "Command:"

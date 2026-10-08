@@ -12,10 +12,12 @@ DECLARE
   _message_id uuid;
   _stream_version bigint;
   _next_position bigint;
+  _trx_id xid8;
 BEGIN
   PERFORM acquire_lock(write_message.stream_name);
 
   _stream_version := stream_version(write_message.stream_name);
+  _trx_id := pg_current_xact_id();
 
   IF _stream_version IS NULL THEN
     _stream_version := -1;
@@ -38,6 +40,7 @@ BEGIN
   INSERT INTO messages
     (
       id,
+      transaction_id,
       stream_name,
       position,
       type,
@@ -47,6 +50,7 @@ BEGIN
   VALUES
     (
       _message_id,
+      _trx_id,
       write_message.stream_name,
       _next_position,
       write_message.type,

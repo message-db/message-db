@@ -32,7 +32,7 @@ for i in {1..3}; do
 done
 echo
 
-cmd="SELECT * FROM get_category_messages('$category', 0, 2, correlation => '$correlation');"
+cmd="SELECT * FROM get_category_messages('$category', 0, 0, 2, correlation => '$correlation');"
 
 echo "Command:"
 echo "$cmd"

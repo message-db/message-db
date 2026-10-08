@@ -32,6 +32,8 @@ test/get-stream-messages/condition/condition.sh
 test/get-stream-messages/condition/error-deactivated.sh
 test/get-stream-messages/condition/error-not-activated.sh
 
+test/get-category-messages/transaction-order.sh
+
 test/get-category-messages/get-category-messages.sh
 test/get-category-messages/error-not-category.sh
 

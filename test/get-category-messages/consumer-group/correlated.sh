@@ -71,7 +71,7 @@ psql message_store -U message_store -P pager=off -x -c "$cmd"
 echo "Correlated messages written to the category for consumer member 0"
 echo
 
-cmd="SELECT * FROM get_category_messages('$category', 0, 10, correlation => '$correlation', consumer_group_member => 0, consumer_group_size => 2);"
+cmd="SELECT * FROM get_category_messages('$category', 0, 0, 10, correlation => '$correlation', consumer_group_member => 0, consumer_group_size => 2);"
 
 echo "Command:"
 echo "$cmd"
@@ -80,10 +80,10 @@ echo
 psql message_store -U message_store -P pager=off -x -c "$cmd"
 
 
-echo "A batch of 1 message written to the category for consumer member 0 greater than global position 2"
+echo "A batch of 1 message written to the category for consumer member 0 starting at transaction/global cursor (0, 2)"
 echo
 
-cmd="SELECT * FROM get_category_messages('$category', 2, 1, correlation => '$correlation', consumer_group_member => 0, consumer_group_size => 2);"
+cmd="SELECT * FROM get_category_messages('$category', 0, 2, 1, correlation => '$correlation', consumer_group_member => 0, consumer_group_size => 2);"
 
 echo "Command:"
 echo "$cmd"

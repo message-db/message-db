@@ -1,6 +1,7 @@
 CREATE OR REPLACE FUNCTION message_store.get_category_messages(
   category varchar,
-  "position" bigint DEFAULT 1,
+  transaction_position bigint DEFAULT 0,
+  global_position bigint DEFAULT 0,
   batch_size bigint DEFAULT 1000,
   correlation varchar DEFAULT NULL,
   consumer_group_member bigint DEFAULT NULL,
@@ -18,15 +19,19 @@ BEGIN
       get_category_messages.category;
   END IF;
 
-  position := COALESCE(position, 1);
+  transaction_position := COALESCE(transaction_position, 0);
+  global_position := COALESCE(global_position, 0);
   batch_size := COALESCE(batch_size, 1000);
 
+  -- Only publish transactions older than every transaction still in progress.
+  -- Together with the tuple cursor, this prevents late commits being skipped.
   _command := '
     SELECT
       id::varchar,
       stream_name::varchar,
       type::varchar,
       position::bigint,
+      transaction_id::xid8,
       global_position::bigint,
       data::varchar,
       metadata::varchar,
@@ -35,7 +40,8 @@ BEGIN
       messages
     WHERE
       category(stream_name) = $1 AND
-      global_position >= $2';
+      (transaction_id, global_position) >= ($2::text::xid8, $3) AND
+      transaction_id < pg_snapshot_xmin(pg_current_snapshot())';
 
   IF get_category_messages.correlation IS NOT NULL THEN
     IF position('-' IN get_category_messages.correlation) > 0 THEN
@@ -45,7 +51,7 @@ BEGIN
     END IF;
 
     _command := _command || ' AND
-      category(metadata->>''correlationStreamName'') = $4';
+      category(metadata->>''correlationStreamName'') = $5';
   END IF;
 
   IF (get_category_messages.consumer_group_member IS NOT NULL AND
@@ -84,7 +90,7 @@ BEGIN
     END IF;
 
     _command := _command || ' AND
-      MOD(@hash_64(cardinal_id(stream_name)), $6) = $5';
+      MOD(@hash_64(cardinal_id(stream_name)), $7) = $6';
   END IF;
 
   IF get_category_messages.condition IS NOT NULL THEN
@@ -101,29 +107,31 @@ BEGIN
 
   _command := _command || '
     ORDER BY
-      global_position ASC';
+      transaction_id, global_position ASC';
 
   IF get_category_messages.batch_size != -1 THEN
     _command := _command || '
       LIMIT
-        $3';
+        $4';
   END IF;
 
   IF current_setting('message_store.debug_get', true) = 'on' OR current_setting('message_store.debug', true) = 'on' THEN
     RAISE NOTICE '» get_category_messages';
     RAISE NOTICE 'category ($1): %', get_category_messages.category;
-    RAISE NOTICE 'position ($2): %', get_category_messages.position;
-    RAISE NOTICE 'batch_size ($3): %', get_category_messages.batch_size;
-    RAISE NOTICE 'correlation ($4): %', get_category_messages.correlation;
-    RAISE NOTICE 'consumer_group_member ($5): %', get_category_messages.consumer_group_member;
-    RAISE NOTICE 'consumer_group_size ($6): %', get_category_messages.consumer_group_size;
+    RAISE NOTICE 'transaction_position ($2): %', get_category_messages.transaction_position;
+    RAISE NOTICE 'global_position ($3): %', get_category_messages.global_position;
+    RAISE NOTICE 'batch_size ($4): %', get_category_messages.batch_size;
+    RAISE NOTICE 'correlation ($5): %', get_category_messages.correlation;
+    RAISE NOTICE 'consumer_group_member ($6): %', get_category_messages.consumer_group_member;
+    RAISE NOTICE 'consumer_group_size ($7): %', get_category_messages.consumer_group_size;
     RAISE NOTICE 'condition: %', get_category_messages.condition;
     RAISE NOTICE 'Generated Command: %', _command;
   END IF;
 
   RETURN QUERY EXECUTE _command USING
     get_category_messages.category,
-    get_category_messages.position,
+    get_category_messages.transaction_position,
+    get_category_messages.global_position,
     get_category_messages.batch_size,
     get_category_messages.correlation,
     get_category_messages.consumer_group_member,
